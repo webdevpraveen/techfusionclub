@@ -3,16 +3,20 @@ import { useCountUp } from "@/lib/motion";
 
 export function StatCounter({
   value,
+  prefix = "",
   suffix = "",
   label,
   className,
 }: {
   value: number;
+  prefix?: string;
   suffix?: string;
   label: string;
   className?: string;
 }) {
   const { ref, value: current, settled } = useCountUp(value);
+  const formattedVal = prefix && current < 10 ? `${prefix}${current}` : current;
+
   return (
     <div className={cn("text-center sm:text-left", className)}>
       <div
@@ -21,7 +25,7 @@ export function StatCounter({
           settled && "animate-flicker",
         )}
       >
-        <span ref={ref}>{current}</span>
+        <span ref={ref}>{formattedVal}</span>
         <span className="text-primary-glow">{suffix}</span>
       </div>
 

@@ -8,11 +8,11 @@ export const club = {
   shortName: "Tech Fusion",
   initials: "TF",
   tagline: "Where ideas fuse into technology.",
-  university: "Vishwakarma Institute of Technology", // [PLACEHOLDER]
+  university: "Shri Ramswaroop Memorial University (SRMU)",
   foundedYear: 2019,
-  email: "techfusion@university.edu", // [PLACEHOLDER]
-  coordinatorEmail: "coordinator.techfusion@university.edu", // [PLACEHOLDER]
-  registrationFormUrl: "https://forms.gle/placeholder-tech-fusion", // [PLACEHOLDER]
+  email: "techfusionclub@srmu.ac.in",
+  coordinatorEmail: "abhishek.saxena@srmu.ac.in",
+  registrationFormUrl: "https://viveka.techfusion.club",
   /**
    * Paste a Formspree form ID here (e.g. "xabcdefg") to make the Join form
    * send real email. Until then the form validates and shows a success state
@@ -20,22 +20,22 @@ export const club = {
    */
   formspreeId: "",
   socials: [
-    { label: "Instagram", href: "https://instagram.com/techfusionclub" }, // [PLACEHOLDER]
-    { label: "LinkedIn", href: "https://linkedin.com/company/techfusionclub" }, // [PLACEHOLDER]
-    { label: "GitHub", href: "https://github.com/techfusionclub" }, // [PLACEHOLDER]
-    { label: "Discord", href: "https://discord.gg/techfusion" }, // [PLACEHOLDER]
+    { label: "Instagram", href: "https://www.instagram.com/techfusionclub_srmu/" },
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/techfusion-club/" },
+    { label: "Facebook", href: "https://www.facebook.com/people/Techfusion-Club/100088111141332/" },
+    { label: "GitHub", href: "https://github.com/webdevpraveen/techfusionclub" },
   ],
   mission:
-    "Tech Fusion Club exists to turn curiosity into shipped work. We give students a place to learn in public, build with peers across disciplines, and leave university with a portfolio instead of just a transcript.",
+    "Tech Fusion Club exists to turn curiosity into shipped work. We give SRMU students a platform to learn in public, build with peers across engineering domains, and graduate with a portfolio of real production projects.",
   vision:
-    "To be the campus benchmark for student-led engineering — a club whose alumni are known for building things that actually run in production.",
+    "To be the campus benchmark for student-led engineering at Shri Ramswaroop Memorial University — a club whose members drive university hackathons, open-source initiatives, and tech fest execution.",
 } as const;
 
-export const stats = [
+export const stats: Array<{ label: string; value: number; suffix?: string; prefix?: string }> = [
   { label: "Active members", value: 320, suffix: "+" },
-  { label: "Events hosted", value: 68, suffix: "" },
-  { label: "Years active", value: new Date().getFullYear() - club.foundedYear, suffix: "" },
-  { label: "Workshops conducted", value: 41, suffix: "" },
+  { label: "Events hosted", value: 500, suffix: "+" },
+  { label: "Years active", value: 7, prefix: "0" },
+  { label: "Workshops conducted", value: 800, suffix: "+" },
 ];
 
 export type Domain = {
@@ -141,16 +141,16 @@ export const timeline = [
 ];
 
 export const faculty = {
-  name: "Dr. Ananya Rao", // [PLACEHOLDER]
-  designation: "Faculty Coordinator · Dept. of Computer Engineering",
-  photo: "/images/members/faculty-coordinator.jpg",
-  email: club.coordinatorEmail,
+  name: "Er. Abhishek Kumar Saxena",
+  designation: "Assistant Director, IQAC & Head Technical Society, SRMU",
+  photo: "https://www.vivekatheintelligence.in/abhishek.jpg",
+  email: "abhishek.saxena@srmu.ac.in",
   message:
-    "What sets Tech Fusion apart is continuity. Students do not simply attend a workshop and leave — they return as mentors. As coordinator my role is mostly to stay out of the way, open doors with the administration, and make sure the standard the seniors set is passed down intact.",
+    "What sets Tech Fusion apart is continuity and hands-on building. Students do not simply attend a workshop and leave — they build real products and return as mentors. My role is to empower our student leads, foster university-wide technical excellence, and ensure every batch steps into industry with production-ready skills.",
 };
 
 export const testimonial = {
   quote:
     "I joined in my first year knowing almost no code. Two years later I was leading the AI/ML domain and mentoring twenty juniors. This club moves fast, and it takes you with it.",
-  author: "Riya Sharma — [Placeholder] Domain Lead, AI/ML",
+  author: "Riya Sharma — Lead Student Organizer, AI/ML Domain",
 };

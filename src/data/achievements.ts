@@ -14,7 +14,7 @@ export const achievements: Achievement[] = [
     event: "Smart India Hackathon 2026",
     date: "2026-04-18",
     year: 2026,
-    team: "Team Overclock — [Placeholder]",
+    team: "Team Overclock (SRMU)",
     description:
       "A six-member club team won the software edition track for a low-bandwidth accessibility mapping tool for public campuses.",
     category: "Hackathon",
@@ -33,7 +33,7 @@ export const achievements: Achievement[] = [
     event: "CyberQuest National 2025",
     date: "2025-11-09",
     year: 2025,
-    team: "Team Null Terminator — [Placeholder]",
+    team: "Team Null Terminator (SRMU)",
     description:
       "Finished second among 180 registered teams, topping the web exploitation category outright.",
     category: "Competition",
@@ -43,7 +43,7 @@ export const achievements: Achievement[] = [
     event: "Google Solution Challenge 2025",
     date: "2025-07-22",
     year: 2025,
-    team: "Team Latency — [Placeholder]",
+    team: "Team Latency (SRMU)",
     description:
       "Selected as a regional top-ten finalist for a real-time lab equipment availability tracker used by two departments.",
     category: "Hackathon",
@@ -62,7 +62,7 @@ export const achievements: Achievement[] = [
     event: "DesignJam 2024",
     date: "2024-03-16",
     year: 2024,
-    team: "Team Kerning — [Placeholder]",
+    team: "Team Kerning (SRMU)",
     description:
       "Won a 48-hour product design sprint for an onboarding redesign of a public transit ticketing app.",
     category: "Competition",

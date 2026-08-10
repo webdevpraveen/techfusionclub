@@ -47,7 +47,7 @@ export const events: ClubEvent[] = [
       "Official Smart India Hackathon (SIH) internal university screening",
       "₹1.5L+ prize pool with direct recruitment desks by sponsor partners",
     ],
-    registerUrl: "https://forms.gle/placeholder-tech-fusion",
+    registerUrl: "https://viveka.techfusion.club",
     status: "upcoming",
   },
   {

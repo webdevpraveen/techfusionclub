@@ -50,14 +50,6 @@ function Home() {
         <div className="grid-lines pointer-events-none absolute inset-0 opacity-40 [mask-image:radial-gradient(ellipse_70%_60%_at_50%_0%,#000_40%,transparent_100%)]" />
 
         <div className="relative mx-auto flex max-w-4xl flex-col items-center">
-          {/* Recruitment Badge */}
-          <div className="glass inline-flex items-center gap-2.5 rounded-full px-4 py-2 animate-rise shadow-lg">
-            <span className="inline-block size-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground font-semibold">
-              Recruitment open · {new Date().getFullYear()} intake
-            </span>
-          </div>
-
           {/* Giant Display Title */}
           <h1 className="mt-8 text-balance font-display text-4xl font-bold leading-[1.05] tracking-tight animate-rise [animation-delay:80ms] sm:text-6xl lg:text-7xl">
             Where ideas <span className="text-gradient">fuse</span> into technology.
@@ -109,7 +101,7 @@ function Home() {
           {/* Centered Stat Counters */}
           <dl className="mt-16 grid w-full grid-cols-2 gap-8 border-t border-border/70 pt-12 sm:grid-cols-4">
             {stats.map((s) => (
-              <StatCounter key={s.label} value={s.value} suffix={s.suffix} label={s.label} />
+              <StatCounter key={s.label} value={s.value} prefix={s.prefix} suffix={s.suffix} label={s.label} />
             ))}
           </dl>
         </div>

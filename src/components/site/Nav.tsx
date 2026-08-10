@@ -10,7 +10,6 @@ const links = [
   { to: "/about", label: "About" },
   { to: "/governance", label: "Governance" },
   { to: "/events", label: "Events" },
-  { href: "https://viveka.techfusion.club", label: "Viveka 6.0", external: true },
   { to: "/team", label: "Team" },
   { to: "/gallery", label: "Gallery" },
 ] as const;
