@@ -5,6 +5,7 @@ import { Logo } from "./Logo";
 
 const quickLinks = [
   { to: "/about", label: "About" },
+  { to: "/governance", label: "Governance" },
   { to: "/events", label: "Events" },
   { href: "https://viveka.techfusion.club", label: "Viveka 6.0 Fest", external: true },
   { to: "/team", label: "Team" },

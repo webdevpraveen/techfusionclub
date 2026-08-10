@@ -16,7 +16,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       const saved = localStorage.getItem("tf-theme") as Theme;
       if (saved === "light" || saved === "dark") return saved;
     }
-    return "dark";
+    return "light";
   });
 
   useEffect(() => {

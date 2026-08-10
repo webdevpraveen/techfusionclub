@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as GalleryRouteImport } from './routes/gallery'
+import { Route as GovernanceRouteImport } from './routes/governance'
 import { Route as JoinRouteImport } from './routes/join'
 import { Route as TeamRouteImport } from './routes/team'
 import { Route as EventsIndexRouteImport } from './routes/events.index'
@@ -29,6 +30,11 @@ const AboutRoute = AboutRouteImport.update({
 const GalleryRoute = GalleryRouteImport.update({
   id: '/gallery',
   path: '/gallery',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GovernanceRoute = GovernanceRouteImport.update({
+  id: '/governance',
+  path: '/governance',
   getParentRoute: () => rootRouteImport,
 } as any)
 const JoinRoute = JoinRouteImport.update({
@@ -51,6 +57,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/gallery': typeof GalleryRoute
+  '/governance': typeof GovernanceRoute
   '/join': typeof JoinRoute
   '/team': typeof TeamRoute
   '/events/': typeof EventsIndexRoute
@@ -59,6 +66,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/gallery': typeof GalleryRoute
+  '/governance': typeof GovernanceRoute
   '/join': typeof JoinRoute
   '/team': typeof TeamRoute
   '/events': typeof EventsIndexRoute
@@ -68,22 +76,34 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/gallery': typeof GalleryRoute
+  '/governance': typeof GovernanceRoute
   '/join': typeof JoinRoute
   '/team': typeof TeamRoute
   '/events/': typeof EventsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/gallery' | '/join' | '/team' | '/events/'
+  fullPaths:
+    '/' | '/about' | '/gallery' | '/governance' | '/join' | '/team' | '/events/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/gallery' | '/join' | '/team' | '/events'
-  id: '__root__' | '/' | '/about' | '/gallery' | '/join' | '/team' | '/events/'
+  to:
+    '/' | '/about' | '/gallery' | '/governance' | '/join' | '/team' | '/events'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/gallery'
+    | '/governance'
+    | '/join'
+    | '/team'
+    | '/events/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   GalleryRoute: typeof GalleryRoute
+  GovernanceRoute: typeof GovernanceRoute
   JoinRoute: typeof JoinRoute
   TeamRoute: typeof TeamRoute
   EventsIndexRoute: typeof EventsIndexRoute
@@ -110,6 +130,13 @@ declare module '@tanstack/react-router' {
       path: '/gallery'
       fullPath: '/gallery'
       preLoaderRoute: typeof GalleryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/governance': {
+      id: '/governance'
+      path: '/governance'
+      fullPath: '/governance'
+      preLoaderRoute: typeof GovernanceRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/join': {
@@ -140,6 +167,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   GalleryRoute: GalleryRoute,
+  GovernanceRoute: GovernanceRoute,
   JoinRoute: JoinRoute,
   TeamRoute: TeamRoute,
   EventsIndexRoute: EventsIndexRoute,
