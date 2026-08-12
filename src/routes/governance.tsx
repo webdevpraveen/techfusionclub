@@ -51,7 +51,7 @@ const governanceData: GovernanceSectionData[] = [
         badge: "Chief Patron",
         description:
           "IIT Kanpur alumnus and visionary social entrepreneur driving SRMU towards global academic benchmarks, cutting-edge research, and student-led innovation.",
-        image: "https://srmu.ac.in/storage/teams/er-pankaj-agarwal-12012403111859.jpg",
+        image: "https://srmu.ac.in/assets/pankaj-DsE5rnwQ.webp",
         linkedin: "https://www.linkedin.com/in/pankaj-agarwal-b72ab321/",
       },
       {
@@ -60,7 +60,7 @@ const governanceData: GovernanceSectionData[] = [
         badge: "Chief Patron",
         description:
           "Co-founder of SRMU empowering students through holistic skill development, interdisciplinary technical research, and women-in-technology initiatives.",
-        image: "https://srmu.ac.in/storage/teams/er.-pooja-agarwal-pro-chancellor--12012403114783.jpg",
+        image: "https://srmu.ac.in/assets/pooja-B1uI8fBS.webp",
       },
     ],
   },
@@ -74,7 +74,7 @@ const governanceData: GovernanceSectionData[] = [
         badge: "Patron",
         description:
           "Distinguished academician advancing university research infrastructure, outcome-based pedagogy, and industry integration across technical domains.",
-        image: "https://srmu.ac.in/storage/teams/sr7d9556-03122510174995.JPG",
+        image: "https://srmu.ac.in/assets/vijaytiwari-DtLhXa4L.webp",
         linkedin: "https://www.linkedin.com/in/dr-vijay-kumar-tiwari/",
       },
       {
@@ -83,7 +83,7 @@ const governanceData: GovernanceSectionData[] = [
         badge: "Patron",
         description:
           "Head of University Administration ensuring seamless academic governance, student welfare, regulatory compliance, and institutional efficiency.",
-        image: "https://srmu.ac.in/storage/teams/faculty-coordinator.jpg",
+        image: "https://srmu.ac.in/assets/Hemendra-NSaxOOgS.webp",
         linkedin: "https://www.linkedin.com/school/shri-ramswaroop-memorial-university/",
       },
     ],
@@ -98,7 +98,7 @@ const governanceData: GovernanceSectionData[] = [
         badge: "Faculty Advisor",
         description:
           "Chief Faculty Mentor guiding university student technical societies, annual tech fests, inter-departmental logistics, and leadership development.",
-        image: "https://srmu.ac.in/storage/teams/1746008504048-sh7wu9-2-0-removebg-preview-1--01052510262614.png",
+        image: "https://srmu.ac.in/assets/dr-veena-singh-CKCbgSAF.webp",
         linkedin: "https://www.linkedin.com/in/prof-dr-veena-singh-26a48b196/",
       },
       {
@@ -116,7 +116,7 @@ const governanceData: GovernanceSectionData[] = [
         badge: "Faculty Coordinator",
         description:
           "Coordinating inter-departmental technical competitions, hardware/software mentorship ladders, and engineering research labs.",
-        image: "https://srmu.ac.in/storage/teams/dr.-mritumjay-rai-ec--14062401043979.jpg",
+        image: "https://th.bing.com/th/id/OIP.90nfazrcFSf6EtqDH9jVzgHaHa?r=0&o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3",
         linkedin: "https://www.linkedin.com/in/dr-mritunjay-rai-36b85118/",
       },
       {
