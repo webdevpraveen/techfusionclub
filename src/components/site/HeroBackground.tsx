@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Code2, Cpu, Shield, Sparkles, Terminal, Zap } from "lucide-react";
+import { Logo } from "@/components/site/Logo";
 
 export function HeroBackground() {
   const [mousePos, setMousePos] = useState({ x: 50, y: 30 });
@@ -36,6 +37,11 @@ export function HeroBackground() {
           transform: "translate(-50%, -50%)",
         }}
       />
+
+      {/* Background Rotating Logo */}
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.03] dark:opacity-[0.04] animate-[spin_120s_linear_infinite] pointer-events-none mix-blend-overlay">
+        <Logo className="w-[40rem] h-[40rem] sm:w-[60rem] sm:h-[60rem] object-contain" />
+      </div>
 
       {/* 2. REAL SCROLL PARALLAX: Slow-moving Ambient Background Orbs */}
       <div
