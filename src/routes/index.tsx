@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, ArrowUpRight, CalendarDays, MapPin, Quote, Sparkles, Zap, Shield, Cpu, Code2, Terminal, ExternalLink } from "lucide-react";
-import { club, domains, stats, testimonial } from "@/data/club";
+import { club, domains, stats } from "@/data/club";
 import { featuredEvent, formatEventDate } from "@/data/events";
 import { galleryPhotos } from "@/data/gallery";
 import { Reveal } from "@/components/site/Reveal";
@@ -324,18 +324,6 @@ function Home() {
         </Reveal>
       </Section>
 
-      {/* ---------------- Testimonial ---------------- */}
-      <Section>
-        <Reveal className="glass-strong relative mx-auto max-w-4xl overflow-hidden rounded-[2rem] p-8 text-center sm:p-14">
-          <Quote className="mx-auto size-8 text-primary-glow/60" />
-          <blockquote className="mt-6 text-balance font-display text-xl font-medium leading-relaxed sm:text-2xl">
-            “{testimonial.quote}”
-          </blockquote>
-          <p className="mt-6 font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-            {testimonial.author}
-          </p>
-        </Reveal>
-      </Section>
 
       <CTABanner />
     </>
