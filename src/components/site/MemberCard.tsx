@@ -140,12 +140,6 @@ export function MemberCard({
                   </dt>
                   <dd className="mt-1 font-medium">{member.domain}</dd>
                 </div>
-                <div>
-                  <dt className="font-mono text-[9px] uppercase tracking-[0.16em] text-muted-foreground">
-                    Year
-                  </dt>
-                  <dd className="mt-1 font-medium">{member.year}</dd>
-                </div>
                 <div className="col-span-2">
                   <dt className="font-mono text-[9px] uppercase tracking-[0.16em] text-muted-foreground">
                     Branch
