@@ -13,6 +13,7 @@ const quickLinks = [
 
 const moreLinks = [
   { to: "/gallery", label: "Gallery" },
+  { to: "/alumni", label: "Alumni" },
   { to: "/join", label: "Join Us" },
 ] as const;
 

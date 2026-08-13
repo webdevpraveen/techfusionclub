@@ -11,6 +11,7 @@ const links = [
   { to: "/governance", label: "Governance" },
   { to: "/events", label: "Events" },
   { to: "/team", label: "Team" },
+  { to: "/alumni", label: "Alumni" },
   { to: "/gallery", label: "Gallery" },
 ] as const;
 
