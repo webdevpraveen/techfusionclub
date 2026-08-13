@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { getAlumniByTenure } from "@/data/alumni";
+import { alumniList } from "@/data/alumni";
 import type { Alumnus } from "@/data/alumni";
 import { Reveal } from "@/components/site/Reveal";
 import { Section } from "@/components/site/Section";
@@ -35,7 +35,7 @@ function AlumniCard({ alumnus, index }: { alumnus: Alumnus; index: number }) {
           <img
             src={alumnus.photo}
             alt={alumnus.name}
-            loading={index < 4 ? "eager" : "lazy"}
+            loading={index < 8 ? "eager" : "lazy"}
             className="size-full object-cover grayscale transition-all duration-700 group-hover:scale-105 group-hover:grayscale-0"
           />
         ) : (
@@ -96,8 +96,6 @@ function AlumniCard({ alumnus, index }: { alumnus: Alumnus; index: number }) {
 }
 
 function Alumni() {
-  const alumniGroups = getAlumniByTenure();
-
   return (
     <>
       <Section className="pb-8">
@@ -112,22 +110,17 @@ function Alumni() {
         </Reveal>
       </Section>
 
-      {alumniGroups.map(({ tenure, alumni }) => (
-        <Section key={tenure} className="py-10 sm:py-12">
-          <Reveal className="flex flex-col gap-2 border-b border-border/70 pb-5">
-            <p className="font-display text-2xl font-bold text-foreground">Batch of {tenure}</p>
-          </Reveal>
-          <ul className="mt-8 grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-            {alumni.map((member, i) => (
-              <li key={member.id}>
-                <Reveal delay={i * 50}>
-                  <AlumniCard alumnus={member} index={i} />
-                </Reveal>
-              </li>
-            ))}
-          </ul>
-        </Section>
-      ))}
+      <Section className="py-10 sm:py-12">
+        <ul className="mt-8 grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+          {alumniList.map((member, i) => (
+            <li key={member.id}>
+              <Reveal delay={(i % 4) * 50}>
+                <AlumniCard alumnus={member} index={i} />
+              </Reveal>
+            </li>
+          ))}
+        </ul>
+      </Section>
 
       <CTABanner
         eyebrow="Continue the legacy"
