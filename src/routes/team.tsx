@@ -28,11 +28,11 @@ export const Route = createFileRoute("/team")({
 });
 
 const tiers: { tier: MemberTier; size: "lg" | "md" | "sm"; cols: string }[] = [
-  { tier: "faculty", size: "sm", cols: "grid-cols-2 sm:grid-cols-3 lg:grid-cols-5" },
-  { tier: "gsec", size: "sm", cols: "grid-cols-2 sm:grid-cols-3 lg:grid-cols-5" },
-  { tier: "jsec", size: "sm", cols: "grid-cols-2 sm:grid-cols-3 lg:grid-cols-5" },
-  { tier: "head", size: "sm", cols: "grid-cols-2 sm:grid-cols-3 lg:grid-cols-5" },
-  { tier: "core", size: "sm", cols: "grid-cols-2 sm:grid-cols-3 lg:grid-cols-5" },
+  { tier: "faculty", size: "sm", cols: "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5" },
+  { tier: "gsec", size: "sm", cols: "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5" },
+  { tier: "jsec", size: "sm", cols: "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5" },
+  { tier: "head", size: "sm", cols: "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5" },
+  { tier: "core", size: "sm", cols: "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5" },
 ];
 
 function Team() {
