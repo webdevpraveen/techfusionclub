@@ -39,7 +39,7 @@ export function HeroBackground() {
       />
 
       {/* Background Rotating Logo */}
-      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-60 animate-[spin_120s_linear_infinite] pointer-events-none mix-blend-overlay">
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-80 animate-[spin_120s_linear_infinite] pointer-events-none mix-blend-overlay">
         <Logo className="w-[40rem] h-[40rem] sm:w-[60rem] sm:h-[60rem] object-contain" />
       </div>
 
