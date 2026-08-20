@@ -120,9 +120,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <HeadContent />
+        {/* Blocking script: apply saved theme BEFORE first paint to prevent FOUC */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem("tf-theme");if(t==="dark"||t==="light"){document.documentElement.className=t}else{document.documentElement.className="light"}}catch(e){document.documentElement.className="light"}})()`,
+          }}
+        />
       </head>
       <body>
         {children}
