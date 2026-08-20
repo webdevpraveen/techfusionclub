@@ -121,7 +121,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
             name: "Praveen Singh",
             alternateName: "webdevpraveen"
           },
-          email: "techfusion@university.edu",
+          email: "techfusionclub@srmu.ac.in",
           sameAs: [
             "https://github.com/webdevpraveen",
             "https://www.linkedin.com/in/webdevpraveen"

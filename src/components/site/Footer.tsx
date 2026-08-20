@@ -87,11 +87,11 @@ export function Footer() {
               Get in touch
             </h2>
             <a
-              href={`mailto:${club.coordinatorEmail}`}
+              href={`mailto:${club.email}`}
               className="mt-4 inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-primary-glow"
             >
               <Mail className="size-4 shrink-0" />
-              {club.coordinatorEmail}
+              {club.email}
             </a>
             <ul className="mt-6 flex flex-wrap gap-2">
               {club.socials.map((s) => (

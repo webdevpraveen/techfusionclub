@@ -11,7 +11,7 @@ export const club = {
   university: "Shri Ramswaroop Memorial University (SRMU)",
   foundedYear: 2019,
   email: "techfusionclub@srmu.ac.in",
-  coordinatorEmail: "abhishek.saxena@srmu.ac.in",
+  coordinatorEmail: "techfusionclub@srmu.ac.in",
   registrationFormUrl: "https://viveka.techfusion.club",
   /**
    * Paste a Formspree form ID here (e.g. "xabcdefg") to make the Join form
