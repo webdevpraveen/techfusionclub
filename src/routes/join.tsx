@@ -36,38 +36,6 @@ export const Route = createFileRoute("/join")({
 });
 
 function Join() {
-  const [sent, setSent] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [busy, setBusy] = useState(false);
-
-  const endpoint = club.formspreeId ? `https://formspree.io/f/${club.formspreeId}` : null;
-
-  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const form = e.currentTarget;
-    if (!endpoint) {
-      setError(
-        "The form endpoint isn't configured yet. Email us directly and we'll pick it up from there.",
-      );
-      return;
-    }
-    setBusy(true);
-    setError(null);
-    try {
-      const res = await fetch(endpoint, {
-        method: "POST",
-        headers: { Accept: "application/json" },
-        body: new FormData(form),
-      });
-      if (!res.ok) throw new Error("Request failed");
-      form.reset();
-      setSent(true);
-    } catch {
-      setError("Something went wrong sending your application. Please email us instead.");
-    } finally {
-      setBusy(false);
-    }
-  }
 
   return (
     <>
@@ -117,103 +85,28 @@ function Join() {
       <Section id="apply">
         <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr]">
           <Reveal className="glass-strong rounded-[2rem] p-8 sm:p-10">
-            <p className="eyebrow">Application</p>
-            <h2 className="mt-4 font-display text-2xl font-bold sm:text-3xl">Tell us about you</h2>
+            <p className="eyebrow">Location</p>
+            <h2 className="mt-4 font-display text-2xl font-bold sm:text-3xl">Find us on Campus</h2>
 
-            {sent ? (
-              <div className="mt-8 rounded-2xl border border-primary/40 bg-primary/10 p-6">
-                <p className="font-display text-lg font-bold">Application received.</p>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  A domain lead will reach out over email within a week with your task brief.
-                </p>
-              </div>
-            ) : (
-              <form onSubmit={onSubmit} className="mt-8 grid gap-5">
-                <label className="grid gap-2">
-                  <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
-                    Full name
-                  </span>
-                  <input
-                    name="name"
-                    required
-                    autoComplete="name"
-                    className="rounded-xl border border-border bg-surface px-4 py-3 text-sm outline-none transition-colors focus-visible:border-primary"
-                  />
-                </label>
-                <div className="grid gap-5 sm:grid-cols-2">
-                  <label className="grid gap-2">
-                    <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
-                      University email
-                    </span>
-                    <input
-                      name="email"
-                      type="email"
-                      required
-                      autoComplete="email"
-                      className="rounded-xl border border-border bg-surface px-4 py-3 text-sm outline-none transition-colors focus-visible:border-primary"
-                    />
-                  </label>
-                  <label className="grid gap-2">
-                    <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
-                      Branch &amp; year
-                    </span>
-                    <input
-                      name="branch"
-                      required
-                      className="rounded-xl border border-border bg-surface px-4 py-3 text-sm outline-none transition-colors focus-visible:border-primary"
-                    />
-                  </label>
-                </div>
-                <label className="grid gap-2">
-                  <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
-                    Preferred domain
-                  </span>
-                  <select
-                    name="domain"
-                    required
-                    defaultValue=""
-                    className="rounded-xl border border-border bg-surface px-4 py-3 text-sm outline-none transition-colors focus-visible:border-primary"
-                  >
-                    <option value="" disabled>
-                      Select a domain
-                    </option>
-                    {domainOptions.map((d) => (
-                      <option key={d} value={d}>
-                        {d}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-                <label className="grid gap-2">
-                  <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
-                    Why this domain?
-                  </span>
-                  <textarea
-                    name="message"
-                    rows={4}
-                    required
-                    className="rounded-xl border border-border bg-surface px-4 py-3 text-sm outline-none transition-colors focus-visible:border-primary"
-                  />
-                </label>
+            <div className="mt-8 rounded-2xl border border-primary/40 bg-primary/10 p-6">
+              <p className="font-display text-lg font-bold">Directions to the Club</p>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                SRMU me pahuchne ke baad <strong>B1 Block</strong> me fir <strong>3rd Floor</strong> fir <strong>310-A room number</strong>.
+              </p>
+            </div>
 
-                {error ? (
-                  <p role="alert" className="text-sm text-destructive">
-                    {error}{" "}
-                    <a className="underline" href={`mailto:${club.email}`}>
-                      {club.email}
-                    </a>
-                  </p>
-                ) : null}
-
-                <button
-                  type="submit"
-                  disabled={busy}
-                  className="mt-1 inline-flex items-center justify-center rounded-full bg-primary px-7 py-3.5 font-semibold text-primary-foreground transition-transform duration-300 hover:scale-[1.02] disabled:opacity-60"
-                >
-                  {busy ? "Sending…" : "Submit application"}
-                </button>
-              </form>
-            )}
+            <div className="mt-8 overflow-hidden rounded-2xl">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3380.486870729398!2d81.0978324!3d26.952407!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39995f0b269e340f%3A0x3202aba43761750e!2sTech%20Fusion%20Club%20-%20Only%20Technical%20Club%20of%20SRMU!5e1!3m2!1sen!2sin!4v1787226040908!5m2!1sen!2sin"
+                width="100%"
+                height="450"
+                style={{ border: 0 }}
+                allowFullScreen={true}
+                loading="lazy"
+                referrerPolicy="strict-origin-when-cross-origin"
+                title="Tech Fusion Club Location"
+              ></iframe>
+            </div>
           </Reveal>
 
           <Reveal delay={100}>
