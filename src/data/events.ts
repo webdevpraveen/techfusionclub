@@ -71,7 +71,11 @@ export const events: ClubEvent[] = [
       "/images/events/2026/ship-it-weekend/01.jpg",
       "/images/events/2026/ship-it-weekend/02.jpg",
     ],
-    highlights: ["Official SIH University Screening", "Mentorship by past SIH Winners", "15 Teams nominated"],
+    highlights: [
+      "Official SIH University Screening",
+      "Mentorship by past SIH Winners",
+      "15 Teams nominated",
+    ],
     status: "upcoming",
   },
   {
@@ -95,7 +99,11 @@ export const events: ClubEvent[] = [
       "/images/events/2026/intro-to-llm-apps/01.jpg",
       "/images/events/2026/intro-to-llm-apps/02.jpg",
     ],
-    highlights: ["Interactive digital installations", "Generative AI Art Competition", "Design Sprint Finals"],
+    highlights: [
+      "Interactive digital installations",
+      "Generative AI Art Competition",
+      "Design Sprint Finals",
+    ],
     status: "upcoming",
   },
   {
@@ -119,7 +127,10 @@ export const events: ClubEvent[] = [
       "/images/events/2026/intro-to-llm-apps/02.jpg",
       "/images/events/2026/intro-to-llm-apps/03.jpg",
     ],
-    highlights: ["128 attendees across four departments", "Every participant left with a deployed repo"],
+    highlights: [
+      "128 attendees across four departments",
+      "Every participant left with a deployed repo",
+    ],
     status: "past",
   },
   {
@@ -129,7 +140,8 @@ export const events: ClubEvent[] = [
     year: 2026,
     date: "2026-02-08",
     venue: "Networking Lab",
-    summary: "An eight-hour jeopardy-style capture-the-flag across web, forensics and crypto tracks.",
+    summary:
+      "An eight-hour jeopardy-style capture-the-flag across web, forensics and crypto tracks.",
     description: [
       "Eighteen challenges spanning web exploitation, digital forensics, reverse engineering and classical cryptography, written entirely by the Cybersecurity domain.",
       "A beginner track ran in parallel with guided hints so first-year students could score without being flattened by the open board.",
@@ -179,18 +191,17 @@ export const events: ClubEvent[] = [
     winners: [
       { position: "1st", name: "Team Overclock", project: "Campus accessibility mapper" },
       { position: "2nd", name: "Team Latency", project: "Real-time lab equipment tracker" },
-      { position: "3rd", name: "Team Ctrl+Alt+Repeat", project: "Offline-first notes for field work" },
+      {
+        position: "3rd",
+        name: "Team Ctrl+Alt+Repeat",
+        project: "Offline-first notes for field work",
+      },
     ],
     status: "past",
   },
 ];
 
-export const eventCategories: EventCategory[] = [
-  "Workshop",
-  "Hackathon",
-  "Seminar",
-  "Competition",
-];
+export const eventCategories: EventCategory[] = ["Workshop", "Hackathon", "Seminar", "Competition"];
 
 export const eventYears = Array.from(new Set(events.map((e) => e.year))).sort((a, b) => b - a);
 
@@ -206,7 +217,8 @@ export function formatEventDate(event: Pick<ClubEvent, "date" | "endDate">) {
   const start = new Date(event.date);
   if (!event.endDate) return start.toLocaleDateString("en-GB", opts);
   const end = new Date(event.endDate);
-  const sameMonth = start.getMonth() === end.getMonth() && start.getFullYear() === end.getFullYear();
+  const sameMonth =
+    start.getMonth() === end.getMonth() && start.getFullYear() === end.getFullYear();
   return sameMonth
     ? `${start.getDate()}–${end.toLocaleDateString("en-GB", opts)}`
     : `${start.toLocaleDateString("en-GB", opts)} – ${end.toLocaleDateString("en-GB", opts)}`;

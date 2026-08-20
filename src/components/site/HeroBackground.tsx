@@ -53,10 +53,8 @@ export function HeroBackground() {
       scrollY = window.scrollY;
 
       // Ambient orbs
-      if (orbARef.current)
-        orbARef.current.style.transform = `translateY(${scrollY * 0.25}px)`;
-      if (orbBRef.current)
-        orbBRef.current.style.transform = `translateY(${scrollY * 0.18}px)`;
+      if (orbARef.current) orbARef.current.style.transform = `translateY(${scrollY * 0.25}px)`;
+      if (orbBRef.current) orbBRef.current.style.transform = `translateY(${scrollY * 0.18}px)`;
 
       // Left badges
       badgesLeftRef.current.forEach((el, i) => {
@@ -65,8 +63,7 @@ export function HeroBackground() {
 
       // Right badges
       badgesRightRef.current.forEach((el, i) => {
-        if (el)
-          el.style.transform = `translateY(${scrollY * (rightFactors[i] ?? 0)}px)`;
+        if (el) el.style.transform = `translateY(${scrollY * (rightFactors[i] ?? 0)}px)`;
       });
 
       // Code snippets
@@ -94,14 +91,12 @@ export function HeroBackground() {
     };
   }, []);
 
-  const setLeftBadge =
-    (i: number) => (el: HTMLDivElement | null) => {
-      badgesLeftRef.current[i] = el;
-    };
-  const setRightBadge =
-    (i: number) => (el: HTMLDivElement | null) => {
-      badgesRightRef.current[i] = el;
-    };
+  const setLeftBadge = (i: number) => (el: HTMLDivElement | null) => {
+    badgesLeftRef.current[i] = el;
+  };
+  const setRightBadge = (i: number) => (el: HTMLDivElement | null) => {
+    badgesRightRef.current[i] = el;
+  };
 
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden select-none">
@@ -194,10 +189,7 @@ export function HeroBackground() {
       </div>
 
       {/* 5. Floating Background Code Snippets */}
-      <div
-        ref={codeLayerRef}
-        className="absolute inset-0 opacity-30 will-change-transform"
-      >
+      <div ref={codeLayerRef} className="absolute inset-0 opacity-30 will-change-transform">
         <span className="absolute top-16 left-1/4 font-mono text-xs text-primary-glow font-bold animate-[ping_4s_infinite]">
           01010011
         </span>

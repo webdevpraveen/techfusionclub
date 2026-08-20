@@ -5,7 +5,6 @@ import { club } from "@/data/club";
 import { cn } from "@/lib/utils";
 import { useCursorGlow } from "@/lib/motion";
 
-
 const socialIcons = {
   linkedin: Linkedin,
   github: Github,
@@ -59,8 +58,8 @@ export function MemberCard({
       ref={glowRef}
       className={cn("group cursor-glow rounded-3xl", heights[size])}
       style={{ perspective: "1400px" }}
+      data-cursor="view"
     >
-
       <button
         type="button"
         onClick={() => setFlipped((v) => !v)}

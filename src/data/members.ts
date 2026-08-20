@@ -1,9 +1,4 @@
-export type MemberTier =
-  | "faculty"
-  | "gsec"
-  | "jsec"
-  | "head"
-  | "core";
+export type MemberTier = "faculty" | "gsec" | "jsec" | "head" | "core";
 
 export type Member = {
   id: string;
@@ -31,7 +26,8 @@ export const tierMeta: Record<MemberTier, { label: string; description: string }
   },
   gsec: {
     label: "General Secretaries",
-    description: "Overall leadership accountable for the club's direction, vision, and campus operations.",
+    description:
+      "Overall leadership accountable for the club's direction, vision, and campus operations.",
   },
   jsec: {
     label: "Joint Secretaries",
@@ -39,11 +35,13 @@ export const tierMeta: Record<MemberTier, { label: string; description: string }
   },
   head: {
     label: "Department Heads",
-    description: "Heads leading Technical, Documentation, Media, Creative, Management, and Treasury.",
+    description:
+      "Heads leading Technical, Documentation, Media, Creative, Management, and Treasury.",
   },
   core: {
     label: "Core Teams",
-    description: "Core members driving Technical, Documentation, Media, Creative, and Management execution.",
+    description:
+      "Core members driving Technical, Documentation, Media, Creative, and Management execution.",
   },
 };
 
@@ -84,7 +82,8 @@ export const members: Member[] = [
     domain: "Technical Society",
     branch: "IQAC",
     bio: "Coordinating inter-departmental technical competitions, hardware/software mentorship ladders, and engineering research labs.",
-    photo: "https://th.bing.com/th/id/OIP.90nfazrcFSf6EtqDH9jVzgHaHa?r=0&o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3",
+    photo:
+      "https://th.bing.com/th/id/OIP.90nfazrcFSf6EtqDH9jVzgHaHa?r=0&o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3",
     accessCode: "TF-FAC-0003",
     socials: { linkedin: "https://www.linkedin.com/in/dr-mritunjay-rai-36b85118/" },
   },
@@ -496,7 +495,7 @@ export const members: Member[] = [
     photo: "https://api.dicebear.com/9.x/notionists/svg?seed=Abhishek&backgroundColor=e2e8f0",
     accessCode: "ES-HEAD-06",
     socials: {},
-  }
+  },
 ];
 
 export function membersByTier(tier: MemberTier): Member[] {

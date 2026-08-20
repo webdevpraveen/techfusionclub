@@ -17,18 +17,21 @@ export const Route = createFileRoute("/events/")({
       },
       {
         name: "keywords",
-        content: "Tech fusion club, tfc srmu, viveka, srmu, club, webdevpraveen, praveen singh srmu, tech events, hackathon srmu, coding workshops",
+        content:
+          "Tech fusion club, tfc srmu, viveka, srmu, club, webdevpraveen, praveen singh srmu, tech events, hackathon srmu, coding workshops",
       },
       { property: "og:title", content: "Events & Hackathons | Tech Fusion Club SRMU" },
       {
         property: "og:description",
-        content: "Join technical workshops, engineering hackathons, and Viveka fest by Tech Fusion Club (TFC) at SRMU.",
+        content:
+          "Join technical workshops, engineering hackathons, and Viveka fest by Tech Fusion Club (TFC) at SRMU.",
       },
       { property: "og:url", content: "https://techfusionclub.vercel.app/events" },
       { name: "twitter:title", content: "Tech Fusion Club (TFC) Events" },
       {
         name: "twitter:description",
-        content: "Join technical workshops, engineering hackathons, and Viveka fest by Tech Fusion Club (TFC) at SRMU.",
+        content:
+          "Join technical workshops, engineering hackathons, and Viveka fest by Tech Fusion Club (TFC) at SRMU.",
       },
     ],
     links: [{ rel: "canonical", href: "https://techfusionclub.vercel.app/events" }],

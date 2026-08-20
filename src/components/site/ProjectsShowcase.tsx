@@ -1,5 +1,15 @@
 import { GlowCard } from "@/components/site/GlowCard";
-import { ExternalLink, Github, Star, Code2, Layers, Cpu, ShieldCheck, Smartphone, Cloud } from "lucide-react";
+import {
+  ExternalLink,
+  Github,
+  Star,
+  Code2,
+  Layers,
+  Cpu,
+  ShieldCheck,
+  Smartphone,
+  Cloud,
+} from "lucide-react";
 
 interface ProjectItem {
   id: string;

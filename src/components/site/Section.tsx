@@ -21,7 +21,9 @@ export function SectionHeading({
     <Reveal
       className={cn(
         "flex flex-col gap-6",
-        align === "center" ? "items-center text-center" : "md:flex-row md:items-end md:justify-between",
+        align === "center"
+          ? "items-center text-center"
+          : "md:flex-row md:items-end md:justify-between",
         className,
       )}
     >

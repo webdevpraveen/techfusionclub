@@ -17,13 +17,20 @@ export const Route = createFileRoute("/gallery")({
       },
       {
         name: "keywords",
-        content: "Tech fusion club, tfc srmu, viveka, srmu, club, webdevpraveen, praveen singh srmu, tfc gallery, srmu tech events",
+        content:
+          "Tech fusion club, tfc srmu, viveka, srmu, club, webdevpraveen, praveen singh srmu, tfc gallery, srmu tech events",
       },
       { property: "og:title", content: "Event Gallery | Tech Fusion Club (TFC) SRMU" },
-      { property: "og:description", content: "Photos from Tech Fusion Club (TFC) workshops and the Viveka fest." },
+      {
+        property: "og:description",
+        content: "Photos from Tech Fusion Club (TFC) workshops and the Viveka fest.",
+      },
       { property: "og:url", content: "https://techfusionclub.vercel.app/gallery" },
       { name: "twitter:title", content: "Event Gallery | Tech Fusion Club SRMU" },
-      { name: "twitter:description", content: "Photos from Tech Fusion Club (TFC) workshops and the Viveka fest." },
+      {
+        name: "twitter:description",
+        content: "Photos from Tech Fusion Club (TFC) workshops and the Viveka fest.",
+      },
     ],
     links: [{ rel: "canonical", href: "https://techfusionclub.vercel.app/gallery" }],
   }),
@@ -65,6 +72,7 @@ function Gallery() {
               <button
                 type="button"
                 onClick={() => setIndex(i)}
+                data-cursor="view"
                 className="group relative block w-full overflow-hidden rounded-2xl border border-border focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
               >
                 <img
@@ -83,7 +91,12 @@ function Gallery() {
         </ul>
       </Section>
 
-      <Lightbox items={items} index={index} onClose={() => setIndex(null)} onIndexChange={setIndex} />
+      <Lightbox
+        items={items}
+        index={index}
+        onClose={() => setIndex(null)}
+        onIndexChange={setIndex}
+      />
     </>
   );
 }

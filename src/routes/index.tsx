@@ -1,5 +1,18 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, ArrowUpRight, CalendarDays, MapPin, Quote, Sparkles, Zap, Shield, Cpu, Code2, Terminal, ExternalLink } from "lucide-react";
+import {
+  ArrowRight,
+  ArrowUpRight,
+  CalendarDays,
+  MapPin,
+  Quote,
+  Sparkles,
+  Zap,
+  Shield,
+  Cpu,
+  Code2,
+  Terminal,
+  ExternalLink,
+} from "lucide-react";
 import { club, domains, stats } from "@/data/club";
 import { featuredEvent, formatEventDate } from "@/data/events";
 import { galleryPhotos } from "@/data/gallery";
@@ -26,7 +39,8 @@ export const Route = createFileRoute("/")({
       },
       {
         name: "keywords",
-        content: "Tech fusion club, tfc srmu, viveka, srmu, club, webdevpraveen, praveen singh srmu, engineering club, tech community",
+        content:
+          "Tech fusion club, tfc srmu, viveka, srmu, club, webdevpraveen, praveen singh srmu, engineering club, tech community",
       },
       { property: "og:title", content: "Tech Fusion Club (TFC SRMU) | Viveka Fest & Coding" },
       {
@@ -68,7 +82,8 @@ function Home() {
           {/* Subtitle */}
           <p className="mt-6 max-w-2xl text-pretty text-base leading-relaxed text-muted-foreground animate-rise [animation-delay:160ms] sm:text-xl">
             {club.name} is the student-run technical collective at {club.university}. Six domains,
-            one calendar of workshops and hackathons, and a mentorship ladder running unbroken since {club.foundedYear}.
+            one calendar of workshops and hackathons, and a mentorship ladder running unbroken since{" "}
+            {club.foundedYear}.
           </p>
 
           {/* Call to Actions */}
@@ -111,7 +126,13 @@ function Home() {
           {/* Centered Stat Counters */}
           <dl className="mt-16 grid w-full grid-cols-2 gap-8 border-t border-border/70 pt-12 sm:grid-cols-4">
             {stats.map((s) => (
-              <StatCounter key={s.label} value={s.value} prefix={s.prefix} suffix={s.suffix} label={s.label} />
+              <StatCounter
+                key={s.label}
+                value={s.value}
+                prefix={s.prefix}
+                suffix={s.suffix}
+                label={s.label}
+              />
             ))}
           </dl>
         </div>
@@ -191,7 +212,8 @@ function Home() {
             </p>
             <ul className="mt-7 space-y-2.5 font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
               <li className="flex items-center gap-2">
-                <CalendarDays className="size-3.5 text-primary-glow" /> {formatEventDate(featuredEvent)}
+                <CalendarDays className="size-3.5 text-primary-glow" />{" "}
+                {formatEventDate(featuredEvent)}
               </li>
               <li className="flex items-center gap-2">
                 <MapPin className="size-3.5 text-primary-glow" /> {featuredEvent.venue}
@@ -333,7 +355,6 @@ function Home() {
           ))}
         </Reveal>
       </Section>
-
 
       <CTABanner />
     </>

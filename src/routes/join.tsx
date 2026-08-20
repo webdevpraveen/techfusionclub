@@ -16,7 +16,8 @@ export const Route = createFileRoute("/join")({
       },
       {
         name: "keywords",
-        content: "Tech fusion club, tfc srmu, viveka, srmu, club, webdevpraveen, praveen singh srmu, join tech club, srmu coding community",
+        content:
+          "Tech fusion club, tfc srmu, viveka, srmu, club, webdevpraveen, praveen singh srmu, join tech club, srmu coding community",
       },
       { property: "og:title", content: "Join Tech Fusion Club (TFC) SRMU" },
       {
@@ -36,7 +37,6 @@ export const Route = createFileRoute("/join")({
 });
 
 function Join() {
-
   return (
     <>
       <Section className="pb-8">
@@ -46,7 +46,8 @@ function Join() {
             No prior experience. Just consistency.
           </h1>
           <p className="mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-muted-foreground">
-            Pick a domain, get matched with a mentor, and ship something real in your first semester.
+            Pick a domain, get matched with a mentor, and ship something real in your first
+            semester.
           </p>
         </Reveal>
       </Section>
@@ -91,7 +92,8 @@ function Join() {
             <div className="mt-8 rounded-2xl border border-primary/40 bg-primary/10 p-6">
               <p className="font-display text-lg font-bold">Directions to the Club</p>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                SRMU me pahuchne ke baad <strong>B1 Block</strong> me fir <strong>3rd Floor</strong> fir <strong>310-A room number</strong>.
+                SRMU me pahuchne ke baad <strong>B1 Block</strong> me fir <strong>3rd Floor</strong>{" "}
+                fir <strong>310-A room number</strong>.
               </p>
             </div>
 

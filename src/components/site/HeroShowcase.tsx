@@ -1,5 +1,15 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowUpRight, Sparkles, Terminal, Shield, Cpu, Code2, Layers, CheckCircle2, Zap } from "lucide-react";
+import {
+  ArrowUpRight,
+  Sparkles,
+  Terminal,
+  Shield,
+  Cpu,
+  Code2,
+  Layers,
+  CheckCircle2,
+  Zap,
+} from "lucide-react";
 import { GlowCard } from "@/components/site/GlowCard";
 
 export function HeroShowcase() {
@@ -11,7 +21,6 @@ export function HeroShowcase() {
 
       {/* Main Glassmorphic Showcase Window Frame */}
       <GlowCard className="glass-strong relative overflow-hidden rounded-3xl border border-primary/30 p-2 sm:p-3 shadow-[0_20px_60px_-15px_rgba(217,72,15,0.3)] backdrop-blur-2xl transition-all duration-500 hover:border-primary-glow/60">
-        
         {/* App Window Header Bar */}
         <div className="flex items-center justify-between border-b border-border/70 bg-surface-strong px-4 py-3 rounded-t-2xl">
           <div className="flex items-center gap-2">
@@ -49,8 +58,12 @@ export function HeroShowcase() {
               className="size-8 sm:size-10 object-contain drop-shadow-[0_0_8px_rgba(217,72,15,0.6)]"
             />
             <div className="pr-1 sm:pr-2">
-              <p className="font-display text-xs font-extrabold uppercase tracking-wider text-foreground">TECH FUSION</p>
-              <p className="font-mono text-[9px] uppercase tracking-widest text-primary-glow font-bold">RECRUITMENT OPEN</p>
+              <p className="font-display text-xs font-extrabold uppercase tracking-wider text-foreground">
+                TECH FUSION
+              </p>
+              <p className="font-mono text-[9px] uppercase tracking-widest text-primary-glow font-bold">
+                RECRUITMENT OPEN
+              </p>
             </div>
           </div>
 
@@ -58,7 +71,8 @@ export function HeroShowcase() {
           <div className="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 glass p-3.5 sm:p-4 rounded-2xl backdrop-blur-xl border border-border/80 flex items-center justify-between gap-3 shadow-xl">
             <div>
               <p className="font-mono text-[10px] uppercase tracking-widest text-primary-glow font-bold flex items-center gap-1.5">
-                <Zap className="size-3.5 fill-primary-glow text-primary-glow" /> FLAGSHIP ANNUAL TECH FEST
+                <Zap className="size-3.5 fill-primary-glow text-primary-glow" /> FLAGSHIP ANNUAL
+                TECH FEST
               </p>
               <p className="font-display text-sm sm:text-base font-bold text-foreground mt-0.5">
                 Viveka 6.0 · March 2027

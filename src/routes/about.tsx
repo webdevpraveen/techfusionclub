@@ -4,7 +4,17 @@ import { club, domains, faculty, timeline, values } from "@/data/club";
 import { Reveal } from "@/components/site/Reveal";
 import { Section, SectionHeading } from "@/components/site/Section";
 import { CTABanner } from "@/components/site/CTABanner";
-import { Building2, Code2, GraduationCap, ExternalLink, Award, Sparkles, BookOpen, ShieldCheck, Globe } from "lucide-react";
+import {
+  Building2,
+  Code2,
+  GraduationCap,
+  ExternalLink,
+  Award,
+  Sparkles,
+  BookOpen,
+  ShieldCheck,
+  Globe,
+} from "lucide-react";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -17,18 +27,21 @@ export const Route = createFileRoute("/about")({
       },
       {
         name: "keywords",
-        content: "Tech fusion club, tfc srmu, viveka, srmu, club, webdevpraveen, praveen singh srmu, coding club srmu, tech fusion srmu",
+        content:
+          "Tech fusion club, tfc srmu, viveka, srmu, club, webdevpraveen, praveen singh srmu, coding club srmu, tech fusion srmu",
       },
       { property: "og:title", content: "About Tech Fusion Club (TFC) | SRMU Coding Club" },
       {
         property: "og:description",
-        content: "Discover Tech Fusion Club (TFC) at Shri Ramswaroop Memorial University (SRMU). Founded by Praveen Singh (webdevpraveen), we host Viveka fest, hackathons, and coding events.",
+        content:
+          "Discover Tech Fusion Club (TFC) at Shri Ramswaroop Memorial University (SRMU). Founded by Praveen Singh (webdevpraveen), we host Viveka fest, hackathons, and coding events.",
       },
       { property: "og:url", content: "https://techfusionclub.vercel.app/about" },
       { name: "twitter:title", content: "About Tech Fusion Club (TFC SRMU)" },
       {
         name: "twitter:description",
-        content: "Discover Tech Fusion Club (TFC) at SRMU. Founded by Praveen Singh (webdevpraveen), we host Viveka fest and hackathons.",
+        content:
+          "Discover Tech Fusion Club (TFC) at SRMU. Founded by Praveen Singh (webdevpraveen), we host Viveka fest and hackathons.",
       },
     ],
     links: [{ rel: "canonical", href: "https://techfusionclub.vercel.app/about" }],
@@ -47,7 +60,9 @@ function About() {
           <div className="flex flex-col items-start gap-4">
             <span className="eyebrow">Institutional Profile</span>
             <h1 className="text-balance font-display text-4xl font-bold leading-[1.05] sm:text-5xl lg:text-6xl">
-              {activeTab === "club" ? "Where Ideas Fuse Into Technology." : "Shri Ramswaroop Memorial University"}
+              {activeTab === "club"
+                ? "Where Ideas Fuse Into Technology."
+                : "Shri Ramswaroop Memorial University"}
             </h1>
             <p className="max-w-3xl text-pretty text-lg leading-relaxed text-muted-foreground">
               {activeTab === "club"
@@ -93,11 +108,18 @@ function About() {
             <div className="grid gap-6 lg:grid-cols-2">
               <Reveal className="glass rounded-[1.75rem] p-8 sm:p-10 border border-primary/20 shadow-lg">
                 <p className="eyebrow text-primary-glow">Our Mission</p>
-                <p className="mt-4 text-pretty text-lg leading-relaxed text-foreground">{club.mission}</p>
+                <p className="mt-4 text-pretty text-lg leading-relaxed text-foreground">
+                  {club.mission}
+                </p>
               </Reveal>
-              <Reveal delay={100} className="glass rounded-[1.75rem] p-8 sm:p-10 border border-accent/20 shadow-lg">
+              <Reveal
+                delay={100}
+                className="glass rounded-[1.75rem] p-8 sm:p-10 border border-accent/20 shadow-lg"
+              >
                 <p className="eyebrow text-accent">Our Vision</p>
-                <p className="mt-4 text-pretty text-lg leading-relaxed text-foreground">{club.vision}</p>
+                <p className="mt-4 text-pretty text-lg leading-relaxed text-foreground">
+                  {club.vision}
+                </p>
               </Reveal>
             </div>
           </Section>
@@ -109,7 +131,9 @@ function About() {
               {timeline.map((t, i) => (
                 <Reveal as="li" key={t.year} delay={i * 60}>
                   <div className="glass lift grid gap-4 rounded-2xl p-6 sm:grid-cols-[7rem_1fr] sm:p-8">
-                    <span className="font-display text-2xl font-bold text-primary-glow">{t.year}</span>
+                    <span className="font-display text-2xl font-bold text-primary-glow">
+                      {t.year}
+                    </span>
                     <div>
                       <h3 className="font-display text-lg font-bold">{t.title}</h3>
                       <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{t.body}</p>
@@ -161,7 +185,9 @@ function About() {
               <div className="p-8 sm:p-12">
                 <p className="eyebrow">Faculty Mentorship</p>
                 <h2 className="mt-4 font-display text-2xl font-bold sm:text-3xl">{faculty.name}</h2>
-                <p className="mt-2 text-sm text-muted-foreground font-semibold">{faculty.designation}</p>
+                <p className="mt-2 text-sm text-muted-foreground font-semibold">
+                  {faculty.designation}
+                </p>
                 <blockquote className="mt-6 border-l-2 border-primary/50 pl-5 text-pretty leading-relaxed text-foreground/90 italic">
                   "{faculty.message}"
                 </blockquote>
@@ -224,10 +250,18 @@ function About() {
 
               <div className="mt-8 space-y-6 text-base leading-relaxed text-muted-foreground">
                 <p>
-                  Our journey began in <strong className="text-foreground">1999</strong>, with just 22 students and an unwavering commitment to quality education. Conceived by two visionary IIT Kanpur alumni — <strong className="text-foreground">Er. Pankaj Agarwal</strong> and <strong className="text-foreground">Er. Pooja Agarwal</strong> — Shri Ramswaroop Memorial University (SRMU) has grown into a premier seat of learning in North India.
+                  Our journey began in <strong className="text-foreground">1999</strong>, with just
+                  22 students and an unwavering commitment to quality education. Conceived by two
+                  visionary IIT Kanpur alumni —{" "}
+                  <strong className="text-foreground">Er. Pankaj Agarwal</strong> and{" "}
+                  <strong className="text-foreground">Er. Pooja Agarwal</strong> — Shri Ramswaroop
+                  Memorial University (SRMU) has grown into a premier seat of learning in North
+                  India.
                 </p>
                 <p>
-                  SRMU offers over 100+ undergraduate, postgraduate, and doctoral programs across Engineering, Computer Applications, Management, Biotechnology, Media, Law, Pharmacy, and Agricultural Sciences.
+                  SRMU offers over 100+ undergraduate, postgraduate, and doctoral programs across
+                  Engineering, Computer Applications, Management, Biotechnology, Media, Law,
+                  Pharmacy, and Agricultural Sciences.
                 </p>
               </div>
             </Reveal>
@@ -242,17 +276,24 @@ function About() {
                   <h3 className="font-display text-xl font-bold text-foreground">SRMU Vision</h3>
                 </div>
                 <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-                  To be an internationally recognized center of excellence in higher education, fostering innovation, scientific temper, ethical leadership, and holistic societal development.
+                  To be an internationally recognized center of excellence in higher education,
+                  fostering innovation, scientific temper, ethical leadership, and holistic societal
+                  development.
                 </p>
               </Reveal>
 
-              <Reveal delay={100} className="glass rounded-[1.75rem] p-8 sm:p-10 border border-accent/20">
+              <Reveal
+                delay={100}
+                className="glass rounded-[1.75rem] p-8 sm:p-10 border border-accent/20"
+              >
                 <div className="flex items-center gap-3">
                   <Award className="size-6 text-accent" />
                   <h3 className="font-display text-xl font-bold text-foreground">SRMU Mission</h3>
                 </div>
                 <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-                  To provide transformative learning experiences through outcome-based education, state-of-the-art research laboratories, industry partnerships (L&T, IBM, etc.), and continuous student mentorship.
+                  To provide transformative learning experiences through outcome-based education,
+                  state-of-the-art research laboratories, industry partnerships (L&T, IBM, etc.),
+                  and continuous student mentorship.
                 </p>
               </Reveal>
             </div>
@@ -268,7 +309,9 @@ function About() {
             <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
               <Reveal delay={50} className="glass lift rounded-2xl p-6 border border-border/80">
                 <p className="font-mono text-3xl font-bold text-primary-glow">100+</p>
-                <h4 className="mt-2 font-display text-base font-bold text-foreground">UG & PG Programs</h4>
+                <h4 className="mt-2 font-display text-base font-bold text-foreground">
+                  UG & PG Programs
+                </h4>
                 <p className="mt-2 text-xs text-muted-foreground leading-relaxed">
                   Covering cutting-edge fields like AI/ML, Cyber Security, Cloud, FinTech, and IoT.
                 </p>
@@ -276,7 +319,9 @@ function About() {
 
               <Reveal delay={100} className="glass lift rounded-2xl p-6 border border-border/80">
                 <p className="font-mono text-3xl font-bold text-accent">L&T</p>
-                <h4 className="mt-2 font-display text-base font-bold text-foreground">Industry Honors</h4>
+                <h4 className="mt-2 font-display text-base font-bold text-foreground">
+                  Industry Honors
+                </h4>
                 <p className="mt-2 text-xs text-muted-foreground leading-relaxed">
                   Joint degree programs with Larsen & Toubro for practical industrial mastery.
                 </p>
@@ -284,17 +329,23 @@ function About() {
 
               <Reveal delay={150} className="glass lift rounded-2xl p-6 border border-border/80">
                 <p className="font-mono text-3xl font-bold text-emerald-400">100 Acre</p>
-                <h4 className="mt-2 font-display text-base font-bold text-foreground">Lush Campus</h4>
+                <h4 className="mt-2 font-display text-base font-bold text-foreground">
+                  Lush Campus
+                </h4>
                 <p className="mt-2 text-xs text-muted-foreground leading-relaxed">
-                  State-of-the-art computer labs, high-speed WiFi, innovation cells, and sports arenas.
+                  State-of-the-art computer labs, high-speed WiFi, innovation cells, and sports
+                  arenas.
                 </p>
               </Reveal>
 
               <Reveal delay={200} className="glass lift rounded-2xl p-6 border border-border/80">
                 <p className="font-mono text-3xl font-bold text-amber-400">1999</p>
-                <h4 className="mt-2 font-display text-base font-bold text-foreground">Legacy of Trust</h4>
+                <h4 className="mt-2 font-display text-base font-bold text-foreground">
+                  Legacy of Trust
+                </h4>
                 <p className="mt-2 text-xs text-muted-foreground leading-relaxed">
-                  Over two decades of educational excellence empowering thousands of successful alumni globally.
+                  Over two decades of educational excellence empowering thousands of successful
+                  alumni globally.
                 </p>
               </Reveal>
             </div>

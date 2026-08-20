@@ -58,7 +58,10 @@ export function Footer() {
                       <ExternalLink className="size-3" />
                     </a>
                   ) : (
-                    <Link to={"to" in l ? l.to : "/"} className="transition-colors hover:text-primary-glow">
+                    <Link
+                      to={"to" in l ? l.to : "/"}
+                      className="transition-colors hover:text-primary-glow"
+                    >
                       {l.label}
                     </Link>
                   )}

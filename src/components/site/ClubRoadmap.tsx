@@ -31,7 +31,8 @@ const milestones: Milestone[] = [
     step: "PHASE 03",
     title: "SIH Hackathon & Project Incubation",
     quarter: "JAN - MAR",
-    description: "Participate in Smart India Hackathon campus rounds and build production-ready projects in teams.",
+    description:
+      "Participate in Smart India Hackathon campus rounds and build production-ready projects in teams.",
     highlights: ["SIH Internal Hackathon", "Live Project Demos", "National Level Pitching"],
     icon: <Rocket className="size-5 text-emerald-400" />,
   },
@@ -39,8 +40,13 @@ const milestones: Milestone[] = [
     step: "PHASE 04",
     title: "Viveka 6.0 Annual Fest & Leadership",
     quarter: "APR - MAY",
-    description: "Organize the university's flagship technical festival and step into core leadership roles.",
-    highlights: ["Viveka 6.0 Flagship Fest", "Harmony Tech-Culture Expo", "Alumni Placement Network"],
+    description:
+      "Organize the university's flagship technical festival and step into core leadership roles.",
+    highlights: [
+      "Viveka 6.0 Flagship Fest",
+      "Harmony Tech-Culture Expo",
+      "Alumni Placement Network",
+    ],
     icon: <Award className="size-5 text-cyan-400" />,
   },
 ];
@@ -79,9 +85,7 @@ export function ClubRoadmap() {
                     </span>
                   </div>
 
-                  <h3 className="font-display text-xl font-bold text-foreground">
-                    {m.title}
-                  </h3>
+                  <h3 className="font-display text-xl font-bold text-foreground">{m.title}</h3>
 
                   <p className="mt-2.5 text-sm text-muted-foreground leading-relaxed">
                     {m.description}

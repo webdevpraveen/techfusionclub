@@ -19,7 +19,8 @@ export function InteractiveTerminal() {
           <p>[SYS_OK] Tech Fusion Core v4.2.0 initialized.</p>
           <p>[NET_STATUS] 6 Domains operational | 320 Active Nodes | University Node: Online</p>
           <p className="text-muted-foreground text-xs mt-1">
-            Type <span className="text-primary-glow font-bold">'help'</span> or click quick commands below to explore.
+            Type <span className="text-primary-glow font-bold">'help'</span> or click quick commands
+            below to explore.
           </p>
         </div>
       ),
@@ -44,12 +45,25 @@ export function InteractiveTerminal() {
           <div className="space-y-1.5 text-xs sm:text-sm">
             <p className="text-primary-glow font-semibold">Available Fusion Commands:</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1 pl-2 font-mono text-muted-foreground">
-              <div><span className="text-accent font-bold">domains</span> - View 6 tech domains</div>
-              <div><span className="text-accent font-bold">events</span> - Upcoming workshops & fest</div>
-              <div><span className="text-accent font-bold">stats</span> - Live club metrics</div>
-              <div><span className="text-accent font-bold">projects</span> - Shipped student builds</div>
-              <div><span className="text-accent font-bold">join</span> - How to apply for 2026</div>
-              <div><span className="text-accent font-bold">clear</span> - Clear terminal terminal screen</div>
+              <div>
+                <span className="text-accent font-bold">domains</span> - View 6 tech domains
+              </div>
+              <div>
+                <span className="text-accent font-bold">events</span> - Upcoming workshops & fest
+              </div>
+              <div>
+                <span className="text-accent font-bold">stats</span> - Live club metrics
+              </div>
+              <div>
+                <span className="text-accent font-bold">projects</span> - Shipped student builds
+              </div>
+              <div>
+                <span className="text-accent font-bold">join</span> - How to apply for 2026
+              </div>
+              <div>
+                <span className="text-accent font-bold">clear</span> - Clear terminal terminal
+                screen
+              </div>
             </div>
           </div>
         );
@@ -60,12 +74,30 @@ export function InteractiveTerminal() {
           <div className="space-y-1 text-xs sm:text-sm">
             <p className="text-primary-glow font-bold">Active Fusion Domains:</p>
             <ul className="list-disc list-inside space-y-1 text-muted-foreground font-mono">
-              <li><strong className="text-foreground">01. Web Development:</strong> React, Next.js, TypeScript, Tailwind</li>
-              <li><strong className="text-foreground">02. AI / Machine Learning:</strong> PyTorch, LLMs, Computer Vision</li>
-              <li><strong className="text-foreground">03. Cybersecurity:</strong> CTFs, Pentesting, Reverse Engineering</li>
-              <li><strong className="text-foreground">04. Mobile App Dev:</strong> Flutter, React Native, Swift</li>
-              <li><strong className="text-foreground">05. Cloud & DevOps:</strong> Docker, K8s, AWS, CI/CD</li>
-              <li><strong className="text-foreground">06. UI/UX Design:</strong> Figma, Design Systems, Motion Design</li>
+              <li>
+                <strong className="text-foreground">01. Web Development:</strong> React, Next.js,
+                TypeScript, Tailwind
+              </li>
+              <li>
+                <strong className="text-foreground">02. AI / Machine Learning:</strong> PyTorch,
+                LLMs, Computer Vision
+              </li>
+              <li>
+                <strong className="text-foreground">03. Cybersecurity:</strong> CTFs, Pentesting,
+                Reverse Engineering
+              </li>
+              <li>
+                <strong className="text-foreground">04. Mobile App Dev:</strong> Flutter, React
+                Native, Swift
+              </li>
+              <li>
+                <strong className="text-foreground">05. Cloud & DevOps:</strong> Docker, K8s, AWS,
+                CI/CD
+              </li>
+              <li>
+                <strong className="text-foreground">06. UI/UX Design:</strong> Figma, Design
+                Systems, Motion Design
+              </li>
             </ul>
           </div>
         );
@@ -77,11 +109,15 @@ export function InteractiveTerminal() {
             <div>
               <p className="text-accent font-bold">🚀 Annual Flagship Tech Fest:</p>
               <p className="text-foreground font-semibold">Viveka 6.0 (2027) [Past: Viveka 5.0]</p>
-              <p className="text-muted-foreground">📍 Central Auditorium · 36-Hour Hackathon + Expo</p>
+              <p className="text-muted-foreground">
+                📍 Central Auditorium · 36-Hour Hackathon + Expo
+              </p>
             </div>
             <div>
               <p className="text-emerald-400 font-bold">🇮🇳 National Competitions:</p>
-              <p className="text-foreground font-semibold">Smart India Hackathon (SIH) Internal Prep</p>
+              <p className="text-foreground font-semibold">
+                Smart India Hackathon (SIH) Internal Prep
+              </p>
             </div>
             <div>
               <p className="text-cyan-400 font-bold">🎭 University Tech-Culture Fest:</p>
@@ -94,10 +130,18 @@ export function InteractiveTerminal() {
       case "stats":
         outputContent = (
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 font-mono text-xs text-center py-1">
-            <div className="glass p-2 rounded-lg"><span className="block text-primary-glow text-lg font-bold">320+</span>Active Members</div>
-            <div className="glass p-2 rounded-lg"><span className="block text-accent text-lg font-bold">41</span>Workshops Done</div>
-            <div className="glass p-2 rounded-lg"><span className="block text-emerald-400 text-lg font-bold">14+</span>Shipped Apps</div>
-            <div className="glass p-2 rounded-lg"><span className="block text-cyan-400 text-lg font-bold">6</span>Tech Domains</div>
+            <div className="glass p-2 rounded-lg">
+              <span className="block text-primary-glow text-lg font-bold">320+</span>Active Members
+            </div>
+            <div className="glass p-2 rounded-lg">
+              <span className="block text-accent text-lg font-bold">41</span>Workshops Done
+            </div>
+            <div className="glass p-2 rounded-lg">
+              <span className="block text-emerald-400 text-lg font-bold">14+</span>Shipped Apps
+            </div>
+            <div className="glass p-2 rounded-lg">
+              <span className="block text-cyan-400 text-lg font-bold">6</span>Tech Domains
+            </div>
           </div>
         );
         break;
@@ -106,9 +150,18 @@ export function InteractiveTerminal() {
         outputContent = (
           <div className="space-y-1.5 text-xs font-mono">
             <p className="text-primary-glow font-bold">🔥 Featured Member Builds:</p>
-            <p><span className="text-foreground font-semibold">1. NeuroFusion AI</span> - Open-source RAG chatbot for campus notes</p>
-            <p><span className="text-foreground font-semibold">2. CyberShield CLI</span> - Automated vulnerability scanner tool</p>
-            <p><span className="text-foreground font-semibold">3. UniCampus App</span> - Flutter navigation app used by 2,000+ students</p>
+            <p>
+              <span className="text-foreground font-semibold">1. NeuroFusion AI</span> - Open-source
+              RAG chatbot for campus notes
+            </p>
+            <p>
+              <span className="text-foreground font-semibold">2. CyberShield CLI</span> - Automated
+              vulnerability scanner tool
+            </p>
+            <p>
+              <span className="text-foreground font-semibold">3. UniCampus App</span> - Flutter
+              navigation app used by 2,000+ students
+            </p>
           </div>
         );
         break;
@@ -117,8 +170,12 @@ export function InteractiveTerminal() {
         outputContent = (
           <div className="space-y-1 text-xs font-mono">
             <p className="text-emerald-400 font-bold">✨ Recruitment Status: OPEN</p>
-            <p className="text-muted-foreground">Requirements: Curiosity + Commitment to building.</p>
-            <p className="text-primary-glow font-semibold mt-1">Visit /join or click "Join the club" to submit your application!</p>
+            <p className="text-muted-foreground">
+              Requirements: Curiosity + Commitment to building.
+            </p>
+            <p className="text-primary-glow font-semibold mt-1">
+              Visit /join or click "Join the club" to submit your application!
+            </p>
           </div>
         );
         break;
@@ -131,7 +188,8 @@ export function InteractiveTerminal() {
       default:
         outputContent = (
           <p className="text-destructive text-xs font-mono">
-            Command not recognized: '{cleanCmd}'. Type <span className="text-primary-glow font-bold">'help'</span> for available commands.
+            Command not recognized: '{cleanCmd}'. Type{" "}
+            <span className="text-primary-glow font-bold">'help'</span> for available commands.
           </p>
         );
     }
@@ -171,7 +229,11 @@ export function InteractiveTerminal() {
           className="flex items-center gap-1.5 font-mono text-[11px] text-muted-foreground hover:text-foreground transition-colors glass px-2.5 py-1 rounded-md"
           title="Copy CLI command"
         >
-          {copied ? <Check className="size-3 text-emerald-400" /> : <Copy className="size-3 text-primary-glow" />}
+          {copied ? (
+            <Check className="size-3 text-emerald-400" />
+          ) : (
+            <Copy className="size-3 text-primary-glow" />
+          )}
           <span>{copied ? "Copied!" : "npx tech-fusion-club"}</span>
         </button>
       </div>

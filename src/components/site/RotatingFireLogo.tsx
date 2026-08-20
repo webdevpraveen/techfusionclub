@@ -2,7 +2,12 @@ import { cn } from "@/lib/utils";
 
 export function RotatingFireLogo({ className }: { className?: string }) {
   return (
-    <div className={cn("relative flex items-center justify-center select-none py-8 sm:py-12 overflow-visible", className)}>
+    <div
+      className={cn(
+        "relative flex items-center justify-center select-none py-8 sm:py-12 overflow-visible",
+        className,
+      )}
+    >
       {/* 1. Deep Radial Heat & Smoke Background Glow */}
       <div className="absolute size-96 sm:size-[32rem] rounded-full bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-amber-500/70 via-orange-600/40 via-red-700/20 to-transparent blur-3xl animate-pulse" />
 

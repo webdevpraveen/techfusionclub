@@ -2,7 +2,16 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Reveal } from "@/components/site/Reveal";
 import { Section } from "@/components/site/Section";
 import { CTABanner } from "@/components/site/CTABanner";
-import { Linkedin, Sparkles, ShieldCheck, Award, GraduationCap, Building2, Users, FileCheck } from "lucide-react";
+import {
+  Linkedin,
+  Sparkles,
+  ShieldCheck,
+  Award,
+  GraduationCap,
+  Building2,
+  Users,
+  FileCheck,
+} from "lucide-react";
 
 export const Route = createFileRoute("/governance")({
   head: () => ({
@@ -15,18 +24,21 @@ export const Route = createFileRoute("/governance")({
       },
       {
         name: "keywords",
-        content: "Tech fusion club, tfc srmu, viveka, srmu, club, webdevpraveen, praveen singh srmu, tfc governance, srmu faculty",
+        content:
+          "Tech fusion club, tfc srmu, viveka, srmu, club, webdevpraveen, praveen singh srmu, tfc governance, srmu faculty",
       },
       { property: "og:title", content: "Governance | Tech Fusion Club (TFC) SRMU" },
       {
         property: "og:description",
-        content: "Meet the visionary patrons, registrar, and faculty coordinators governing Tech Fusion Club (TFC) at SRMU.",
+        content:
+          "Meet the visionary patrons, registrar, and faculty coordinators governing Tech Fusion Club (TFC) at SRMU.",
       },
       { property: "og:url", content: "https://techfusionclub.vercel.app/governance" },
       { name: "twitter:title", content: "Governance | Tech Fusion Club SRMU" },
       {
         name: "twitter:description",
-        content: "Meet the visionary patrons, registrar, and faculty coordinators governing Tech Fusion Club (TFC) at SRMU.",
+        content:
+          "Meet the visionary patrons, registrar, and faculty coordinators governing Tech Fusion Club (TFC) at SRMU.",
       },
     ],
     links: [{ rel: "canonical", href: "https://techfusionclub.vercel.app/governance" }],
@@ -52,7 +64,8 @@ interface GovernanceSectionData {
 const governanceData: GovernanceSectionData[] = [
   {
     title: "Chief Patrons",
-    subtitle: "Visionary institutional leadership guiding the university and student technical ecosystem.",
+    subtitle:
+      "Visionary institutional leadership guiding the university and student technical ecosystem.",
     members: [
       {
         name: "Er. Pankaj Agarwal",
@@ -75,7 +88,8 @@ const governanceData: GovernanceSectionData[] = [
   },
   {
     title: "Patrons",
-    subtitle: "Executive university officers providing strategic academic and administrative direction.",
+    subtitle:
+      "Executive university officers providing strategic academic and administrative direction.",
     members: [
       {
         name: "Prof. (Dr.) Vijay Tiwari",
@@ -99,7 +113,8 @@ const governanceData: GovernanceSectionData[] = [
   },
   {
     title: "Faculty Coordinators",
-    subtitle: "Dedicated faculty mentors supervising technical societies, hackathons, and student growth.",
+    subtitle:
+      "Dedicated faculty mentors supervising technical societies, hackathons, and student growth.",
     members: [
       {
         name: "Dr. Veena Singh",
@@ -125,7 +140,8 @@ const governanceData: GovernanceSectionData[] = [
         badge: "Faculty Coordinator",
         description:
           "Coordinating inter-departmental technical competitions, hardware/software mentorship ladders, and engineering research labs.",
-        image: "https://th.bing.com/th/id/OIP.90nfazrcFSf6EtqDH9jVzgHaHa?r=0&o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3",
+        image:
+          "https://th.bing.com/th/id/OIP.90nfazrcFSf6EtqDH9jVzgHaHa?r=0&o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3",
         linkedin: "https://www.linkedin.com/in/dr-mritunjay-rai-36b85118/",
       },
       {
@@ -153,22 +169,26 @@ const governancePillars = [
   {
     icon: <ShieldCheck className="size-6 text-primary-glow" />,
     title: "Institutional Transparency",
-    description: "100% audited event budgets, student grants, and university club operations under faculty supervision.",
+    description:
+      "100% audited event budgets, student grants, and university club operations under faculty supervision.",
   },
   {
     icon: <Users className="size-6 text-primary-glow" />,
     title: "Student Empowerment",
-    description: "Merit-based student leadership council driving domain workshops, open-source projects, and peer ladders.",
+    description:
+      "Merit-based student leadership council driving domain workshops, open-source projects, and peer ladders.",
   },
   {
     icon: <GraduationCap className="size-6 text-primary-glow" />,
     title: "Academic & Industry Alignment",
-    description: "Continuous mentorship bridging academic curriculum with modern tech stack practices.",
+    description:
+      "Continuous mentorship bridging academic curriculum with modern tech stack practices.",
   },
   {
     icon: <FileCheck className="size-6 text-primary-glow" />,
     title: "Ethics & Open Source Charter",
-    description: "Strict enforcement of academic integrity, inclusive open mentorship, and anti-harassment standards.",
+    description:
+      "Strict enforcement of academic integrity, inclusive open mentorship, and anti-harassment standards.",
   },
 ];
 
@@ -197,7 +217,8 @@ function LeaderCard({ member }: { member: LeaderMember }) {
             loading="lazy"
             className="h-full w-full object-cover object-top rounded-xl transition-transform duration-500 group-hover:scale-105"
             onError={(e) => {
-              e.currentTarget.src = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=600";
+              e.currentTarget.src =
+                "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=600";
             }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent opacity-50" />
@@ -209,7 +230,9 @@ function LeaderCard({ member }: { member: LeaderMember }) {
       </div>
 
       <div className="mt-6 flex items-center justify-between border-t border-border/60 pt-4">
-        <span className="font-mono text-[11px] text-muted-foreground font-medium">SRMU Governance</span>
+        <span className="font-mono text-[11px] text-muted-foreground font-medium">
+          SRMU Governance
+        </span>
         {member.linkedin ? (
           <a
             href={member.linkedin}
@@ -242,7 +265,8 @@ function Governance() {
             Leadership & <span className="text-gradient">Governance</span>
           </h1>
           <p className="mt-4 text-pretty text-lg text-muted-foreground max-w-2xl mx-auto">
-            The visionary university patrons, registrar, and faculty coordinators behind Shri Ramswaroop Memorial University and Tech Fusion Club.
+            The visionary university patrons, registrar, and faculty coordinators behind Shri
+            Ramswaroop Memorial University and Tech Fusion Club.
           </p>
         </Reveal>
       </Section>
@@ -255,9 +279,7 @@ function Governance() {
               <h2 className="inline-block border-b-2 border-primary/40 pb-2 font-mono text-xl font-bold uppercase tracking-widest text-foreground sm:text-2xl">
                 {sec.title}
               </h2>
-              <p className="mt-3 text-xs text-muted-foreground leading-relaxed">
-                {sec.subtitle}
-              </p>
+              <p className="mt-3 text-xs text-muted-foreground leading-relaxed">{sec.subtitle}</p>
             </div>
             <div className="flex flex-wrap justify-center gap-8">
               {sec.members.map((m) => (
@@ -277,7 +299,8 @@ function Governance() {
               Governance & Integrity Charter
             </h2>
             <p className="mt-2 text-sm text-muted-foreground max-w-xl mx-auto">
-              Core institutional standards governing Tech Fusion Club operations, student elections, and event execution.
+              Core institutional standards governing Tech Fusion Club operations, student elections,
+              and event execution.
             </p>
           </div>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -288,7 +311,9 @@ function Governance() {
                     {p.icon}
                   </div>
                   <h3 className="font-display text-base font-bold text-foreground">{p.title}</h3>
-                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{p.description}</p>
+                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+                    {p.description}
+                  </p>
                 </div>
               </Reveal>
             ))}

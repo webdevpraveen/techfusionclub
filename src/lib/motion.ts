@@ -109,7 +109,6 @@ export function useCursorGlow<T extends HTMLElement = HTMLDivElement>() {
   return ref;
 }
 
-
 export function useCountdown(iso: string) {
   const target = new Date(iso).getTime();
   const [remaining, setRemaining] = useState<number | null>(null);

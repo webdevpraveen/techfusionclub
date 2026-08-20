@@ -19,7 +19,10 @@ export function PartnersSection() {
   return (
     <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
       {partners.map((p) => (
-        <GlowCard key={p.name} className="glass lift flex flex-col items-center justify-center rounded-2xl p-5 text-center border border-border hover:border-primary-glow/60 transition-all">
+        <GlowCard
+          key={p.name}
+          className="glass lift flex flex-col items-center justify-center rounded-2xl p-5 text-center border border-border hover:border-primary-glow/60 transition-all"
+        >
           <span className="font-display text-sm font-bold text-foreground">{p.name}</span>
           <span className="mt-1 font-mono text-[9px] uppercase tracking-wider text-primary-glow font-semibold">
             {p.category}

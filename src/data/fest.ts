@@ -63,10 +63,26 @@ export const fest = {
       date: "Sat, 20 March",
       items: [
         { time: "09:00", title: "Registration & badge distribution", note: "Auditorium Foyer" },
-        { time: "10:30", title: "Grand opening ceremony & Chief Guest address", note: "Main Auditorium" },
-        { time: "12:00", title: "Viveka 36-Hour Hackathon Hour Zero", note: "Engineering Block Labs" },
-        { time: "15:00", title: "Smart India Hackathon (SIH) round 1 pitch", note: "Seminar Hall A" },
-        { time: "19:00", title: "Industry Tech Talk: AI & Distributed Cloud", note: "Seminar Hall B" },
+        {
+          time: "10:30",
+          title: "Grand opening ceremony & Chief Guest address",
+          note: "Main Auditorium",
+        },
+        {
+          time: "12:00",
+          title: "Viveka 36-Hour Hackathon Hour Zero",
+          note: "Engineering Block Labs",
+        },
+        {
+          time: "15:00",
+          title: "Smart India Hackathon (SIH) round 1 pitch",
+          note: "Seminar Hall A",
+        },
+        {
+          time: "19:00",
+          title: "Industry Tech Talk: AI & Distributed Cloud",
+          note: "Seminar Hall B",
+        },
         { time: "23:00", title: "Midnight mentor review & energy refuel", note: "CS Block" },
       ],
     },
@@ -77,8 +93,16 @@ export const fest = {
         { time: "09:00", title: "Breach Protocol CTF launch", note: "Networking Lab" },
         { time: "11:00", title: "Harmony Tech-Culture Expo opens", note: "Central Lawn" },
         { time: "14:00", title: "Viveka Code Arena prelims", note: "Computer Labs 1–3" },
-        { time: "17:00", title: "Keynote Talk: Building Startups in College", note: "Main Auditorium" },
-        { time: "21:00", title: "Hackathon 24-hour check-in & prototype demo", note: "Engineering Block" },
+        {
+          time: "17:00",
+          title: "Keynote Talk: Building Startups in College",
+          note: "Main Auditorium",
+        },
+        {
+          time: "21:00",
+          title: "Hackathon 24-hour check-in & prototype demo",
+          note: "Engineering Block",
+        },
       ],
     },
     {
@@ -86,10 +110,18 @@ export const fest = {
       date: "Mon, 22 March",
       items: [
         { time: "00:00", title: "Hackathon final hour sprint & code freeze", note: "CS Block" },
-        { time: "10:00", title: "Top 10 Hackathon teams stage presentation", note: "Main Auditorium" },
+        {
+          time: "10:00",
+          title: "Top 10 Hackathon teams stage presentation",
+          note: "Main Auditorium",
+        },
         { time: "13:00", title: "Code Arena live final round", note: "Main Auditorium" },
         { time: "15:30", title: "Sponsor desks & recruitment drive", note: "Central Foyer" },
-        { time: "17:00", title: "Award ceremony & Viveka 6.0 valedictory", note: "Main Auditorium" },
+        {
+          time: "17:00",
+          title: "Award ceremony & Viveka 6.0 valedictory",
+          note: "Main Auditorium",
+        },
       ],
     },
   ],

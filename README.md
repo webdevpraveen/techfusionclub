@@ -34,9 +34,11 @@
 ## 🚀 Quick Start
 
 ### 1. Prerequisites
+
 Make sure you have Node.js (v18+) and `npm` installed.
 
 ### 2. Installation
+
 ```bash
 git clone https://github.com/webdevpraveen/techfusionclub.git
 cd techfusionclub
@@ -44,13 +46,17 @@ npm install
 ```
 
 ### 3. Development Server
+
 Start the local Vite development server:
+
 ```bash
 npm run dev
 ```
+
 Open **[http://localhost:8080](http://localhost:8080)** in your browser.
 
 ### 4. Build for Production
+
 ```bash
 npm run build
 ```

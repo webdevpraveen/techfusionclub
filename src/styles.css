@@ -10,7 +10,6 @@
  * All colors are oklch semantic tokens. Never hardcode colors in components.
  */
 
-
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -113,11 +112,8 @@
   --sidebar-border: oklch(0.34 0.024 276 / 55%);
   --sidebar-ring: oklch(0.727 0.176 41);
 
-  --gradient-hero: radial-gradient(
-      120% 90% at 15% 0%,
-      oklch(0.6 0.19 38 / 26%) 0%,
-      transparent 60%
-    ),
+  --gradient-hero:
+    radial-gradient(120% 90% at 15% 0%, oklch(0.6 0.19 38 / 26%) 0%, transparent 60%),
     radial-gradient(100% 80% at 90% 10%, oklch(0.727 0.176 41 / 15%) 0%, transparent 55%);
   --gradient-primary: linear-gradient(
     135deg,
@@ -136,8 +132,8 @@
 
   --shadow-glass: 0 1px 0 0 oklch(1 0 0 / 6%) inset, 0 24px 60px -24px oklch(0.08 0.01 272 / 85%);
   --shadow-glow: 0 0 0 1px oklch(0.6 0.19 38 / 30%), 0 18px 60px -18px oklch(0.6 0.19 38 / 50%);
-  --shadow-accent-glow: 0 0 0 1px oklch(0.727 0.176 41 / 35%),
-    0 18px 60px -18px oklch(0.727 0.176 41 / 45%);
+  --shadow-accent-glow:
+    0 0 0 1px oklch(0.727 0.176 41 / 35%), 0 18px 60px -18px oklch(0.727 0.176 41 / 45%);
 }
 
 .dark {
@@ -217,7 +213,6 @@ html.light {
     outline-offset: 2px;
   }
 }
-
 
 /* ---------- Utilities ---------- */
 
@@ -368,7 +363,6 @@ html.light {
     transform: scaleX(1);
   }
 }
-
 
 @utility lift {
   transition:
@@ -542,7 +536,6 @@ html.light {
   animation: fusion-power-on 0.9s ease-out both;
 }
 
-
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -559,5 +552,135 @@ html.light {
   .reveal {
     opacity: 1;
     transform: none;
+  }
+}
+
+/* ---------- Custom Cursor ---------- */
+html.has-custom-cursor,
+html.has-custom-cursor * {
+  cursor: none !important;
+}
+
+html.has-custom-cursor input,
+html.has-custom-cursor textarea,
+html.has-custom-cursor [contenteditable="true"],
+html.has-custom-cursor ::selection {
+  cursor: text !important;
+}
+
+.custom-cursor-dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  background-color: var(--color-primary-glow);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate3d(-100px, -100px, 0) translate(-50%, -50%);
+  transition:
+    opacity 0.2s,
+    width 0.2s,
+    height 0.2s;
+  will-change: transform;
+}
+
+.custom-cursor-dot.click-pulse {
+  transform: scale(0.5) translate(-50%, -50%);
+}
+
+.custom-cursor-dot.is-interactive {
+  opacity: 0;
+}
+
+.custom-cursor-dot.is-view {
+  opacity: 0;
+}
+
+.custom-cursor-dot.is-grab {
+  opacity: 0;
+}
+
+.custom-cursor-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 32px;
+  height: 32px;
+  border: 1.5px solid oklch(0.6 0.19 38 / 50%);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate3d(-100px, -100px, 0) translate(-50%, -50%);
+  transition:
+    width 0.2s,
+    height 0.2s,
+    background-color 0.2s,
+    border-color 0.2s,
+    opacity 0.2s,
+    backdrop-filter 0.2s;
+  will-change: transform;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-cursor-label {
+  opacity: 0;
+  color: var(--color-primary-foreground);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  transition: opacity 0.2s;
+}
+
+.custom-cursor-ring.is-interactive {
+  width: 44px;
+  height: 44px;
+  border-color: var(--color-accent);
+  background-color: oklch(0.824 0.106 46 / 10%);
+}
+
+.custom-cursor-ring.is-view {
+  width: 80px;
+  height: 80px;
+  border-color: oklch(0.97 0.004 270 / 20%);
+  background-color: oklch(0.123 0.011 271 / 70%);
+  backdrop-filter: blur(8px);
+}
+
+.custom-cursor-ring.is-view .custom-cursor-label {
+  opacity: 1;
+  color: var(--color-foreground);
+}
+
+.custom-cursor-ring.is-grab {
+  width: 48px;
+  height: 48px;
+  border-color: var(--color-accent);
+  background-color: oklch(0.824 0.106 46 / 20%);
+}
+
+.custom-cursor-ring.is-grab .custom-cursor-label {
+  opacity: 1;
+  color: var(--color-foreground);
+}
+
+.custom-cursor-ring.is-drag {
+  width: 56px;
+  height: 56px;
+  border-color: var(--color-primary-glow);
+  background-color: oklch(0.727 0.176 41 / 20%);
+}
+
+.custom-cursor-ring.is-drag .custom-cursor-label {
+  opacity: 1;
+  color: var(--color-foreground);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .custom-cursor-ring,
+  .custom-cursor-dot {
+    transition: none !important;
   }
 }

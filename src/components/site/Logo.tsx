@@ -5,8 +5,12 @@ export function Logo({ className }: { className?: string }) {
   const { theme } = useTheme();
 
   const isLight = theme === "light";
-  const defaultSrc = isLight ? "/images/branding/techfusionlogolight.webp" : "/images/branding/techfusionlogo.webp";
-  const smSrc = isLight ? "/images/branding/techfusionlogolight-sm.webp" : "/images/branding/techfusionlogo-sm.webp";
+  const defaultSrc = isLight
+    ? "/images/branding/techfusionlogolight.webp"
+    : "/images/branding/techfusionlogo.webp";
+  const smSrc = isLight
+    ? "/images/branding/techfusionlogolight-sm.webp"
+    : "/images/branding/techfusionlogo-sm.webp";
 
   return (
     <img

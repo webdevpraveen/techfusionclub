@@ -53,12 +53,13 @@ export function PillarsSection() {
   return (
     <div className="grid gap-6 sm:grid-cols-2">
       {pillars.map((p) => (
-        <GlowCard key={p.number} className="glass lift group rounded-2xl p-7 flex flex-col justify-between">
+        <GlowCard
+          key={p.number}
+          className="glass lift group rounded-2xl p-7 flex flex-col justify-between"
+        >
           <div>
             <div className="flex items-center justify-between gap-4 mb-4">
-              <div className="rounded-xl border border-border bg-surface-strong p-3">
-                {p.icon}
-              </div>
+              <div className="rounded-xl border border-border bg-surface-strong p-3">{p.icon}</div>
               <span className="font-mono text-xs font-bold text-primary-glow/60">
                 PILLAR {p.number}
               </span>
@@ -68,13 +69,9 @@ export function PillarsSection() {
               {p.title}
             </h3>
 
-            <p className="font-mono text-xs text-primary-glow mt-1 font-semibold">
-              {p.subtitle}
-            </p>
+            <p className="font-mono text-xs text-primary-glow mt-1 font-semibold">{p.subtitle}</p>
 
-            <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
-              {p.description}
-            </p>
+            <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{p.description}</p>
           </div>
 
           <div className="mt-6 pt-4 border-t border-border/40 flex flex-wrap gap-2">

@@ -4,13 +4,7 @@ import { formatEventDate } from "@/data/events";
 import { cn } from "@/lib/utils";
 import { useCursorGlow } from "@/lib/motion";
 
-export function EventCard({
-  event,
-  index = 0,
-}: {
-  event: ClubEvent;
-  index?: number;
-}) {
+export function EventCard({ event, index = 0 }: { event: ClubEvent; index?: number }) {
   const glowRef = useCursorGlow<HTMLElement>();
 
   return (
