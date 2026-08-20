@@ -6,7 +6,7 @@ export function Logo({ className }: { className?: string }) {
 
   return (
     <img
-      src={theme === "light" ? "/images/branding/techfusionlogolight.png" : "/images/branding/techfusionlogo.png"}
+      src={theme === "light" ? "/images/branding/techfusionlogolight.webp" : "/images/branding/techfusionlogo.webp"}
       alt="Tech Fusion Club Logo"
       className={cn("h-10 w-auto object-contain transition-all duration-300", className)}
     />
