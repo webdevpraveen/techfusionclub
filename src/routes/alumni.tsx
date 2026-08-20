@@ -10,19 +10,28 @@ import { GlowCard } from "@/components/site/GlowCard";
 export const Route = createFileRoute("/alumni")({
   head: () => ({
     meta: [
-      { title: "Alumni — Tech Fusion Club" },
+      { title: "Alumni Network | Tech Fusion Club (TFC) SRMU" },
       {
         name: "description",
-        content: "Our pride: the past leaders and members who built Tech Fusion Club.",
+        content: "Explore the successful alumni network of Tech Fusion Club (TFC) at SRMU. Past leaders, members, and tech professionals who built Viveka and the club's legacy alongside Praveen Singh (webdevpraveen).",
       },
-      { property: "og:title", content: "Alumni — Tech Fusion Club" },
+      {
+        name: "keywords",
+        content: "Tech fusion club, tfc srmu, viveka, srmu, club, webdevpraveen, praveen singh srmu, tfc alumni, srmu alumni",
+      },
+      { property: "og:title", content: "Alumni Network | Tech Fusion Club (TFC) SRMU" },
       {
         property: "og:description",
-        content: "Our pride: the past leaders and members who built Tech Fusion Club.",
+        content: "Explore the successful alumni network of Tech Fusion Club (TFC) at SRMU. Past leaders who built Viveka.",
       },
-      { property: "og:url", content: "/alumni" },
+      { property: "og:url", content: "https://techfusionclub.vercel.app/alumni" },
+      { name: "twitter:title", content: "Alumni | Tech Fusion Club SRMU" },
+      {
+        name: "twitter:description",
+        content: "Explore the successful alumni network of Tech Fusion Club (TFC) at SRMU. Past leaders who built Viveka.",
+      },
     ],
-    links: [{ rel: "canonical", href: "/alumni" }],
+    links: [{ rel: "canonical", href: "https://techfusionclub.vercel.app/alumni" }],
   }),
   component: Alumni,
 });

@@ -7,20 +7,29 @@ import { Linkedin, Sparkles, ShieldCheck, Award, GraduationCap, Building2, Users
 export const Route = createFileRoute("/governance")({
   head: () => ({
     meta: [
-      { title: "Governance & Organizers — Tech Fusion Club & SRMU" },
+      { title: "Governance | Tech Fusion Club (TFC) SRMU" },
       {
         name: "description",
         content:
-          "Meet the visionary patrons, registrar, and faculty coordinators governing Tech Fusion Club at Shri Ramswaroop Memorial University (SRMU).",
+          "Meet the visionary patrons, registrar, and faculty coordinators governing Tech Fusion Club (TFC) at Shri Ramswaroop Memorial University (SRMU). Powering Viveka fest and tech communities.",
       },
-      { property: "og:title", content: "Governance & Organizers — Tech Fusion Club & SRMU" },
+      {
+        name: "keywords",
+        content: "Tech fusion club, tfc srmu, viveka, srmu, club, webdevpraveen, praveen singh srmu, tfc governance, srmu faculty",
+      },
+      { property: "og:title", content: "Governance | Tech Fusion Club (TFC) SRMU" },
       {
         property: "og:description",
-        content: "Chief Patrons, Vice Chancellor, Registrar, and Faculty Advisory Council.",
+        content: "Meet the visionary patrons, registrar, and faculty coordinators governing Tech Fusion Club (TFC) at SRMU.",
       },
-      { property: "og:url", content: "/governance" },
+      { property: "og:url", content: "https://techfusionclub.vercel.app/governance" },
+      { name: "twitter:title", content: "Governance | Tech Fusion Club SRMU" },
+      {
+        name: "twitter:description",
+        content: "Meet the visionary patrons, registrar, and faculty coordinators governing Tech Fusion Club (TFC) at SRMU.",
+      },
     ],
-    links: [{ rel: "canonical", href: "/governance" }],
+    links: [{ rel: "canonical", href: "https://techfusionclub.vercel.app/governance" }],
   }),
   component: Governance,
 });

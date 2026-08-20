@@ -9,17 +9,23 @@ import { Section } from "@/components/site/Section";
 export const Route = createFileRoute("/gallery")({
   head: () => ({
     meta: [
-      { title: "Gallery — Tech Fusion Club" },
+      { title: "Event Gallery | Tech Fusion Club (TFC) SRMU" },
       {
         name: "description",
         content:
-          "Photos from Tech Fusion Club workshops, hackathons and the FusionX fest, organised by year and event.",
+          "Photos from Tech Fusion Club (TFC) workshops, engineering hackathons, and the Viveka fest at SRMU. WebDevPraveen and the tech community in action.",
       },
-      { property: "og:title", content: "Gallery — Tech Fusion Club" },
-      { property: "og:description", content: "Event photography from across the club's years." },
-      { property: "og:url", content: "/gallery" },
+      {
+        name: "keywords",
+        content: "Tech fusion club, tfc srmu, viveka, srmu, club, webdevpraveen, praveen singh srmu, tfc gallery, srmu tech events",
+      },
+      { property: "og:title", content: "Event Gallery | Tech Fusion Club (TFC) SRMU" },
+      { property: "og:description", content: "Photos from Tech Fusion Club (TFC) workshops and the Viveka fest." },
+      { property: "og:url", content: "https://techfusionclub.vercel.app/gallery" },
+      { name: "twitter:title", content: "Event Gallery | Tech Fusion Club SRMU" },
+      { name: "twitter:description", content: "Photos from Tech Fusion Club (TFC) workshops and the Viveka fest." },
     ],
-    links: [{ rel: "canonical", href: "/gallery" }],
+    links: [{ rel: "canonical", href: "https://techfusionclub.vercel.app/gallery" }],
   }),
   component: Gallery,
 });

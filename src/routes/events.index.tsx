@@ -9,20 +9,29 @@ import { CTABanner } from "@/components/site/CTABanner";
 export const Route = createFileRoute("/events/")({
   head: () => ({
     meta: [
-      { title: "Events — Tech Fusion Club" },
+      { title: "Events & Hackathons | Tech Fusion Club (TFC) SRMU" },
       {
         name: "description",
         content:
-          "Workshops, hackathons, seminars and competitions run by Tech Fusion Club — filter every event by year and category.",
+          "Join technical workshops, engineering hackathons, and Viveka fest by Tech Fusion Club (TFC) at SRMU. Web development, AI/ML coding events hosted by Praveen Singh (webdevpraveen).",
       },
-      { property: "og:title", content: "Events — Tech Fusion Club" },
+      {
+        name: "keywords",
+        content: "Tech fusion club, tfc srmu, viveka, srmu, club, webdevpraveen, praveen singh srmu, tech events, hackathon srmu, coding workshops",
+      },
+      { property: "og:title", content: "Events & Hackathons | Tech Fusion Club SRMU" },
       {
         property: "og:description",
-        content: "Every workshop, hackathon, seminar and competition the club has run.",
+        content: "Join technical workshops, engineering hackathons, and Viveka fest by Tech Fusion Club (TFC) at SRMU.",
       },
-      { property: "og:url", content: "/events" },
+      { property: "og:url", content: "https://techfusionclub.vercel.app/events" },
+      { name: "twitter:title", content: "Tech Fusion Club (TFC) Events" },
+      {
+        name: "twitter:description",
+        content: "Join technical workshops, engineering hackathons, and Viveka fest by Tech Fusion Club (TFC) at SRMU.",
+      },
     ],
-    links: [{ rel: "canonical", href: "/events" }],
+    links: [{ rel: "canonical", href: "https://techfusionclub.vercel.app/events" }],
   }),
   component: Events,
 });

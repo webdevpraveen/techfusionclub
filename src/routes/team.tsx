@@ -9,20 +9,29 @@ import { CTABanner } from "@/components/site/CTABanner";
 export const Route = createFileRoute("/team")({
   head: () => ({
     meta: [
-      { title: "Team — Tech Fusion Club" },
+      { title: "Core Team | Tech Fusion Club (TFC) SRMU | WebDevPraveen" },
       {
         name: "description",
         content:
-          "Meet the Tech Fusion Club team hierarchy: Faculty Coordinators, General Secretaries, Joint Secretaries, Department Heads, and Core Team members.",
+          "Meet the core team of Tech Fusion Club (TFC) at SRMU. Faculty Coordinators, General Secretaries, and department heads driving Viveka fest and tech events. Founded by Praveen Singh (webdevpraveen).",
       },
-      { property: "og:title", content: "Team — Tech Fusion Club" },
+      {
+        name: "keywords",
+        content: "Tech fusion club, tfc srmu, viveka, srmu, club, webdevpraveen, praveen singh srmu, tech fusion team, coding club leaders",
+      },
+      { property: "og:title", content: "Core Team | Tech Fusion Club (TFC) SRMU" },
       {
         property: "og:description",
-        content: "Faculty Coordinators, General Secretaries, Joint Secretaries, Department Heads, and Core Team members.",
+        content: "Meet the core team of Tech Fusion Club (TFC) at SRMU. Driving Viveka fest and tech events.",
       },
-      { property: "og:url", content: "/team" },
+      { property: "og:url", content: "https://techfusionclub.vercel.app/team" },
+      { name: "twitter:title", content: "Team | Tech Fusion Club (TFC SRMU)" },
+      {
+        name: "twitter:description",
+        content: "Meet the core team of Tech Fusion Club (TFC) at SRMU. Driving Viveka fest and tech events.",
+      },
     ],
-    links: [{ rel: "canonical", href: "/team" }],
+    links: [{ rel: "canonical", href: "https://techfusionclub.vercel.app/team" }],
   }),
   component: Team,
 });

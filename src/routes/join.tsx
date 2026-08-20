@@ -8,20 +8,29 @@ import { Section, SectionHeading } from "@/components/site/Section";
 export const Route = createFileRoute("/join")({
   head: () => ({
     meta: [
-      { title: "Join — Tech Fusion Club" },
+      { title: "Join Tech Fusion Club (TFC) SRMU | Tech Community" },
       {
         name: "description",
         content:
-          "Apply to Tech Fusion Club: pick a domain, meet your mentor and start shipping. Recruitment process, benefits and FAQs.",
+          "Apply to join Tech Fusion Club (TFC) at SRMU. Get mentored, participate in Viveka hackathons, and learn web development with Praveen Singh (webdevpraveen).",
       },
-      { property: "og:title", content: "Join — Tech Fusion Club" },
+      {
+        name: "keywords",
+        content: "Tech fusion club, tfc srmu, viveka, srmu, club, webdevpraveen, praveen singh srmu, join tech club, srmu coding community",
+      },
+      { property: "og:title", content: "Join Tech Fusion Club (TFC) SRMU" },
       {
         property: "og:description",
-        content: "Recruitment process, benefits and the application form.",
+        content: "Apply to join Tech Fusion Club (TFC) at SRMU. Participate in Viveka hackathons.",
       },
-      { property: "og:url", content: "/join" },
+      { property: "og:url", content: "https://techfusionclub.vercel.app/join" },
+      { name: "twitter:title", content: "Join Tech Fusion Club SRMU" },
+      {
+        name: "twitter:description",
+        content: "Apply to join Tech Fusion Club (TFC) at SRMU. Participate in Viveka hackathons.",
+      },
     ],
-    links: [{ rel: "canonical", href: "/join" }],
+    links: [{ rel: "canonical", href: "https://techfusionclub.vercel.app/join" }],
   }),
   component: Join,
 });

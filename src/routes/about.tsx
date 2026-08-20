@@ -9,20 +9,29 @@ import { Building2, Code2, GraduationCap, ExternalLink, Award, Sparkles, BookOpe
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About — Tech Fusion Club & SRMU" },
+      { title: "About Tech Fusion Club (TFC) | SRMU Coding Club by WebDevPraveen" },
       {
         name: "description",
         content:
-          "Discover Tech Fusion Club and Shri Ramswaroop Memorial University (SRMU). Learn about our technical ecosystem, university legacy, core values, and faculty mentorship.",
+          "Discover Tech Fusion Club (TFC) at Shri Ramswaroop Memorial University (SRMU). Founded by Praveen Singh (webdevpraveen), we host Viveka fest, hackathons, and coding events.",
       },
-      { property: "og:title", content: "About — Tech Fusion Club & SRMU" },
+      {
+        name: "keywords",
+        content: "Tech fusion club, tfc srmu, viveka, srmu, club, webdevpraveen, praveen singh srmu, coding club srmu, tech fusion srmu",
+      },
+      { property: "og:title", content: "About Tech Fusion Club (TFC) | SRMU Coding Club" },
       {
         property: "og:description",
-        content: "Mission, history, SRMU university profile, domain ladders, and values.",
+        content: "Discover Tech Fusion Club (TFC) at Shri Ramswaroop Memorial University (SRMU). Founded by Praveen Singh (webdevpraveen), we host Viveka fest, hackathons, and coding events.",
       },
-      { property: "og:url", content: "/about" },
+      { property: "og:url", content: "https://techfusionclub.vercel.app/about" },
+      { name: "twitter:title", content: "About Tech Fusion Club (TFC SRMU)" },
+      {
+        name: "twitter:description",
+        content: "Discover Tech Fusion Club (TFC) at SRMU. Founded by Praveen Singh (webdevpraveen), we host Viveka fest and hackathons.",
+      },
     ],
-    links: [{ rel: "canonical", href: "/about" }],
+    links: [{ rel: "canonical", href: "https://techfusionclub.vercel.app/about" }],
   }),
   component: About,
 });

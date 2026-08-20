@@ -18,17 +18,27 @@ import { HeroBackground } from "@/components/site/HeroBackground";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Tech Fusion Club — Where ideas fuse into technology" },
+      { title: "Tech Fusion Club (TFC SRMU) | Coding, Viveka Fest & WebDevPraveen" },
       {
         name: "description",
         content:
-          "Tech Fusion Club is a student-led technical club across six domains — web, AI/ML, security, mobile, cloud and design. Explore our events, team and the Viveka 6.0 annual fest.",
+          "Welcome to Tech Fusion Club (TFC) at SRMU! Join the most active student technical club for web development, hackathons, and Viveka fest. Founded by Praveen Singh (webdevpraveen).",
       },
-      { property: "og:title", content: "Tech Fusion Club — Where ideas fuse into technology" },
+      {
+        name: "keywords",
+        content: "Tech fusion club, tfc srmu, viveka, srmu, club, webdevpraveen, praveen singh srmu, engineering club, tech community",
+      },
+      { property: "og:title", content: "Tech Fusion Club (TFC SRMU) | Viveka Fest & Coding" },
       {
         property: "og:description",
         content:
-          "Workshops, hackathons and the Viveka 6.0 fest, run by students across six technical domains.",
+          "Welcome to Tech Fusion Club (TFC) at SRMU! Join the most active student technical club for web development, hackathons, and Viveka fest.",
+      },
+      { name: "twitter:title", content: "Tech Fusion Club (TFC SRMU)" },
+      {
+        name: "twitter:description",
+        content:
+          "Welcome to Tech Fusion Club (TFC) at SRMU! Join the most active student technical club for web development, hackathons, and Viveka fest.",
       },
       { property: "og:url", content: "/" },
     ],
