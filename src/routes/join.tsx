@@ -90,9 +90,20 @@ function Join() {
 
             <div className="mt-8 rounded-2xl border border-primary/40 bg-primary/10 p-6">
               <p className="font-display text-lg font-bold">Directions to the Club</p>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                SRMU me pahuchne ke baad <strong>B1 Block</strong> me fir <strong>3rd Floor</strong> fir <strong>310-A room number</strong>.
-              </p>
+              <ul className="mt-4 space-y-3 text-sm leading-relaxed text-muted-foreground">
+                <li className="flex items-center gap-3">
+                  <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-primary/20 text-xs font-bold text-primary">1</span>
+                  <span>Enter the <strong>SRMU Campus</strong> and head towards the <strong>B1 Block</strong>.</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-primary/20 text-xs font-bold text-primary">2</span>
+                  <span>Make your way up to the <strong>3rd Floor</strong>.</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-primary/20 text-xs font-bold text-primary">3</span>
+                  <span>You'll find us in <strong>Room 310-A</strong>.</span>
+                </li>
+              </ul>
             </div>
 
             <div className="mt-8 overflow-hidden rounded-2xl">
