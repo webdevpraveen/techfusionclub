@@ -9,7 +9,7 @@ import { CTABanner } from "@/components/site/CTABanner";
 export const Route = createFileRoute("/team")({
   head: () => ({
     meta: [
-      { title: "Core Team | Tech Fusion Club (TFC) SRMU | WebDevPraveen" },
+      { title: "Core Team | Tech Fusion Club (TFC) SRMU" },
       {
         name: "description",
         content:
@@ -71,8 +71,34 @@ function Team() {
               </p>
             </Reveal>
             {(() => {
-              const tfcMembers = people.filter((m) => !m.club || m.club === "TFC");
-              const esportsMembers = people.filter((m) => m.club === "Esports");
+              const isEsports = (m: typeof people[0]) =>
+                m.club === "Esports" ||
+                m.domain.toLowerCase().includes("e-sports") ||
+                m.domain.toLowerCase().includes("esport");
+
+              const departmentOrder = [
+                "Treasurer",
+                "Documentation",
+                "Technical",
+                "Management",
+                "Creative",
+                "Media",
+              ];
+
+              const getDeptIndex = (m: typeof people[0]) => {
+                const d = m.designation;
+                const idx = departmentOrder.findIndex((dept) => d.includes(dept));
+                return idx === -1 ? 999 : idx; // If not found, put at the end
+              };
+
+              // Standard grouping for all tiers, with sorting applied
+              const tfcMembers = people
+                .filter((m) => !isEsports(m))
+                .sort((a, b) => getDeptIndex(a) - getDeptIndex(b));
+
+              const esportsMembers = people
+                .filter((m) => isEsports(m))
+                .sort((a, b) => getDeptIndex(a) - getDeptIndex(b));
 
               return (
                 <div className="mt-8 grid gap-12">
