@@ -16,6 +16,7 @@ export type Member = {
   bio: string;
   photo: string;
   accessCode: string;
+  club?: "TFC" | "Esports";
   socials: {
     linkedin?: string;
     github?: string;

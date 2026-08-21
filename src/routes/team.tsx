@@ -70,13 +70,44 @@ function Team() {
                 {tierMeta[tier].description}
               </p>
             </Reveal>
-            <ul className={`mt-8 grid gap-5 ${cols}`}>
-              {people.map((m, i) => (
-                <li key={m.id}>
-                  <MemberCard member={m} size={size} index={i} />
-                </li>
-              ))}
-            </ul>
+            {(() => {
+              const tfcMembers = people.filter((m) => !m.club || m.club === "TFC");
+              const esportsMembers = people.filter((m) => m.club === "Esports");
+
+              return (
+                <div className="mt-8 grid gap-12">
+                  {tfcMembers.length > 0 && (
+                    <div className="space-y-5">
+                      <h3 className="font-display text-lg font-semibold tracking-wide text-primary">
+                        Tech Fusion Club
+                      </h3>
+                      <ul className={`grid gap-5 ${cols}`}>
+                        {tfcMembers.map((m, i) => (
+                          <li key={m.id}>
+                            <MemberCard member={m} size={size} index={i} />
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  {esportsMembers.length > 0 && (
+                    <div className="space-y-5">
+                      <h3 className="font-display text-lg font-semibold tracking-wide text-primary">
+                        TFC Esports Club
+                      </h3>
+                      <ul className={`grid gap-5 ${cols}`}>
+                        {esportsMembers.map((m, i) => (
+                          <li key={m.id}>
+                            <MemberCard member={m} size={size} index={i} />
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              );
+            })()}
           </Section>
         );
       })}
