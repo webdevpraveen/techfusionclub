@@ -4,6 +4,7 @@ import type { Member } from "@/data/members";
 import { club } from "@/data/club";
 import { cn } from "@/lib/utils";
 import { useCursorGlow } from "@/lib/motion";
+import { useTheme } from "@/lib/theme";
 
 
 const socialIcons = {
@@ -34,6 +35,10 @@ export function MemberCard({
   size?: "lg" | "md" | "sm";
   index?: number;
 }) {
+  const { theme } = useTheme();
+  const isLight = theme === "light";
+  const logoSrc = isLight ? "/images/branding/techfusionlogolight-sm.webp" : "/images/branding/techfusionlogo-sm.webp";
+
   const [flipped, setFlipped] = useState(false);
   const backId = useId();
 
@@ -119,10 +124,8 @@ export function MemberCard({
                     Member access badge
                   </p>
                 </div>
-                <div className="grid size-10 shrink-0 place-items-center rounded-lg border border-primary/40 bg-primary/10">
-                  <span className="font-display text-xs font-bold text-primary-glow">
-                    {club.initials}
-                  </span>
+                <div className="grid size-10 shrink-0 place-items-center rounded-lg border border-primary/40 bg-primary/10 p-1.5 overflow-hidden">
+                  <img src={logoSrc} alt="TFC Logo" className="size-full object-contain" />
                 </div>
               </div>
 
@@ -133,14 +136,8 @@ export function MemberCard({
               </h3>
               <p className="mt-1 text-sm font-medium text-primary-glow">{member.designation}</p>
 
-              <dl className="mt-4 grid grid-cols-2 gap-3 text-xs">
+              <dl className="mt-4 grid gap-3 text-xs">
                 <div>
-                  <dt className="font-mono text-[9px] uppercase tracking-[0.16em] text-muted-foreground">
-                    Domain
-                  </dt>
-                  <dd className="mt-1 font-medium">{member.domain}</dd>
-                </div>
-                <div className="col-span-2">
                   <dt className="font-mono text-[9px] uppercase tracking-[0.16em] text-muted-foreground">
                     Branch
                   </dt>
@@ -154,19 +151,28 @@ export function MemberCard({
 
               <div className="mt-auto pt-5">
                 <div className="flex flex-wrap items-center gap-2">
-                  {Object.entries(member.socials).map(([key, href]) => {
+                  {Object.keys(socialIcons).map((key) => {
                     const Icon = socialIcons[key as keyof typeof socialIcons];
-                    if (!Icon || !href) return null;
+                    const href = member.socials?.[key as keyof typeof member.socials] || "#";
+                    
                     return (
                       <a
                         key={key}
                         href={href}
-                        target="_blank"
+                        target={href === "#" ? undefined : "_blank"}
                         rel="noreferrer noopener"
                         tabIndex={flipped ? 0 : -1}
                         aria-label={`${member.name} on ${socialLabels[key as keyof typeof socialLabels]}`}
-                        onClick={(e) => e.stopPropagation()}
-                        className="grid size-9 place-items-center rounded-full border border-border bg-surface text-muted-foreground transition-colors hover:border-primary/50 hover:text-primary-glow"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          if (href === "#") e.preventDefault();
+                        }}
+                        className={cn(
+                          "grid size-9 place-items-center rounded-full border transition-colors",
+                          href !== "#" 
+                            ? "border-border bg-surface text-muted-foreground hover:border-primary/50 hover:text-primary-glow"
+                            : "border-transparent bg-surface/50 text-muted-foreground/30 cursor-not-allowed"
+                        )}
                       >
                         <Icon className="size-4" />
                       </a>
@@ -174,15 +180,6 @@ export function MemberCard({
                   })}
                   <span className="ml-auto inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
                     <RotateCcw className="size-3" /> Flip back
-                  </span>
-                </div>
-                <div className="mt-4 flex items-center gap-3">
-                  <div
-                    aria-hidden="true"
-                    className="h-6 flex-1 rounded-sm bg-[repeating-linear-gradient(90deg,currentColor_0_2px,transparent_2px_5px)] text-primary-glow/35"
-                  />
-                  <span className="font-mono text-[10px] tracking-[0.12em] text-muted-foreground">
-                    {member.accessCode}
                   </span>
                 </div>
               </div>

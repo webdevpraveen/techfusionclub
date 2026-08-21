@@ -1,8 +1,13 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, Sparkles, Terminal, Shield, Cpu, Code2, Layers, CheckCircle2, Zap } from "lucide-react";
 import { GlowCard } from "@/components/site/GlowCard";
+import { useTheme } from "@/lib/theme";
 
 export function HeroShowcase() {
+  const { theme } = useTheme();
+  const isLight = theme === "light";
+  const logoSrc = isLight ? "/images/branding/techfusionlogolight.png" : "/images/branding/techfusionlogo.png";
+
   return (
     <div className="relative w-full select-none">
       {/* Background Ambient Neon Orb Glows */}
@@ -44,7 +49,7 @@ export function HeroShowcase() {
           {/* Top-Right Floating Glass Badge: Logo & Identity */}
           <div className="absolute top-3 right-3 sm:top-4 sm:right-4 glass-strong flex items-center gap-3 rounded-2xl p-2.5 sm:p-3 border border-primary-glow/40 shadow-2xl backdrop-blur-xl animate-float">
             <img
-              src="/images/branding/techfusionlogo.png"
+              src={logoSrc}
               alt="Logo"
               className="size-8 sm:size-10 object-contain drop-shadow-[0_0_8px_rgba(217,72,15,0.6)]"
             />

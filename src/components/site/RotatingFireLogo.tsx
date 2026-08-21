@@ -1,6 +1,11 @@
 import { cn } from "@/lib/utils";
+import { useTheme } from "@/lib/theme";
 
 export function RotatingFireLogo({ className }: { className?: string }) {
+  const { theme } = useTheme();
+  const isLight = theme === "light";
+  const logoSrc = isLight ? "/images/branding/techfusionlogolight.png" : "/images/branding/techfusionlogo.png";
+
   return (
     <div className={cn("relative flex items-center justify-center select-none py-8 sm:py-12 overflow-visible", className)}>
       {/* 1. Deep Radial Heat & Smoke Background Glow */}
@@ -95,7 +100,7 @@ export function RotatingFireLogo({ className }: { className?: string }) {
       {/* 4. Main HUGE Logo - Rotating Clockwise in the Middle of Fire Flames */}
       <div className="relative z-20 size-72 sm:size-[24rem] animate-[spin_12s_linear_infinite] drop-shadow-[0_0_40px_rgba(251,146,60,1)]">
         <img
-          src="/images/branding/techfusionlogo.png"
+          src={logoSrc}
           alt="Tech Fusion Real Fire Rotating Logo"
           className="size-full object-contain filter drop-shadow-[0_0_30px_rgba(249,115,22,1)] transition-transform duration-300 hover:scale-105"
         />
