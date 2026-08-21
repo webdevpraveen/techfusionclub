@@ -9,7 +9,7 @@ import { Building2, Code2, GraduationCap, ExternalLink, Award, Sparkles, BookOpe
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About Tech Fusion Club (TFC) | SRMU Coding Club by WebDevPraveen" },
+      { title: "About Tech Fusion Club (TFC) | SRMU Coding Club" },
       {
         name: "description",
         content:

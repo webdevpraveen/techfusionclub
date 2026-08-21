@@ -18,7 +18,7 @@ import { HeroBackground } from "@/components/site/HeroBackground";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Tech Fusion Club (TFC SRMU) | Coding, Viveka Fest & WebDevPraveen" },
+      { title: "Tech Fusion Club (TFC SRMU) | Coding & Viveka Fest" },
       {
         name: "description",
         content:
