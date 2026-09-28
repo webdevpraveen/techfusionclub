@@ -109,7 +109,6 @@ export function useCursorGlow<T extends HTMLElement = HTMLDivElement>() {
   return ref;
 }
 
-
 export function useCountdown(iso: string) {
   const target = new Date(iso).getTime();
   const [remaining, setRemaining] = useState<number | null>(null);
@@ -130,4 +129,111 @@ export function useCountdown(iso: string) {
     minutes: Math.floor((s % 3600) / 60),
     seconds: s % 60,
   };
+}
+
+/** False on the server and when the reader asked for less motion. */
+function canAnimate() {
+  if (typeof window === "undefined") return false;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return false;
+  return true;
+}
+
+/**
+ * Tilt + cursor glow in one pointer handler, so a card that wants both effects
+ * doesn't need two refs fighting over the same element. Writes --tilt-x /
+ * --tilt-y for the `tilt-card` utility and --mx / --my for `cursor-glow`.
+ * Desktop pointers only.
+ */
+export function useTiltGlow<T extends HTMLElement = HTMLDivElement>(max = 6) {
+  const ref = useRef<T | null>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (
+      typeof window === "undefined" ||
+      !window.matchMedia("(hover: hover) and (pointer: fine)").matches ||
+      !canAnimate()
+    ) {
+      return;
+    }
+
+    let frame = 0;
+    let tiltX = 0;
+    let tiltY = 0;
+    let mx = "50%";
+    let my = "50%";
+
+    const write = () => {
+      frame = 0;
+      el.style.setProperty("--tilt-x", `${tiltX.toFixed(2)}deg`);
+      el.style.setProperty("--tilt-y", `${tiltY.toFixed(2)}deg`);
+      el.style.setProperty("--mx", mx);
+      el.style.setProperty("--my", my);
+    };
+
+    const onMove = (e: PointerEvent) => {
+      const rect = el.getBoundingClientRect();
+      const px = (e.clientX - rect.left) / rect.width - 0.5;
+      const py = (e.clientY - rect.top) / rect.height - 0.5;
+      tiltX = -py * max * 2;
+      tiltY = px * max * 2;
+      mx = `${e.clientX - rect.left}px`;
+      my = `${e.clientY - rect.top}px`;
+      if (!frame) frame = requestAnimationFrame(write);
+    };
+
+    const onLeave = () => {
+      tiltX = 0;
+      tiltY = 0;
+      if (frame) cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(write);
+    };
+
+    el.addEventListener("pointermove", onMove);
+    el.addEventListener("pointerleave", onLeave);
+    return () => {
+      if (frame) cancelAnimationFrame(frame);
+      el.removeEventListener("pointermove", onMove);
+      el.removeEventListener("pointerleave", onLeave);
+    };
+  }, [max]);
+
+  return ref;
+}
+
+/**
+ * Vertical parallax as the element crosses the viewport. `speed` is px of
+ * travel per viewport height; negative moves against scroll.
+ */
+export function useParallax<T extends HTMLElement = HTMLDivElement>(speed = 60) {
+  const ref = useRef<T | null>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || !canAnimate()) return;
+
+    let frame = 0;
+    const apply = () => {
+      frame = 0;
+      const rect = el.getBoundingClientRect();
+      const vh = window.innerHeight || 1;
+      // -1 (below fold) → 1 (above fold)
+      const centered = (rect.top + rect.height / 2 - vh / 2) / (vh / 2);
+      el.style.transform = `translate3d(0, ${(centered * speed * -1).toFixed(2)}px, 0)`;
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(apply);
+    };
+    apply();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+    return () => {
+      if (frame) cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [speed]);
+
+  return ref;
 }

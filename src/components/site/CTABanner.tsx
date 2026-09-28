@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { Reveal } from "./Reveal";
+import { RiseText } from "./RiseText";
 
 export function CTABanner({
   eyebrow = "Recruitment",
@@ -19,7 +20,7 @@ export function CTABanner({
           <div className="relative mx-auto max-w-2xl">
             <p className="eyebrow">{eyebrow}</p>
             <h2 className="mt-4 text-balance text-3xl font-bold leading-tight sm:text-4xl lg:text-5xl">
-              {title}
+              <RiseText text={title} step={50} />
             </h2>
             <p className="mt-5 text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
               {body}

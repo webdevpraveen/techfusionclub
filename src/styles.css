@@ -10,7 +10,6 @@
  * All colors are oklch semantic tokens. Never hardcode colors in components.
  */
 
-
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -113,11 +112,8 @@
   --sidebar-border: oklch(0.34 0.024 276 / 55%);
   --sidebar-ring: oklch(0.727 0.176 41);
 
-  --gradient-hero: radial-gradient(
-      120% 90% at 15% 0%,
-      oklch(0.6 0.19 38 / 26%) 0%,
-      transparent 60%
-    ),
+  --gradient-hero:
+    radial-gradient(120% 90% at 15% 0%, oklch(0.6 0.19 38 / 26%) 0%, transparent 60%),
     radial-gradient(100% 80% at 90% 10%, oklch(0.727 0.176 41 / 15%) 0%, transparent 55%);
   --gradient-primary: linear-gradient(
     135deg,
@@ -136,8 +132,8 @@
 
   --shadow-glass: 0 1px 0 0 oklch(1 0 0 / 6%) inset, 0 24px 60px -24px oklch(0.08 0.01 272 / 85%);
   --shadow-glow: 0 0 0 1px oklch(0.6 0.19 38 / 30%), 0 18px 60px -18px oklch(0.6 0.19 38 / 50%);
-  --shadow-accent-glow: 0 0 0 1px oklch(0.727 0.176 41 / 35%),
-    0 18px 60px -18px oklch(0.727 0.176 41 / 45%);
+  --shadow-accent-glow:
+    0 0 0 1px oklch(0.727 0.176 41 / 35%), 0 18px 60px -18px oklch(0.727 0.176 41 / 45%);
 }
 
 .dark {
@@ -185,6 +181,9 @@ html.light {
 
   html {
     scroll-behavior: smooth;
+    /* Modal scroll-lock hides the root scrollbar; a stable gutter keeps the
+       initial containing block (and the fixed nav) from jumping 15px sideways. */
+    scrollbar-gutter: stable;
   }
 
   body {
@@ -217,7 +216,6 @@ html.light {
     outline-offset: 2px;
   }
 }
-
 
 /* ---------- Utilities ---------- */
 
@@ -369,7 +367,6 @@ html.light {
   }
 }
 
-
 @utility lift {
   transition:
     transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
@@ -389,7 +386,168 @@ html.light {
   transform-style: preserve-3d;
 }
 
+/* Pointer-reactive 3D tilt. --tilt-x / --tilt-y come from useTilt (desktop only). */
+@utility tilt-scene {
+  perspective: 1100px;
+}
+
+@utility tilt-card {
+  transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) translateZ(0);
+  transform-style: preserve-3d;
+  transition:
+    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.4s ease,
+    border-color 0.3s ease;
+  will-change: transform;
+}
+
+@utility ken-burns {
+  animation: fusion-kenburns var(--kb-duration, 22s) ease-in-out infinite alternate;
+}
+
+/* Loading placeholder: a sheen sweeping across a muted surface. */
+@utility shimmer {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--muted);
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background-image: linear-gradient(90deg, transparent, oklch(0.727 0.176 41 / 12%), transparent);
+    animation: fusion-shimmer 1.5s ease-in-out infinite;
+  }
+}
+
+/* Scroll-lit statement text: words dim until the reader reaches them. */
+@utility lit-word {
+  color: var(--color-muted-foreground);
+  opacity: 0.32;
+  transition:
+    color 0.45s ease,
+    opacity 0.45s ease,
+    text-shadow 0.45s ease;
+}
+
+.lit-word.is-lit {
+  color: var(--color-foreground);
+  opacity: 1;
+  text-shadow: 0 0 28px oklch(0.727 0.176 41 / 28%);
+}
+
+@utility animate-pop-in {
+  animation: fusion-pop-in 0.42s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@utility animate-fade-in {
+  animation: fusion-fade-in 0.4s ease-out both;
+}
+
+@utility sheen-hover {
+  position: relative;
+  overflow: hidden;
+  &::after {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    left: 0;
+    width: 45%;
+    background: linear-gradient(100deg, transparent, oklch(1 0 0 / 12%) 45%, transparent);
+    transform: translateX(-160%) skewX(-14deg);
+    pointer-events: none;
+  }
+  &:hover::after {
+    animation: fusion-sheen 0.95s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
+
 /* ---------- Motion ---------- */
+
+@keyframes fusion-kenburns {
+  from {
+    transform: scale(1.02) translate(0, 0);
+  }
+  to {
+    transform: scale(1.14) translate(-1.8%, -1.4%);
+  }
+}
+
+@keyframes fusion-shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes fusion-pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(1.25rem) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fusion-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fusion-drift {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(3%, -5%) scale(1.06);
+  }
+  66% {
+    transform: translate(-4%, 3%) scale(0.96);
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+@keyframes fusion-scrub-rise {
+  from {
+    opacity: 0;
+    transform: translateY(3rem) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fusion-scrub-line {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes fusion-tick {
+  from {
+    opacity: 0;
+    transform: translateY(0.5em);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@utility animate-tick {
+  animation: fusion-tick 0.34s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
 
 @keyframes fusion-rise {
   from {
@@ -542,6 +700,167 @@ html.light {
   animation: fusion-power-on 0.9s ease-out both;
 }
 
+@utility animate-drift {
+  animation: fusion-drift var(--drift-duration, 24s) ease-in-out infinite;
+}
+
+/* ---------- Text rising into view ---------- */
+
+@utility rise-word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.85em);
+  filter: blur(7px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.7s ease;
+  transition-delay: var(--rise-delay, 0ms);
+}
+
+/* Word-by-word blur-rise. `is-visible` comes from useReveal on `.rise`. */
+.rise.is-visible .rise-word {
+  opacity: 1;
+  transform: none;
+  filter: blur(0);
+}
+
+/* ---------- Pointer-reactive CTA sparks ---------- */
+
+@utility float-motes {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+@utility float-mote {
+  position: absolute;
+  bottom: -0.35rem;
+  left: var(--mote-left, 50%);
+  width: 5px;
+  height: 5px;
+  border-radius: 9999px;
+  background-color: var(--color-primary-glow);
+  box-shadow: 0 0 10px var(--color-primary-glow);
+  opacity: 0;
+}
+
+@keyframes fusion-mote-lift {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.5);
+  }
+  18% {
+    opacity: 0.85;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--mote-drift, 0px), -2.8rem) scale(1.15);
+  }
+}
+
+.group:hover .float-motes {
+  opacity: 1;
+}
+
+.group:hover .float-mote {
+  animation: fusion-mote-lift 1.9s ease-out infinite;
+  animation-delay: var(--mote-delay, 0s);
+}
+
+/* ---------- Box-in-box corner treatment ---------- */
+
+@utility corner-frame {
+  position: absolute;
+  inset: 0.75rem;
+  border-radius: 1.55rem;
+  pointer-events: none;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: conic-gradient(
+      from var(--fusion-angle, 0deg),
+      oklch(0.6 0.19 38 / 0%) 0deg,
+      oklch(0.727 0.176 41 / 85%) 24deg,
+      oklch(0.92 0.07 58 / 95%) 38deg,
+      oklch(0.6 0.19 38 / 0%) 58deg,
+      oklch(0.6 0.19 38 / 0%) 360deg
+    );
+    mask:
+      linear-gradient(#000 0 0) content-box exclude,
+      linear-gradient(#000 0 0);
+    animation: fusion-border-spin 9s linear infinite reverse;
+    pointer-events: none;
+  }
+}
+
+@utility corner-bracket {
+  position: absolute;
+  width: 1.35rem;
+  height: 1.35rem;
+  border-color: color-mix(in oklab, var(--color-primary-glow) 70%, transparent);
+}
+
+/* ---------- Hover lift ---------- */
+
+@utility hover-float {
+  transition:
+    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.5s ease;
+  will-change: transform;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hover-float:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-glow);
+  }
+}
+
+/* ---------- Scroll-driven (native view timelines, progressive enhancement) ---------- */
+
+@keyframes fusion-scrub-fade {
+  from {
+    opacity: 0;
+    transform: translateY(1.6rem);
+    filter: blur(5px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .scrub-rise {
+      animation: fusion-scrub-rise linear both;
+      animation-timeline: view();
+      animation-range: entry 4% cover 30%;
+    }
+
+    .scrub-line {
+      transform-origin: left center;
+      animation: fusion-scrub-line linear both;
+      animation-timeline: view();
+      animation-range: entry 30% cover 55%;
+    }
+
+    .scrub-fade {
+      animation: fusion-scrub-fade linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 26%;
+    }
+  }
+}
 
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -554,10 +873,39 @@ html.light {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
+    transition-delay: 0ms !important;
   }
 
-  .reveal {
+  .reveal,
+  .lit-word {
     opacity: 1;
+    transform: none;
+    color: var(--color-foreground);
+  }
+
+  .rise-word {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+
+  .scrub-rise,
+  .scrub-line,
+  .scrub-fade {
+    animation: none !important;
+    animation-timeline: none !important;
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+
+  .float-mote,
+  .corner-frame::before {
+    animation: none !important;
+    opacity: 0;
+  }
+
+  .hover-float:hover {
     transform: none;
   }
 }

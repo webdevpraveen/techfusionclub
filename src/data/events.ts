@@ -20,7 +20,7 @@ export type ClubEvent = {
   status: "past" | "upcoming";
 };
 
-export const events: ClubEvent[] = [
+const rawEvents: ClubEvent[] = [
   {
     slug: "viveka-6-0",
     title: "Viveka 6.0 — Annual Tech Fest 2027",
@@ -71,7 +71,11 @@ export const events: ClubEvent[] = [
       "/images/events/2026/ship-it-weekend/01.jpg",
       "/images/events/2026/ship-it-weekend/02.jpg",
     ],
-    highlights: ["Official SIH University Screening", "Mentorship by past SIH Winners", "15 Teams nominated"],
+    highlights: [
+      "Official SIH University Screening",
+      "Mentorship by past SIH Winners",
+      "15 Teams nominated",
+    ],
     status: "upcoming",
   },
   {
@@ -95,7 +99,11 @@ export const events: ClubEvent[] = [
       "/images/events/2026/intro-to-llm-apps/01.jpg",
       "/images/events/2026/intro-to-llm-apps/02.jpg",
     ],
-    highlights: ["Interactive digital installations", "Generative AI Art Competition", "Design Sprint Finals"],
+    highlights: [
+      "Interactive digital installations",
+      "Generative AI Art Competition",
+      "Design Sprint Finals",
+    ],
     status: "upcoming",
   },
   {
@@ -119,7 +127,10 @@ export const events: ClubEvent[] = [
       "/images/events/2026/intro-to-llm-apps/02.jpg",
       "/images/events/2026/intro-to-llm-apps/03.jpg",
     ],
-    highlights: ["128 attendees across four departments", "Every participant left with a deployed repo"],
+    highlights: [
+      "128 attendees across four departments",
+      "Every participant left with a deployed repo",
+    ],
     status: "past",
   },
   {
@@ -129,7 +140,8 @@ export const events: ClubEvent[] = [
     year: 2026,
     date: "2026-02-08",
     venue: "Networking Lab",
-    summary: "An eight-hour jeopardy-style capture-the-flag across web, forensics and crypto tracks.",
+    summary:
+      "An eight-hour jeopardy-style capture-the-flag across web, forensics and crypto tracks.",
     description: [
       "Eighteen challenges spanning web exploitation, digital forensics, reverse engineering and classical cryptography, written entirely by the Cybersecurity domain.",
       "A beginner track ran in parallel with guided hints so first-year students could score without being flattened by the open board.",
@@ -179,18 +191,35 @@ export const events: ClubEvent[] = [
     winners: [
       { position: "1st", name: "Team Overclock", project: "Campus accessibility mapper" },
       { position: "2nd", name: "Team Latency", project: "Real-time lab equipment tracker" },
-      { position: "3rd", name: "Team Ctrl+Alt+Repeat", project: "Offline-first notes for field work" },
+      {
+        position: "3rd",
+        name: "Team Ctrl+Alt+Repeat",
+        project: "Offline-first notes for field work",
+      },
     ],
     status: "past",
   },
 ];
 
-export const eventCategories: EventCategory[] = [
-  "Workshop",
-  "Hackathon",
-  "Seminar",
-  "Competition",
-];
+/**
+ * `status` in the source data records planning intent, not fact. An event whose
+ * final day has passed must not render as upcoming, so resolve it against today
+ * when the module is read.
+ */
+function resolveStatus(event: ClubEvent): ClubEvent["status"] {
+  if (event.status !== "upcoming") return "past";
+  const startOfToday = new Date();
+  startOfToday.setHours(0, 0, 0, 0);
+  const endsAt = new Date(event.endDate ?? event.date);
+  return +endsAt >= +startOfToday ? "upcoming" : "past";
+}
+
+export const events: ClubEvent[] = rawEvents.map((e) => ({
+  ...e,
+  status: resolveStatus(e),
+}));
+
+export const eventCategories: EventCategory[] = ["Workshop", "Hackathon", "Seminar", "Competition"];
 
 export const eventYears = Array.from(new Set(events.map((e) => e.year))).sort((a, b) => b - a);
 
@@ -206,8 +235,64 @@ export function formatEventDate(event: Pick<ClubEvent, "date" | "endDate">) {
   const start = new Date(event.date);
   if (!event.endDate) return start.toLocaleDateString("en-GB", opts);
   const end = new Date(event.endDate);
-  const sameMonth = start.getMonth() === end.getMonth() && start.getFullYear() === end.getFullYear();
+  const sameMonth =
+    start.getMonth() === end.getMonth() && start.getFullYear() === end.getFullYear();
   return sameMonth
     ? `${start.getDate()}–${end.toLocaleDateString("en-GB", opts)}`
     : `${start.toLocaleDateString("en-GB", opts)} – ${end.toLocaleDateString("en-GB", opts)}`;
 }
+
+const byStartDate = (a: ClubEvent, b: ClubEvent) => +new Date(a.date) - +new Date(b.date);
+
+export const upcomingEvents: ClubEvent[] = events
+  .filter((e) => e.status === "upcoming")
+  .sort(byStartDate);
+
+export const pastEvents: ClubEvent[] = events
+  .filter((e) => e.status === "past")
+  .sort((a, b) => byStartDate(b, a));
+
+/** The next thing on the calendar; falls back to the most recent past event. */
+export const nextEvent: ClubEvent = (upcomingEvents[0] ?? events[0]) as ClubEvent;
+
+export function daysUntil(iso: string) {
+  const start = new Date(iso);
+  const today = new Date();
+  start.setHours(0, 0, 0, 0);
+  today.setHours(0, 0, 0, 0);
+  return Math.round((+start - +today) / 86_400_000);
+}
+
+/** Short humanised distance from now, e.g. "in 3 weeks" or "6 months ago". */
+export function relativeEventLabel(iso: string) {
+  const days = daysUntil(iso);
+  if (days === 0) return "Happens today";
+  if (days === 1) return "Tomorrow";
+  if (days === -1) return "Yesterday";
+
+  const magnitude =
+    days > -14 && days < 14
+      ? { size: Math.abs(days), unit: "day" }
+      : days > -70 && days < 70
+        ? { size: Math.round(Math.abs(days) / 7), unit: "week" }
+        : days > -800 && days < 800
+          ? { size: Math.round(Math.abs(days) / 30), unit: "month" }
+          : { size: Math.round(Math.abs(days) / 365), unit: "year" };
+
+  const plural = magnitude.size === 1 ? "" : "s";
+  const phrase = `${magnitude.size} ${magnitude.unit}${plural}`;
+  return days > 0 ? `Starts in ${phrase}` : `${phrase} ago`;
+}
+
+export const allEventDomains: string[] = Array.from(
+  new Set(events.flatMap((e) => e.domains)),
+).sort();
+
+export const eventStats = {
+  total: events.length,
+  upcoming: upcomingEvents.length,
+  past: pastEvents.length,
+  years: eventYears.length,
+  attendees: events.reduce((sum, e) => sum + (e.attendees ?? 0), 0),
+  domains: allEventDomains.length,
+} as const;

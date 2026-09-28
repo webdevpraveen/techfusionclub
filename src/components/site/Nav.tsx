@@ -45,16 +45,20 @@ export function Nav() {
     >
       <nav
         aria-label="Primary"
-        className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-4 px-5 sm:h-20 sm:px-8"
+        className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-2 px-4 sm:h-20 sm:gap-4 sm:px-8"
       >
         {/* Direct Logo Image + Clean Bold Gradient Heading */}
-        <Link to="/" className="group flex items-center gap-3" onClick={() => setOpen(false)}>
-          <Logo className="h-10 sm:h-12 w-auto transition-transform duration-300 group-hover:scale-105" />
+        <Link
+          to="/"
+          className="group flex items-center gap-3 max-[360px]:gap-2"
+          onClick={() => setOpen(false)}
+        >
+          <Logo className="h-10 w-auto max-[360px]:h-9 sm:h-12 transition-transform duration-300 group-hover:scale-105" />
           <div className="flex flex-col">
-            <span className="font-display text-xl font-extrabold tracking-wider uppercase text-transparent bg-clip-text bg-gradient-to-r from-foreground via-primary-glow to-accent drop-shadow-[0_0_12px_rgba(217,72,15,0.4)] sm:text-2xl">
+            <span className="font-display text-xl font-extrabold tracking-wider uppercase text-transparent bg-clip-text bg-gradient-to-r from-foreground via-primary-glow to-accent drop-shadow-[0_0_12px_rgba(217,72,15,0.4)] max-[360px]:text-base max-[360px]:tracking-wide max-[360px]:whitespace-nowrap sm:text-2xl">
               TECH FUSION
             </span>
-            <span className="font-mono text-[9px] uppercase tracking-[0.35em] text-primary-glow font-bold -mt-1">
+            <span className="font-mono text-[9px] uppercase tracking-[0.35em] text-primary-glow font-bold -mt-1 max-[360px]:tracking-[0.25em]">
               CLUB
             </span>
           </div>
