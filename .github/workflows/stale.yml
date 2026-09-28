@@ -13,7 +13,7 @@ jobs:
   stale:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/stale@v9
+      - uses: actions/stale@v11
         with:
           stale-issue-message: "This issue has been inactive for 30 days. Please comment if it is still relevant, otherwise it will be closed in 7 days."
           stale-pr-message: "This pull request has been inactive for 30 days. We are marking it as stale. If you plan to continue working on this, please leave a comment. Otherwise, it will be closed in 7 days."
