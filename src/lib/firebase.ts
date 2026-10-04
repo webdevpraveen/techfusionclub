@@ -1,7 +1,7 @@
-import { initializeApp, getApps, getApp, FirebaseApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, Auth } from "firebase/auth";
-import { getFirestore, Firestore } from "firebase/firestore";
-import { getStorage, FirebaseStorage } from "firebase/storage";
+import { initializeApp, getApps, getApp, type FirebaseApp } from "firebase/app";
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, type Auth } from "firebase/auth";
+import { getFirestore, type Firestore } from "firebase/firestore";
+import { getStorage, type FirebaseStorage } from "firebase/storage";
 
 const getEnv = (key: string, viteVal?: string) => {
   if (typeof process !== "undefined" && process.env && process.env[key]) {
@@ -14,10 +14,26 @@ const getEnv = (key: string, viteVal?: string) => {
   );
 };
 
+const apiKey = getEnv("VITE_FIREBASE_API_KEY", import.meta.env["VITE_FIREBASE_API_KEY"]);
+const projectId = getEnv("VITE_FIREBASE_PROJECT_ID", import.meta.env["VITE_FIREBASE_PROJECT_ID"]);
+
+/**
+ * Only initialize Firebase if a valid API key and project ID are explicitly configured.
+ * This ensures the public website never crashes or depends on Firebase Auth.
+ */
+export const isFirebaseConfigured = Boolean(
+  apiKey &&
+  apiKey.trim().length > 0 &&
+  apiKey !== "undefined" &&
+  projectId &&
+  projectId.trim().length > 0 &&
+  projectId !== "undefined",
+);
+
 const firebaseConfig = {
-  apiKey: getEnv("VITE_FIREBASE_API_KEY", import.meta.env["VITE_FIREBASE_API_KEY"]),
+  apiKey,
   authDomain: getEnv("VITE_FIREBASE_AUTH_DOMAIN", import.meta.env["VITE_FIREBASE_AUTH_DOMAIN"]),
-  projectId: getEnv("VITE_FIREBASE_PROJECT_ID", import.meta.env["VITE_FIREBASE_PROJECT_ID"]),
+  projectId,
   storageBucket: getEnv(
     "VITE_FIREBASE_STORAGE_BUCKET",
     import.meta.env["VITE_FIREBASE_STORAGE_BUCKET"],
@@ -32,23 +48,35 @@ const firebaseConfig = {
 const isBrowser = typeof window !== "undefined";
 
 let app: FirebaseApp | undefined;
-export let auth: Auth;
-export let db: Firestore;
-export let storage: FirebaseStorage;
-export let googleProvider: GoogleAuthProvider;
+export let auth: Auth | null = null;
+export let db: Firestore | null = null;
+export let storage: FirebaseStorage | null = null;
+export let googleProvider: GoogleAuthProvider | null = null;
 
-if (isBrowser) {
-  // Initialize Firebase ONLY on the client to prevent SSR serverless function timeouts and crashes
-  app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
-  auth = getAuth(app);
-  db = getFirestore(app);
-  storage = getStorage(app);
-  googleProvider = new GoogleAuthProvider();
-  googleProvider.setCustomParameters({ prompt: "select_account" });
+if (isBrowser && isFirebaseConfigured) {
+  try {
+    app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+    auth = getAuth(app);
+    db = getFirestore(app);
+    storage = getStorage(app);
+    googleProvider = new GoogleAuthProvider();
+    googleProvider.setCustomParameters({ prompt: "select_account" });
+  } catch (error) {
+    console.warn("[Firebase] Could not initialize Firebase client:", error);
+    auth = null;
+    db = null;
+    storage = null;
+    googleProvider = null;
+  }
 }
 
 export const signInWithGoogle = async () => {
   if (!isBrowser) return null;
+  if (!auth || !googleProvider) {
+    throw new Error(
+      "Firebase Authentication is not configured. Please add valid Firebase environment variables in .env to use the admin portal.",
+    );
+  }
   try {
     const result = await signInWithPopup(auth, googleProvider);
     return result.user;
@@ -59,7 +87,7 @@ export const signInWithGoogle = async () => {
 };
 
 export const logout = async () => {
-  if (!isBrowser) return;
+  if (!isBrowser || !auth) return;
   try {
     await signOut(auth);
   } catch (error) {

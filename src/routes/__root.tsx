@@ -13,7 +13,9 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { Nav } from "@/components/site/Nav";
 import { Footer } from "@/components/site/Footer";
+import { MobileBottomNav } from "@/components/site/MobileBottomNav";
 import { Toaster } from "sonner";
+import { cn } from "@/lib/utils";
 
 function NotFoundComponent() {
   return (
@@ -40,6 +42,8 @@ function NotFoundComponent() {
 function ErrorComponent({ error, reset }: { error: unknown; reset: () => void }) {
   console.error(error);
   const router = useRouter();
+  const errorMessage =
+    error instanceof Error ? error.message : typeof error === "string" ? error : "";
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -50,6 +54,11 @@ function ErrorComponent({ error, reset }: { error: unknown; reset: () => void })
         <p className="mt-2 text-sm text-muted-foreground">
           Something went wrong on our end. You can try refreshing or head back home.
         </p>
+        {errorMessage && (
+          <p className="mt-3 rounded-lg bg-destructive/10 border border-destructive/20 p-2.5 font-mono text-xs text-destructive text-left break-words">
+            {errorMessage}
+          </p>
+        )}
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <button
             onClick={() => {
@@ -199,11 +208,18 @@ function RootComponent() {
         Skip to content
       </a>
       {!isAdministration && <Nav />}
-      <main id="main" className={!isAdministration ? "pt-16 sm:pt-20" : ""}>
+      <main
+        id="main"
+        className={cn(
+          !isAdministration ? "pt-16 sm:pt-20" : "",
+          !isAdministration && "pb-20 md:pb-0",
+        )}
+      >
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
         <Outlet />
       </main>
       {!isAdministration && <Footer />}
+      {!isAdministration && <MobileBottomNav />}
       <Toaster theme="dark" position="bottom-right" richColors />
     </QueryClientProvider>
   );

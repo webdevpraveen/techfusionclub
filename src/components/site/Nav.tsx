@@ -1,21 +1,9 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Menu, X, Sun, Moon, ExternalLink } from "lucide-react";
+import { Menu, X, ExternalLink } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Logo } from "./Logo";
-
-type NavLink = { to: string; label: string } | { href: string; label: string; external: true };
-
-const links: NavLink[] = [
-  { to: "/", label: "Home" },
-  { to: "/about", label: "About" },
-  { to: "/events", label: "Events" },
-  { to: "/members", label: "Members" },
-  { to: "/alumni", label: "Alumni" },
-  { to: "/gallery", label: "Gallery" },
-  { to: "/announcements", label: "Announcements" },
-  { to: "/contact", label: "Contact" },
-];
+import { primaryNavItems } from "@/data/navigation";
 
 export function Nav() {
   const [open, setOpen] = useState(false);
@@ -62,9 +50,9 @@ export function Nav() {
         </Link>
 
         <ul className="hidden items-center gap-1 lg:flex">
-          {links.map((link) => (
-            <li key={"to" in link ? link.to : link.href}>
-              {"external" in link && link.external ? (
+          {primaryNavItems.map((link) => (
+            <li key={link.to || link.href}>
+              {link.external && link.href ? (
                 <a
                   href={link.href}
                   target="_blank"
@@ -76,8 +64,8 @@ export function Nav() {
                 </a>
               ) : (
                 <Link
-                  to={"to" in link ? link.to : "/"}
-                  activeOptions={{ exact: ("to" in link ? link.to : "/") === "/" }}
+                  to={link.to || "/"}
+                  activeOptions={{ exact: (link.to || "/") === "/" }}
                   activeProps={{ className: "text-foreground font-semibold" }}
                   className="electric-link rounded-full px-3.5 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground xl:px-4"
                 >
@@ -108,9 +96,9 @@ export function Nav() {
         className="glass-strong border-t px-5 pb-8 pt-4 lg:hidden"
       >
         <ul className="flex flex-col">
-          {links.map((link) => (
-            <li key={"to" in link ? link.to : link.href}>
-              {"external" in link && link.external ? (
+          {primaryNavItems.map((link) => (
+            <li key={link.to || link.href}>
+              {link.external && link.href ? (
                 <a
                   href={link.href}
                   target="_blank"
@@ -123,9 +111,9 @@ export function Nav() {
                 </a>
               ) : (
                 <Link
-                  to={"to" in link ? link.to : "/"}
+                  to={link.to || "/"}
                   onClick={() => setOpen(false)}
-                  activeOptions={{ exact: ("to" in link ? link.to : "/") === "/" }}
+                  activeOptions={{ exact: (link.to || "/") === "/" }}
                   activeProps={{ className: "text-primary-glow" }}
                   className="block border-b border-border/60 py-3.5 font-display text-lg font-semibold text-muted-foreground"
                 >

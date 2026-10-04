@@ -6,22 +6,16 @@ import {
   CalendarDays,
   MapPin,
   Sparkles,
-  Zap,
-  Shield,
-  Cpu,
-  Code2,
-  Terminal,
   ExternalLink,
   Users,
   Trophy,
   GraduationCap,
   Lightbulb,
 } from "lucide-react";
-import { club, domains, stats, values, timeline } from "@/data/club";
+import { club, stats, values } from "@/data/club";
 import { formatEventDate } from "@/data/events";
 import type { ClubEvent } from "@/data/events";
-import type { GalleryPhoto } from "@/data/gallery";
-import { getEvents, getGalleryPhotos } from "@/lib/db";
+import { getEvents } from "@/lib/db";
 import { Reveal } from "@/components/site/Reveal";
 import { Section, SectionHeading } from "@/components/site/Section";
 import { StatCounter } from "@/components/site/StatCounter";
@@ -31,9 +25,9 @@ import { PillarsSection } from "@/components/site/PillarsSection";
 import { ClubRoadmap } from "@/components/site/ClubRoadmap";
 import { MarqueeStrip } from "@/components/site/MarqueeStrip";
 import { FAQSection } from "@/components/site/FAQSection";
-import { TestimonialsSection } from "@/components/site/TestimonialsSection";
 import { UpcomingEventsGrid } from "@/components/site/UpcomingEventsGrid";
 import { VideoHero } from "@/components/site/VideoHero";
+import { ProjectsShowcase } from "@/components/site/ProjectsShowcase";
 import { DomainShowcase } from "@/components/site/DomainShowcase";
 
 export const Route = createFileRoute("/")({
@@ -52,7 +46,7 @@ export const Route = createFileRoute("/")({
       },
       { property: "og:title", content: "Tech Fusion Club (TFC SRMU) | Viveka Fest & Coding" },
       {
-        property: "og:description",
+        name: "og:description",
         content:
           "Welcome to Tech Fusion Club (TFC) at SRMU! Join the most active student technical club for web development, hackathons, and Viveka fest.",
       },
@@ -70,11 +64,9 @@ export const Route = createFileRoute("/")({
 });
 
 function Home() {
-  const [previewPhotos, setPreviewPhotos] = useState<GalleryPhoto[]>([]);
   const [featuredEvent, setFeaturedEvent] = useState<ClubEvent | null>(null);
 
   useEffect(() => {
-    getGalleryPhotos().then((data) => setPreviewPhotos(data.slice(0, 6)));
     getEvents().then((events) => {
       // Pick the first upcoming event, or the first event overall
       const upcoming = events.find((e) => e.status === "upcoming");
@@ -121,7 +113,7 @@ function Home() {
         </div>
       </VideoHero>
 
-      {/* ═══════════════════ 3. MARQUEE TICKER ═══════════════════ */}
+      {/* ═══════════════════ 2. MARQUEE TICKER ═══════════════════ */}
       <div className="mt-12">
         <MarqueeStrip
           items={[
@@ -138,8 +130,13 @@ function Home() {
         />
       </div>
 
+      {/* ═══════════════════ 3. DOMAIN SHOWCASE ═══════════════════ */}
+      <Section id="domains" className="!pt-8 !pb-2">
+        <DomainShowcase />
+      </Section>
+
       {/* ═══════════════════ 4. STATS COUNTERS ═══════════════════ */}
-      <Section>
+      <Section id="stats">
         <Reveal>
           <dl className="grid grid-cols-2 gap-8 sm:grid-cols-4">
             {stats.map((s) => (
@@ -156,8 +153,45 @@ function Home() {
         </Reveal>
       </Section>
 
-      {/* ═══════════════════ 5. FEATURED EVENT — Viveka Highlight ═══════════════════ */}
-      <Section>
+      {/* ═══════════════════ 4. SIX PILLARS ═══════════════════ */}
+      <Section id="pillars">
+        <SectionHeading
+          eyebrow="The Framework"
+          title="Six Pillars of Tech Fusion Club"
+          body="How our technical collective operates week after week to produce industry-ready student engineers."
+        />
+        <div className="mt-12">
+          <Reveal>
+            <PillarsSection />
+          </Reveal>
+        </div>
+      </Section>
+
+      {/* ═══════════════════ 5. MISSION & VISION ═══════════════════ */}
+      <Section id="mission">
+        <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-20">
+          <Reveal>
+            <p className="eyebrow">Our mission</p>
+            <h2 className="mt-4 text-balance text-3xl font-bold leading-tight sm:text-4xl">
+              A club that measures itself in things shipped.
+            </h2>
+          </Reveal>
+          <Reveal delay={100}>
+            <p className="text-pretty text-lg leading-relaxed text-foreground/90">{club.mission}</p>
+            <p className="mt-5 text-pretty leading-relaxed text-muted-foreground">{club.vision}</p>
+            <Link
+              to="/about"
+              className="group mt-8 inline-flex items-center gap-2 font-semibold text-primary-glow"
+            >
+              Read the full story
+              <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </Link>
+          </Reveal>
+        </div>
+      </Section>
+
+      {/* ═══════════════════ 6. FEATURED EVENT — Viveka Highlight ═══════════════════ */}
+      <Section id="featured-event">
         <SectionHeading
           eyebrow="Featured"
           title="What's next on the calendar"
@@ -222,8 +256,8 @@ function Home() {
         )}
       </Section>
 
-      {/* ═══════════════════ 6. UPCOMING EVENTS GRID ═══════════════════ */}
-      <Section>
+      {/* ═══════════════════ 7. UPCOMING EVENTS GRID ═══════════════════ */}
+      <Section id="events">
         <SectionHeading
           eyebrow="On the Horizon"
           title="Upcoming events & competitions"
@@ -234,45 +268,22 @@ function Home() {
         </div>
       </Section>
 
-      {/* ═══════════════════ 7. FOUR PILLARS ═══════════════════ */}
-      <Section>
+      {/* ═══════════════════ 8. PROJECTS SHOWCASE / PROOF OF WORK ═══════════════════ */}
+      <Section id="projects">
         <SectionHeading
-          eyebrow="The Framework"
-          title="Four Pillars of Tech Fusion Club"
-          body="How our technical collective operates week after week to produce industry-ready student engineers."
+          eyebrow="Proof of Work"
+          title="Shipped & built by fusion members"
+          body="We don't just talk about tech — our members build open-source tools, mobile apps, and security scanners used across campus."
         />
         <div className="mt-12">
           <Reveal>
-            <PillarsSection />
+            <ProjectsShowcase />
           </Reveal>
         </div>
       </Section>
 
-      {/* ═══════════════════ 8. MISSION & VISION ═══════════════════ */}
-      <Section>
-        <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-20">
-          <Reveal>
-            <p className="eyebrow">Our mission</p>
-            <h2 className="mt-4 text-balance text-3xl font-bold leading-tight sm:text-4xl">
-              A club that measures itself in things shipped.
-            </h2>
-          </Reveal>
-          <Reveal delay={100}>
-            <p className="text-pretty text-lg leading-relaxed text-foreground/90">{club.mission}</p>
-            <p className="mt-5 text-pretty leading-relaxed text-muted-foreground">{club.vision}</p>
-            <Link
-              to="/about"
-              className="group mt-8 inline-flex items-center gap-2 font-semibold text-primary-glow"
-            >
-              Read the full story
-              <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </Link>
-          </Reveal>
-        </div>
-      </Section>
-
-      {/* ═══════════════════ 10. CORE VALUES ═══════════════════ */}
-      <Section>
+      {/* ═══════════════════ 9. CORE VALUES ═══════════════════ */}
+      <Section id="values">
         <SectionHeading
           eyebrow="What We Stand For"
           title="Our core values"
@@ -304,7 +315,7 @@ function Home() {
         </div>
       </Section>
 
-      {/* ═══════════════════ 11. MARQUEE REVERSE ═══════════════════ */}
+      {/* ═══════════════════ 10. MARQUEE REVERSE ═══════════════════ */}
       <MarqueeStrip
         items={[
           "Web Development",
@@ -320,8 +331,8 @@ function Home() {
         reverse
       />
 
-      {/* ═══════════════════ 12. CLUB ROADMAP ═══════════════════ */}
-      <Section>
+      {/* ═══════════════════ 11. CLUB ROADMAP ═══════════════════ */}
+      <Section id="roadmap">
         <SectionHeading
           eyebrow="The Lifecycle"
           title="Your 1-Year Journey in Tech Fusion"
@@ -335,98 +346,8 @@ function Home() {
         </div>
       </Section>
 
-      {/* ═══════════════════ 13. TESTIMONIALS ═══════════════════ */}
-      <Section>
-        <SectionHeading
-          eyebrow="What People Say"
-          title="Voices from the community"
-          body="Hear from the students and faculty who make Tech Fusion Club what it is."
-          align="center"
-        />
-        <div className="mt-12">
-          <TestimonialsSection />
-        </div>
-      </Section>
-
-      {/* ═══════════════════ 14. TIMELINE ═══════════════════ */}
-      <Section>
-        <SectionHeading
-          eyebrow="Since 2019"
-          title="Our journey so far"
-          body="From a handful of students in a CS lab to the university's most active technical community."
-          align="center"
-        />
-        <div className="mx-auto mt-12 max-w-3xl space-y-0">
-          {timeline.map((t, i) => (
-            <Reveal key={t.year} delay={i * 60}>
-              <div className="relative flex gap-6 pb-10 last:pb-0">
-                <div className="flex flex-col items-center">
-                  <div className="flex size-10 shrink-0 items-center justify-center rounded-full border-2 border-primary/50 bg-card font-mono text-xs font-bold text-primary-glow shadow-[0_0_12px_rgba(217,72,15,0.3)]">
-                    {t.year.slice(-2)}
-                  </div>
-                  {i < timeline.length - 1 && (
-                    <div className="mt-2 w-0.5 flex-1 bg-gradient-to-b from-primary/40 to-transparent" />
-                  )}
-                </div>
-                <div className="pt-1.5">
-                  <p className="font-mono text-[11px] uppercase tracking-widest text-primary-glow">
-                    {t.year}
-                  </p>
-                  <h3 className="mt-1 font-display text-lg font-bold text-foreground">{t.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{t.body}</p>
-                </div>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </Section>
-
-      {/* ═══════════════════ 15. GALLERY STRIP ═══════════════════ */}
-      <Section>
-        <SectionHeading
-          eyebrow="From the floor"
-          title="Recent event photos"
-          action={
-            <Link
-              to="/gallery"
-              className="glass inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition-colors hover:text-primary-glow"
-            >
-              Full gallery <ArrowRight className="size-4" />
-            </Link>
-          }
-        />
-        {previewPhotos.length > 0 ? (
-          <Reveal className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-            {previewPhotos.map((p) => (
-              <Link
-                key={p.src}
-                to="/gallery"
-                className="group relative overflow-hidden rounded-2xl border border-border"
-              >
-                <img
-                  src={p.src}
-                  alt={p.alt}
-                  loading="lazy"
-                  decoding="async"
-                  className="aspect-square w-full object-cover opacity-80 transition-all duration-700 group-hover:scale-105 group-hover:opacity-100"
-                />
-                <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background/90 to-transparent p-3 font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
-                  {p.event}
-                </span>
-              </Link>
-            ))}
-          </Reveal>
-        ) : (
-          <Reveal className="mt-10 glass rounded-2xl p-8 text-center border border-border">
-            <p className="text-muted-foreground">
-              Photos will appear here once added by the admin.
-            </p>
-          </Reveal>
-        )}
-      </Section>
-
-      {/* ═══════════════════ 16. FAQ ═══════════════════ */}
-      <Section>
+      {/* ═══════════════════ 12. FAQ ═══════════════════ */}
+      <Section id="faq">
         <SectionHeading
           eyebrow="Got Questions?"
           title="Frequently asked questions"
@@ -438,7 +359,7 @@ function Home() {
         </div>
       </Section>
 
-      {/* ═══════════════════ 17. CTA BANNER ═══════════════════ */}
+      {/* ═══════════════════ 13. CTA BANNER ═══════════════════ */}
       <CTABanner />
     </>
   );

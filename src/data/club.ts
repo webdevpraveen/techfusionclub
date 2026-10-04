@@ -148,9 +148,3 @@ export const faculty = {
   message:
     "What sets Tech Fusion apart is continuity and hands-on building. Students do not simply attend a workshop and leave — they build real products and return as mentors. My role is to empower our student leads, foster university-wide technical excellence, and ensure every batch steps into industry with production-ready skills.",
 };
-
-export const testimonial = {
-  quote:
-    "I joined in my first year knowing almost no code. Two years later I was leading the AI/ML domain and mentoring twenty juniors. This club moves fast, and it takes you with it.",
-  author: "Riya Sharma — Lead Student Organizer, AI/ML Domain",
-};

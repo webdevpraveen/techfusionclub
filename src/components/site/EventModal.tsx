@@ -34,11 +34,19 @@ export function EventModal({ event, onClose }: EventModalProps) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-background/80 backdrop-blur-md animate-in fade-in duration-300">
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-label={`Event details: ${event.title}`}
+      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-6 bg-background/80 backdrop-blur-md animate-in fade-in duration-300"
+      onClick={handleClose}
+    >
       <div
-        className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto glass-strong border border-border/50 rounded-3xl p-6 sm:p-8 shadow-2xl animate-in zoom-in-95 duration-300"
+        className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto glass-strong border-t sm:border border-border/50 rounded-t-3xl sm:rounded-3xl p-6 sm:p-8 shadow-2xl animate-in slide-in-from-bottom sm:zoom-in-95 duration-300 pb-[calc(1.5rem+env(safe-area-inset-bottom,0px))] sm:pb-8"
         onClick={(e) => e.stopPropagation()}
       >
+        {/* Grab handle for mobile */}
+        <div className="mx-auto -mt-2 mb-4 h-1.5 w-12 rounded-full bg-muted-foreground/30 sm:hidden" />
         {/* Close Button */}
         <button
           onClick={handleClose}

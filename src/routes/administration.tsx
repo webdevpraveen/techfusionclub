@@ -76,6 +76,14 @@ function AdminShell() {
   const AUTHORIZED_EMAILS = ["webdevpraveen@gmail.com", "techfusionclub@srmu.ac.in"];
 
   useEffect(() => {
+    if (!auth) {
+      setAuthError(
+        "Firebase Authentication is not configured. Please add valid Firebase credentials in your .env file to use the administration portal.",
+      );
+      setLoadingAuth(false);
+      return;
+    }
+
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
         const email = currentUser.email || "";

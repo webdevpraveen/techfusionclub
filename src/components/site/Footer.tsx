@@ -2,21 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Mail, ExternalLink } from "lucide-react";
 import { club } from "@/data/club";
 import { Logo } from "./Logo";
-
-type FooterLink = { to: string; label: string } | { href: string; label: string; external: true };
-
-const quickLinks: FooterLink[] = [
-  { to: "/about", label: "About" },
-  { to: "/members", label: "Members" },
-  { to: "/events", label: "Events" },
-  { href: "https://vivekatheintelligence.in/", label: "Viveka 6.0 Fest", external: true },
-];
-
-const moreLinks: FooterLink[] = [
-  { to: "/gallery", label: "Gallery" },
-  { to: "/alumni", label: "Alumni" },
-  { to: "/contact", label: "Join Us" },
-];
+import { footerQuickLinks, footerSecondaryLinks } from "@/data/navigation";
 
 export function Footer() {
   return (
@@ -46,9 +32,9 @@ export function Footer() {
               Explore
             </h2>
             <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
-              {quickLinks.map((l) => (
-                <li key={"to" in l ? l.to : l.href}>
-                  {"external" in l && l.external ? (
+              {footerQuickLinks.map((l) => (
+                <li key={l.to || l.href}>
+                  {l.external && l.href ? (
                     <a
                       href={l.href}
                       target="_blank"
@@ -59,10 +45,7 @@ export function Footer() {
                       <ExternalLink className="size-3" />
                     </a>
                   ) : (
-                    <Link
-                      to={"to" in l ? l.to : "/"}
-                      className="transition-colors hover:text-primary-glow"
-                    >
+                    <Link to={l.to || "/"} className="transition-colors hover:text-primary-glow">
                       {l.label}
                     </Link>
                   )}
@@ -76,9 +59,9 @@ export function Footer() {
               More
             </h2>
             <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
-              {moreLinks.map((l) => (
-                <li key={"to" in l ? l.to : l.href}>
-                  {"external" in l && l.external ? (
+              {footerSecondaryLinks.map((l) => (
+                <li key={l.to || l.href}>
+                  {l.external && l.href ? (
                     <a
                       href={l.href}
                       target="_blank"
@@ -88,10 +71,7 @@ export function Footer() {
                       {l.label}
                     </a>
                   ) : (
-                    <Link
-                      to={"to" in l ? l.to : "/"}
-                      className="transition-colors hover:text-primary-glow"
-                    >
+                    <Link to={l.to || "/"} className="transition-colors hover:text-primary-glow">
                       {l.label}
                     </Link>
                   )}

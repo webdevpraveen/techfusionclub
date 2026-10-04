@@ -9,14 +9,18 @@ import {
   deleteDoc,
   query,
   where,
-  orderBy,
   setDoc,
 } from "firebase/firestore";
 import type { ClubEvent } from "@/data/events";
+import { events as fallbackEvents } from "@/data/events";
 import type { Member, MemberTier } from "@/data/members";
+import { members as fallbackMembers } from "@/data/members";
 import type { Alumnus } from "@/data/alumni";
+import { alumniList as fallbackAlumni } from "@/data/alumni";
 import type { GalleryPhoto } from "@/data/gallery";
+import { galleryPhotos as fallbackGallery } from "@/data/gallery";
 import type { Announcement } from "@/data/announcements";
+import { announcements as fallbackAnnouncements } from "@/data/announcements";
 
 // ─── Collection Names ────────────────────────────────────────────────
 const EVENTS_COLLECTION = "events";
@@ -76,6 +80,7 @@ function clearCache(key: string): void {
 const TRASH_EXPIRY_MS = 100 * 60 * 60 * 1000; // 100 hours
 
 async function moveToTrash(collectionName: string, id: string) {
+  if (!db) return;
   const docRef = doc(db, collectionName, id);
   const snapshot = await getDoc(docRef);
   if (snapshot.exists()) {
@@ -100,6 +105,7 @@ export interface TrashItem {
 }
 
 export const getTrashItems = async (): Promise<TrashItem[]> => {
+  if (!db) return [];
   try {
     const snapshot = await getDocs(collection(db, TRASH_COLLECTION));
     const now = Date.now();
@@ -124,6 +130,7 @@ export const getTrashItems = async (): Promise<TrashItem[]> => {
 };
 
 export const restoreTrashItem = async (trashId: string) => {
+  if (!db) return false;
   const trashRef = doc(db, TRASH_COLLECTION, trashId);
   const snapshot = await getDoc(trashRef);
   if (!snapshot.exists()) return false;
@@ -132,7 +139,9 @@ export const restoreTrashItem = async (trashId: string) => {
   // Restore to original collection
   await updateDoc(doc(db, originalCollection, originalId), data).catch(async () => {
     // If it doesn't exist, use setDoc
-    await setDoc(doc(db, originalCollection, originalId), data);
+    if (db) {
+      await setDoc(doc(db, originalCollection, originalId), data);
+    }
   });
 
   // Remove from trash
@@ -142,6 +151,7 @@ export const restoreTrashItem = async (trashId: string) => {
 };
 
 export const deleteTrashItemPermanently = async (trashId: string) => {
+  if (!db) return false;
   await deleteDoc(doc(db, TRASH_COLLECTION, trashId));
   return true;
 };
@@ -155,18 +165,32 @@ export const getEvents = async (includeDrafts = false): Promise<(ClubEvent & { i
   const cached = getCached<(ClubEvent & { id: string })[]>(cacheKey);
   if (cached) return cached;
 
+  const fallback = fallbackEvents.map((e, index) => ({
+    id: `event-${index + 1}`,
+    ...e,
+  }));
+
+  if (!db) {
+    const res = includeDrafts ? fallback : fallback.filter((e) => e.status !== "draft");
+    setCache(cacheKey, res);
+    return res;
+  }
+
   try {
     const snapshot = await getDocs(collection(db, EVENTS_COLLECTION));
-    const events = snapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
+    const events = snapshot.docs.map((d) => ({
+      id: d.id,
+      ...d.data(),
     })) as (ClubEvent & { id: string })[];
+
     const result = includeDrafts ? events : events.filter((e) => e.status !== "draft");
-    setCache(cacheKey, result);
-    return result;
+    // Fall back to local events if Firestore has none yet
+    const finalResult = result.length > 0 ? result : fallback;
+    setCache(cacheKey, finalResult);
+    return finalResult;
   } catch (error) {
-    console.warn("Error fetching events:", error);
-    return [];
+    console.warn("Error fetching events, using static fallback:", error);
+    return fallback;
   }
 };
 
@@ -182,31 +206,55 @@ export const getEventBySlug = async (
     if (found) return found;
   }
 
+  if (!db) {
+    const found = fallbackEvents.find((e) => e.slug === slug);
+    return found ? { id: slug, ...found } : null;
+  }
+
   try {
     const q = query(collection(db, EVENTS_COLLECTION), where("slug", "==", slug));
     const snapshot = await getDocs(q);
-    const doc = snapshot.docs[0];
-    if (!doc) return null;
-    return { id: doc.id, ...doc.data() } as ClubEvent & { id: string };
+    const d = snapshot.docs[0];
+    if (!d) {
+      const fallback = fallbackEvents.find((e) => e.slug === slug);
+      return fallback ? { id: slug, ...fallback } : null;
+    }
+    return { id: d.id, ...d.data() } as ClubEvent & { id: string };
   } catch (error) {
-    console.warn("Error fetching event:", error);
-    return null;
+    console.warn("Error fetching event, using static fallback:", error);
+    const fallback = fallbackEvents.find((e) => e.slug === slug);
+    return fallback ? { id: slug, ...fallback } : null;
   }
 };
 
 export const createEvent = async (eventData: Partial<ClubEvent>) => {
+  if (!db) {
+    throw new Error(
+      "Firebase Firestore is not configured. Please add valid environment variables to .env.",
+    );
+  }
   const docRef = await addDoc(collection(db, EVENTS_COLLECTION), eventData);
   clearCache("events");
   return docRef.id;
 };
 
 export const updateEvent = async (id: string, eventData: Partial<ClubEvent>) => {
+  if (!db) {
+    throw new Error(
+      "Firebase Firestore is not configured. Please add valid environment variables to .env.",
+    );
+  }
   await updateDoc(doc(db, EVENTS_COLLECTION, id), eventData);
   clearCache("events");
   return true;
 };
 
 export const deleteEvent = async (id: string) => {
+  if (!db) {
+    throw new Error(
+      "Firebase Firestore is not configured. Please add valid environment variables to .env.",
+    );
+  }
   await moveToTrash(EVENTS_COLLECTION, id);
   await deleteDoc(doc(db, EVENTS_COLLECTION, id));
   clearCache("events");
@@ -222,37 +270,60 @@ export const getMembers = async (): Promise<(Member & { id: string })[]> => {
   const cached = getCached<(Member & { id: string })[]>(cacheKey);
   if (cached) return cached;
 
+  const fallback = fallbackMembers.map((m) => ({ ...m }));
+
+  if (!db) {
+    setCache(cacheKey, fallback);
+    return fallback;
+  }
+
   try {
     const snapshot = await getDocs(collection(db, MEMBERS_COLLECTION));
-    const result = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })) as (Member & {
+    const result = snapshot.docs.map((d) => ({ id: d.id, ...d.data() })) as (Member & {
       id: string;
     })[];
-    setCache(cacheKey, result);
-    return result;
+    const finalResult = result.length > 0 ? result : fallback;
+    setCache(cacheKey, finalResult);
+    return finalResult;
   } catch (error) {
-    console.warn("Error fetching members:", error);
-    return [];
+    console.warn("Error fetching members, using static fallback:", error);
+    return fallback;
   }
 };
 
 export const getMembersByTier = async (tier: MemberTier): Promise<(Member & { id: string })[]> => {
-  const members = await getMembers();
-  return members.filter((m) => m.tier === tier);
+  const allMembers = await getMembers();
+  return allMembers.filter((m) => m.tier === tier);
 };
 
 export const createMember = async (data: Partial<Member>) => {
+  if (!db) {
+    throw new Error(
+      "Firebase Firestore is not configured. Please add valid environment variables to .env.",
+    );
+  }
   const docRef = await addDoc(collection(db, MEMBERS_COLLECTION), data);
   clearCache("members");
   return docRef.id;
 };
 
 export const updateMember = async (id: string, data: Partial<Member>) => {
+  if (!db) {
+    throw new Error(
+      "Firebase Firestore is not configured. Please add valid environment variables to .env.",
+    );
+  }
   await updateDoc(doc(db, MEMBERS_COLLECTION, id), data);
   clearCache("members");
   return true;
 };
 
 export const deleteMember = async (id: string) => {
+  if (!db) {
+    throw new Error(
+      "Firebase Firestore is not configured. Please add valid environment variables to .env.",
+    );
+  }
   await moveToTrash(MEMBERS_COLLECTION, id);
   await deleteDoc(doc(db, MEMBERS_COLLECTION, id));
   clearCache("members");
@@ -268,32 +339,55 @@ export const getAlumni = async (): Promise<(Alumnus & { id: string })[]> => {
   const cached = getCached<(Alumnus & { id: string })[]>(cacheKey);
   if (cached) return cached;
 
+  const fallback = fallbackAlumni.map((a) => ({ ...a }));
+
+  if (!db) {
+    setCache(cacheKey, fallback);
+    return fallback;
+  }
+
   try {
     const snapshot = await getDocs(collection(db, ALUMNI_COLLECTION));
-    const result = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })) as (Alumnus & {
+    const result = snapshot.docs.map((d) => ({ id: d.id, ...d.data() })) as (Alumnus & {
       id: string;
     })[];
-    setCache(cacheKey, result);
-    return result;
+    const finalResult = result.length > 0 ? result : fallback;
+    setCache(cacheKey, finalResult);
+    return finalResult;
   } catch (error) {
-    console.warn("Error fetching alumni:", error);
-    return [];
+    console.warn("Error fetching alumni, using static fallback:", error);
+    return fallback;
   }
 };
 
 export const createAlumnus = async (data: Partial<Alumnus>) => {
+  if (!db) {
+    throw new Error(
+      "Firebase Firestore is not configured. Please add valid environment variables to .env.",
+    );
+  }
   const docRef = await addDoc(collection(db, ALUMNI_COLLECTION), data);
   clearCache("alumni");
   return docRef.id;
 };
 
 export const updateAlumnus = async (id: string, data: Partial<Alumnus>) => {
+  if (!db) {
+    throw new Error(
+      "Firebase Firestore is not configured. Please add valid environment variables to .env.",
+    );
+  }
   await updateDoc(doc(db, ALUMNI_COLLECTION, id), data);
   clearCache("alumni");
   return true;
 };
 
 export const deleteAlumnus = async (id: string) => {
+  if (!db) {
+    throw new Error(
+      "Firebase Firestore is not configured. Please add valid environment variables to .env.",
+    );
+  }
   await moveToTrash(ALUMNI_COLLECTION, id);
   await deleteDoc(doc(db, ALUMNI_COLLECTION, id));
   clearCache("alumni");
@@ -309,26 +403,47 @@ export const getGalleryPhotos = async (): Promise<(GalleryPhoto & { id: string }
   const cached = getCached<(GalleryPhoto & { id: string })[]>(cacheKey);
   if (cached) return cached;
 
+  const fallback = fallbackGallery.map((g, index) => ({
+    id: `gallery-${index + 1}`,
+    ...g,
+  }));
+
+  if (!db) {
+    setCache(cacheKey, fallback);
+    return fallback;
+  }
+
   try {
     const snapshot = await getDocs(collection(db, GALLERY_COLLECTION));
-    const result = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })) as (GalleryPhoto & {
+    const result = snapshot.docs.map((d) => ({ id: d.id, ...d.data() })) as (GalleryPhoto & {
       id: string;
     })[];
-    setCache(cacheKey, result);
-    return result;
+    const finalResult = result.length > 0 ? result : fallback;
+    setCache(cacheKey, finalResult);
+    return finalResult;
   } catch (error) {
-    console.warn("Error fetching gallery:", error);
-    return [];
+    console.warn("Error fetching gallery, using static fallback:", error);
+    return fallback;
   }
 };
 
 export const createGalleryPhoto = async (data: Partial<GalleryPhoto>) => {
+  if (!db) {
+    throw new Error(
+      "Firebase Firestore is not configured. Please add valid environment variables to .env.",
+    );
+  }
   const docRef = await addDoc(collection(db, GALLERY_COLLECTION), data);
   clearCache("gallery");
   return docRef.id;
 };
 
 export const deleteGalleryPhoto = async (id: string) => {
+  if (!db) {
+    throw new Error(
+      "Firebase Firestore is not configured. Please add valid environment variables to .env.",
+    );
+  }
   await moveToTrash(GALLERY_COLLECTION, id);
   await deleteDoc(doc(db, GALLERY_COLLECTION, id));
   clearCache("gallery");
@@ -344,32 +459,55 @@ export const getAnnouncements = async (): Promise<(Announcement & { id: string }
   const cached = getCached<(Announcement & { id: string })[]>(cacheKey);
   if (cached) return cached;
 
+  const fallback = fallbackAnnouncements.map((a) => ({ ...a }));
+
+  if (!db) {
+    setCache(cacheKey, fallback);
+    return fallback;
+  }
+
   try {
     const snapshot = await getDocs(collection(db, ANNOUNCEMENTS_COLLECTION));
-    const result = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })) as (Announcement & {
+    const result = snapshot.docs.map((d) => ({ id: d.id, ...d.data() })) as (Announcement & {
       id: string;
     })[];
-    setCache(cacheKey, result);
-    return result;
+    const finalResult = result.length > 0 ? result : fallback;
+    setCache(cacheKey, finalResult);
+    return finalResult;
   } catch (error) {
-    console.warn("Error fetching announcements:", error);
-    return [];
+    console.warn("Error fetching announcements, using static fallback:", error);
+    return fallback;
   }
 };
 
 export const createAnnouncement = async (data: Partial<Announcement>) => {
+  if (!db) {
+    throw new Error(
+      "Firebase Firestore is not configured. Please add valid environment variables to .env.",
+    );
+  }
   const docRef = await addDoc(collection(db, ANNOUNCEMENTS_COLLECTION), data);
   clearCache("announcements");
   return docRef.id;
 };
 
 export const updateAnnouncement = async (id: string, data: Partial<Announcement>) => {
+  if (!db) {
+    throw new Error(
+      "Firebase Firestore is not configured. Please add valid environment variables to .env.",
+    );
+  }
   await updateDoc(doc(db, ANNOUNCEMENTS_COLLECTION, id), data);
   clearCache("announcements");
   return true;
 };
 
 export const deleteAnnouncement = async (id: string) => {
+  if (!db) {
+    throw new Error(
+      "Firebase Firestore is not configured. Please add valid environment variables to .env.",
+    );
+  }
   await moveToTrash(ANNOUNCEMENTS_COLLECTION, id);
   await deleteDoc(doc(db, ANNOUNCEMENTS_COLLECTION, id));
   clearCache("announcements");
@@ -381,11 +519,12 @@ export const deleteAnnouncement = async (id: string) => {
 // ═══════════════════════════════════════════════════════════════════════
 
 export const getRegistrations = async (eventSlug?: string) => {
+  if (!db) return [];
   try {
     const ref = collection(db, REGISTRATIONS_COLLECTION);
     const q = eventSlug ? query(ref, where("eventSlug", "==", eventSlug)) : ref;
     const snapshot = await getDocs(q);
-    return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    return snapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
   } catch (error) {
     console.warn("Error fetching registrations:", error);
     return [];
@@ -393,6 +532,11 @@ export const getRegistrations = async (eventSlug?: string) => {
 };
 
 export const createRegistration = async (data: Record<string, unknown>) => {
+  if (!db) {
+    throw new Error(
+      "Firebase Firestore is not configured. Please add valid environment variables to .env.",
+    );
+  }
   const docRef = await addDoc(collection(db, REGISTRATIONS_COLLECTION), {
     ...data,
     submittedAt: new Date().toISOString(),
