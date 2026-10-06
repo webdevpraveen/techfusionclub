@@ -28,10 +28,10 @@ export function UpcomingEventsGrid() {
         <Reveal key={event.slug} delay={i * 80}>
           <GlowCard className="glass lift group flex h-full flex-col overflow-hidden rounded-2xl">
             {/* Cover Image */}
-            <div className="relative h-48 overflow-hidden">
+            <div className="relative h-48 overflow-hidden bg-surface">
               <img
-                src={event.cover}
-                alt={event.title}
+                src={event.cover || "/images/events/default-cover.jpg"}
+                alt={event.title || "Event"}
                 className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
                 loading="lazy"
               />
@@ -39,7 +39,7 @@ export function UpcomingEventsGrid() {
 
               {/* Category Badge */}
               <span className="absolute left-4 top-4 rounded-full border border-primary/40 bg-card/80 px-3 py-1 font-mono text-[10px] uppercase tracking-widest text-primary-glow backdrop-blur-sm">
-                {event.category}
+                {event.category || "Workshop"}
               </span>
             </div>
 
@@ -47,10 +47,10 @@ export function UpcomingEventsGrid() {
             <div className="flex flex-1 flex-col justify-between p-6">
               <div>
                 <h3 className="font-display text-lg font-bold leading-snug text-foreground transition-colors group-hover:text-primary-glow">
-                  {event.title}
+                  {event.title || "Untitled Event"}
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground line-clamp-2">
-                  {event.summary}
+                  {event.summary || ""}
                 </p>
               </div>
 

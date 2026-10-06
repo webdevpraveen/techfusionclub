@@ -51,9 +51,16 @@ function Gallery() {
     });
   }, []);
 
-  const years = Array.from(new Set(allPhotos.map((p) => p.year))).sort((a, b) => b - a);
-  const photos = year === "all" ? allPhotos : allPhotos.filter((p) => p.year === year);
-  const items = photos.map((p) => ({ src: p.src, alt: p.alt, caption: `${p.event} · ${p.year}` }));
+  const getPhotoYear = (p: GalleryPhoto) =>
+    typeof p.year === "number" && !isNaN(p.year) ? p.year : new Date().getFullYear();
+
+  const years = Array.from(new Set(allPhotos.map(getPhotoYear))).sort((a, b) => b - a);
+  const photos = year === "all" ? allPhotos : allPhotos.filter((p) => getPhotoYear(p) === year);
+  const items = photos.map((p) => ({
+    src: p.src,
+    alt: p.alt || "Tech Fusion Club",
+    caption: `${p.event || "TFC Event"} · ${getPhotoYear(p)}`,
+  }));
 
   return (
     <>

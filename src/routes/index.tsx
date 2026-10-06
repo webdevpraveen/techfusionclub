@@ -174,23 +174,25 @@ function Home() {
 
         {featuredEvent && (
           <Reveal className="glass-strong border-animated mt-12 grid overflow-hidden rounded-[2rem] lg:grid-cols-2">
-            <div className="relative min-h-[18rem] overflow-hidden">
+            <div className="relative min-h-[18rem] overflow-hidden bg-surface">
               <img
-                src={featuredEvent.cover}
-                alt={featuredEvent.title}
+                src={featuredEvent.cover || "/images/events/default-cover.jpg"}
+                alt={featuredEvent.title || "Event"}
                 className="size-full object-cover opacity-90"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-card/90 via-card/20 to-transparent lg:bg-gradient-to-r" />
             </div>
             <div className="p-8 sm:p-12">
               <span className="rounded-full border border-accent/40 bg-accent/10 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-accent">
-                {featuredEvent.status === "upcoming" ? "Upcoming" : featuredEvent.category}
+                {featuredEvent.status === "upcoming"
+                  ? "Upcoming"
+                  : featuredEvent.category || "Event"}
               </span>
               <h3 className="mt-5 text-balance font-display text-2xl font-bold leading-snug sm:text-3xl">
-                {featuredEvent.title}
+                {featuredEvent.title || "Featured Event"}
               </h3>
               <p className="mt-4 text-pretty leading-relaxed text-muted-foreground">
-                {featuredEvent.summary}
+                {featuredEvent.summary || ""}
               </p>
               <ul className="mt-7 space-y-2.5 font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
                 <li className="flex items-center gap-2">
@@ -198,7 +200,8 @@ function Home() {
                   {formatEventDate(featuredEvent)}
                 </li>
                 <li className="flex items-center gap-2">
-                  <MapPin className="size-3.5 text-primary-glow" /> {featuredEvent.venue}
+                  <MapPin className="size-3.5 text-primary-glow" />{" "}
+                  {featuredEvent.venue || "Campus Venue"}
                 </li>
               </ul>
               <div className="mt-9 flex flex-wrap gap-3">

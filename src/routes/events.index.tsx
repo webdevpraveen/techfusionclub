@@ -56,18 +56,31 @@ function Events() {
     }
   }, []);
 
+  const getEventYear = (e: ClubEvent) => {
+    if (typeof e.year === "number" && !isNaN(e.year)) return e.year;
+    if (e.date) {
+      const parsed = new Date(e.date).getFullYear();
+      if (!isNaN(parsed)) return parsed;
+    }
+    return new Date().getFullYear();
+  };
+
   const eventYears = useMemo(
-    () => Array.from(new Set(events.map((e) => e.year))).sort((a, b) => b - a),
+    () => Array.from(new Set(events.map(getEventYear))).sort((a, b) => b - a),
     [events],
   );
 
   const filtered = useMemo(
     () =>
       events
-        .filter((e) => (year === "all" ? true : e.year === year))
+        .filter((e) => (year === "all" ? true : getEventYear(e) === year))
         .filter((e) => (category === "all" ? true : e.category === category))
-        .sort((a, b) => +new Date(b.date) - +new Date(a.date)),
-    [year, category],
+        .sort((a, b) => {
+          const timeB = b.date ? +new Date(b.date) : 0;
+          const timeA = a.date ? +new Date(a.date) : 0;
+          return (isNaN(timeB) ? 0 : timeB) - (isNaN(timeA) ? 0 : timeA);
+        }),
+    [events, year, category],
   );
 
   const isFutureYear = year !== "all" && upcomingYears.includes(year);

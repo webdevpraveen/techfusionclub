@@ -35,10 +35,17 @@ export const featuredEvent: ClubEvent =
   events.find((e) => e.status === "upcoming") ?? (events[0] as ClubEvent);
 
 export function formatEventDate(event: Pick<ClubEvent, "date" | "endDate">) {
+  if (!event || !event.date) return "Date TBA";
   const opts: Intl.DateTimeFormatOptions = { day: "numeric", month: "short", year: "numeric" };
   const start = new Date(event.date);
+  if (isNaN(start.getTime())) {
+    return event.date || "Date TBA";
+  }
   if (!event.endDate) return start.toLocaleDateString("en-GB", opts);
   const end = new Date(event.endDate);
+  if (isNaN(end.getTime())) {
+    return start.toLocaleDateString("en-GB", opts);
+  }
   const sameMonth =
     start.getMonth() === end.getMonth() && start.getFullYear() === end.getFullYear();
   return sameMonth

@@ -49,10 +49,20 @@ function Announcements() {
                 <article className="glass rounded-[2rem] p-8 border border-border">
                   <div className="flex items-center gap-2 text-sm text-primary-glow font-mono uppercase tracking-wider mb-4 font-bold">
                     <CalendarDays className="size-4" />
-                    <time dateTime={a.date}>{new Date(a.date).toLocaleDateString()}</time>
+                    <time dateTime={a.date}>
+                      {a.date && !isNaN(new Date(a.date).getTime())
+                        ? new Date(a.date).toLocaleDateString("en-GB", {
+                            day: "numeric",
+                            month: "short",
+                            year: "numeric",
+                          })
+                        : a.date || "Recent"}
+                    </time>
                   </div>
-                  <h2 className="font-display text-2xl font-bold mb-3">{a.title}</h2>
-                  <p className="text-muted-foreground leading-relaxed mb-6">{a.summary}</p>
+                  <h2 className="font-display text-2xl font-bold mb-3">
+                    {a.title || "Announcement"}
+                  </h2>
+                  <p className="text-muted-foreground leading-relaxed mb-6">{a.summary || ""}</p>
 
                   {a.content && (
                     <div className="text-foreground leading-relaxed space-y-4 mb-6 pt-6 border-t border-border/60">

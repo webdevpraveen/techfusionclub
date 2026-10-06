@@ -54,15 +54,17 @@ function AlumniCard({ alumnus, index }: { alumnus: Alumnus; index: number }) {
           />
         ) : (
           <div className="flex size-full items-center justify-center font-display text-4xl text-muted-foreground/30">
-            {alumnus.name.charAt(0)}
+            {(alumnus.name || "A").charAt(0).toUpperCase()}
           </div>
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent opacity-80" />
         <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-4">
           <div>
-            <h3 className="font-display text-xl font-bold text-foreground">{alumnus.name}</h3>
+            <h3 className="font-display text-xl font-bold text-foreground">
+              {alumnus.name || "Alumnus"}
+            </h3>
             <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-primary-glow">
-              {alumnus.post}
+              {alumnus.post || "Past Member"}
             </p>
           </div>
         </div>
@@ -70,10 +72,10 @@ function AlumniCard({ alumnus, index }: { alumnus: Alumnus; index: number }) {
       <div className="flex flex-1 flex-col justify-between p-5">
         <ul className="space-y-1.5 font-mono text-xs text-muted-foreground">
           <li>
-            <span className="text-foreground/40">Course:</span> {alumnus.course}
+            <span className="text-foreground/40">Course:</span> {alumnus.course || "SRMU"}
           </li>
           <li>
-            <span className="text-foreground/40">Tenure:</span> {alumnus.tenure}
+            <span className="text-foreground/40">Tenure:</span> {alumnus.tenure || "Alumni"}
           </li>
         </ul>
         {alumnus.socials && (
