@@ -51,10 +51,10 @@ export function EventModal({ event, onClose }: EventModalProps) {
         {mode === "details" && (
           <div className="animate-in slide-in-from-left-4 fade-in duration-300">
             {/* Cover Image */}
-            <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl mb-6">
+            <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl mb-6 bg-surface">
               <img
-                src={event.cover}
-                alt={event.title}
+                src={event.cover || "/images/events/default-cover.jpg"}
+                alt={event.title || "Event"}
                 className="size-full object-cover opacity-90"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent" />
@@ -191,40 +191,46 @@ export function EventModal({ event, onClose }: EventModalProps) {
 
         {mode === "register" &&
           event.googleFormUrl &&
-          event.googleFormUrl.startsWith("https://") && (
-            <div className="animate-in slide-in-from-right-4 fade-in duration-300">
-              <div className="flex items-center mb-6">
-                <button
-                  onClick={() => setMode("details")}
-                  className="inline-flex items-center text-xs font-semibold text-muted-foreground hover:text-foreground transition-colors bg-surface-strong px-3 py-1.5 rounded-full"
+          (() => {
+            const rawUrl = event.googleFormUrl.trim();
+            const formUrl =
+              rawUrl.startsWith("http://") || rawUrl.startsWith("https://")
+                ? rawUrl
+                : `https://${rawUrl}`;
+            const iframeSrc = formUrl.includes("?")
+              ? `${formUrl}&embedded=true`
+              : `${formUrl}?embedded=true`;
+            return (
+              <div className="animate-in slide-in-from-right-4 fade-in duration-300">
+                <div className="flex items-center mb-6">
+                  <button
+                    onClick={() => setMode("details")}
+                    className="inline-flex items-center text-xs font-semibold text-muted-foreground hover:text-foreground transition-colors bg-surface-strong px-3 py-1.5 rounded-full"
+                  >
+                    <ArrowLeft className="mr-2 size-3.5" /> Back to details
+                  </button>
+                </div>
+                <div
+                  className="w-full rounded-xl overflow-hidden bg-white shadow-inner relative"
+                  style={{ height: "70vh", minHeight: "500px" }}
                 >
-                  <ArrowLeft className="mr-2 size-3.5" /> Back to details
-                </button>
+                  <iframe
+                    src={iframeSrc}
+                    width="100%"
+                    height="100%"
+                    frameBorder="0"
+                    marginHeight={0}
+                    marginWidth={0}
+                    title="Registration Form"
+                    sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+                    className="absolute inset-0 w-full h-full border-none"
+                  >
+                    Loading…
+                  </iframe>
+                </div>
               </div>
-              <div
-                className="w-full rounded-xl overflow-hidden bg-white shadow-inner relative"
-                style={{ height: "70vh", minHeight: "500px" }}
-              >
-                <iframe
-                  src={
-                    event.googleFormUrl.includes("?")
-                      ? event.googleFormUrl + "&embedded=true"
-                      : event.googleFormUrl + "?embedded=true"
-                  }
-                  width="100%"
-                  height="100%"
-                  frameBorder="0"
-                  marginHeight={0}
-                  marginWidth={0}
-                  title="Registration Form"
-                  sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
-                  className="absolute inset-0 w-full h-full border-none"
-                >
-                  Loading…
-                </iframe>
-              </div>
-            </div>
-          )}
+            );
+          })()}
       </div>
     </div>
   );

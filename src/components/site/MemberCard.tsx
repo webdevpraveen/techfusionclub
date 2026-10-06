@@ -80,17 +80,21 @@ export function MemberCard({
           {/* ---------- Front ---------- */}
           <div className="flip-face glass overflow-hidden rounded-3xl">
             <img
-              src={member.photo}
-              alt={`${member.name}, ${member.designation}`}
+              src={
+                member.photo && member.photo.trim() !== ""
+                  ? member.photo
+                  : `https://api.dicebear.com/9.x/notionists/svg?seed=${encodeURIComponent(member.name || "member")}&backgroundColor=e2e8f0`
+              }
+              alt={`${member.name || "Member"}, ${member.designation || "Core Member"}`}
               loading={index < 3 ? "eager" : "lazy"}
               decoding="async"
               className="size-full object-cover opacity-90 saturate-[0.7] transition-all duration-700 group-hover:scale-[1.04] group-hover:opacity-100 group-hover:saturate-100"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-background via-background/55 to-transparent" />
             <div className="absolute inset-x-0 bottom-0 p-6">
-              <p className="eyebrow">{member.designation}</p>
+              <p className="eyebrow">{member.designation || "Core Member"}</p>
               <h3 className="mt-2 font-display text-xl font-bold leading-tight sm:text-2xl">
-                {member.name}
+                {member.name || "Member"}
               </h3>
               <p className="mt-3 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
                 <span className="inline-block size-1.5 rounded-full bg-primary animate-pulse-dot" />

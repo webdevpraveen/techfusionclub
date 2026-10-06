@@ -118,17 +118,21 @@ function Team() {
           <Section key={tier} className="py-10 sm:py-12">
             <Reveal className="flex flex-col gap-2 border-b border-border/70 pb-5">
               <p className="font-display text-2xl font-bold text-foreground">
-                {tierMeta[tier].label}
+                {tierMeta[tier]?.label || tier}
               </p>
               <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground">
-                {tierMeta[tier].description}
+                {tierMeta[tier]?.description || ""}
               </p>
             </Reveal>
             {(() => {
-              const isEsports = (m: (typeof people)[0]) =>
-                m.club === "Esports" ||
-                m.domain.toLowerCase().includes("e-sports") ||
-                m.domain.toLowerCase().includes("esport");
+              const isEsports = (m: (typeof people)[0]) => {
+                const domainStr = String(m?.domain || "").toLowerCase();
+                return (
+                  m?.club === "Esports" ||
+                  domainStr.includes("e-sports") ||
+                  domainStr.includes("esport")
+                );
+              };
 
               const departmentOrder = [
                 "Treasurer",
@@ -140,7 +144,7 @@ function Team() {
               ];
 
               const getDeptIndex = (m: (typeof people)[0]) => {
-                const d = m.designation;
+                const d = String(m?.designation || "");
                 const idx = departmentOrder.findIndex((dept) => d.includes(dept));
                 return idx === -1 ? 999 : idx;
               };
