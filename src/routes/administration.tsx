@@ -544,14 +544,36 @@ function EventForm({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.title || !form.date || !form.summary) {
+    if (!form.title?.trim() || !form.date || !form.summary?.trim()) {
       toast.error("Please fill all required fields");
       return;
     }
-    const finalForm = { ...form };
+    const finalForm: Partial<ClubEvent> = { ...form };
     if (!finalForm.slug) {
       finalForm.slug = generateSlug(finalForm.title!);
     }
+
+    // Auto-derive year from event date if not set or invalid
+    const parsedDate = new Date(finalForm.date!);
+    const parsedYear = !isNaN(parsedDate.getFullYear())
+      ? parsedDate.getFullYear()
+      : new Date().getFullYear();
+    finalForm.year =
+      typeof finalForm.year === "number" && !isNaN(finalForm.year) ? finalForm.year : parsedYear;
+
+    // Ensure description contains at least summary if array is empty
+    if (!finalForm.description || finalForm.description.length === 0) {
+      finalForm.description = [finalForm.summary!.trim()];
+    }
+
+    if (!finalForm.domains) finalForm.domains = [];
+    if (!finalForm.gallery) finalForm.gallery = [];
+
+    // Map "completed" to "past" status
+    if ((finalForm.status as string) === "completed") {
+      finalForm.status = "past";
+    }
+
     onSave(finalForm);
   };
 
@@ -898,11 +920,30 @@ function MemberForm({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.name || !form.designation) {
+    if (!form.name?.trim() || !form.designation?.trim()) {
       toast.error("Name and designation are required");
       return;
     }
-    onSave(form);
+    const cleanedSocials: Record<string, string> = {};
+    if (form.socials) {
+      for (const [k, v] of Object.entries(form.socials)) {
+        if (typeof v === "string" && v.trim() !== "") {
+          cleanedSocials[k] = v.trim();
+        }
+      }
+    }
+    const finalForm: Partial<Member> = {
+      ...form,
+      name: form.name.trim(),
+      designation: form.designation.trim(),
+      domain: form.domain?.trim() || "General",
+      branch: form.branch?.trim() || "SRMU",
+      bio: form.bio?.trim() || "",
+      photo: form.photo?.trim() || "",
+      club: form.club || "TFC",
+      socials: cleanedSocials,
+    };
+    onSave(finalForm);
   };
 
   return (
@@ -1247,11 +1288,27 @@ function AlumnusForm({
         </button>
         <button
           onClick={() => {
-            if (!form.name) {
+            if (!form.name?.trim()) {
               toast.error("Name is required");
               return;
             }
-            onSave(form);
+            const cleanedSocials: Record<string, string> = {};
+            if (form.socials) {
+              for (const [k, v] of Object.entries(form.socials)) {
+                if (typeof v === "string" && v.trim() !== "") {
+                  cleanedSocials[k] = v.trim();
+                }
+              }
+            }
+            onSave({
+              ...form,
+              name: form.name.trim(),
+              course: form.course?.trim() || "B.Tech CSE",
+              tenure: form.tenure?.trim() || "Alumni",
+              post: form.post?.trim() || "Past Member",
+              photo: form.photo?.trim() || "",
+              socials: cleanedSocials,
+            });
           }}
           className="flex items-center gap-2 rounded-xl bg-primary px-6 py-2.5 text-sm font-semibold text-primary-foreground hover:scale-[1.02] hover:shadow-lg hover:shadow-primary/20 transition-all"
         >
@@ -1427,11 +1484,19 @@ function GalleryForm({
         </button>
         <button
           onClick={() => {
-            if (!form.src || !form.alt) {
+            if (!form.src?.trim() || !form.alt?.trim()) {
               toast.error("Image URL and Alt text are required");
               return;
             }
-            onSave(form);
+            const parsedYear = Number(form.year) || new Date().getFullYear();
+            onSave({
+              ...form,
+              src: form.src.trim(),
+              alt: form.alt.trim(),
+              event: form.event?.trim() || "Event",
+              eventSlug: form.eventSlug?.trim() || "event",
+              year: isNaN(parsedYear) ? new Date().getFullYear() : parsedYear,
+            });
           }}
           className="flex items-center gap-2 rounded-xl bg-primary px-6 py-2.5 text-sm font-semibold text-primary-foreground hover:scale-[1.02] hover:shadow-lg hover:shadow-primary/20 transition-all"
         >
@@ -1683,11 +1748,19 @@ function AnnouncementForm({
         </button>
         <button
           onClick={() => {
-            if (!form.title || !form.date || !form.summary) {
+            if (!form.title?.trim() || !form.date || !form.summary?.trim()) {
               toast.error("Title, Date, and Summary are required");
               return;
             }
-            onSave(form);
+            onSave({
+              ...form,
+              title: form.title.trim(),
+              summary: form.summary.trim(),
+              content: form.content?.trim() || "",
+              image: form.image?.trim() || "",
+              link: form.link?.trim() || "",
+              published: Boolean(form.published),
+            });
           }}
           className="flex items-center gap-2 rounded-xl bg-primary px-6 py-2.5 text-sm font-semibold text-primary-foreground hover:scale-[1.02] hover:shadow-lg hover:shadow-primary/20 transition-all"
         >
