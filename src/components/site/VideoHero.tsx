@@ -12,7 +12,7 @@ import { useEffect, useRef } from "react";
  */
 export function VideoHero({ children }: { children: React.ReactNode }) {
   // Use the logo variant suitable for light backgrounds
-  const logoSrc = "/images/branding/techfusionlogolight.png";
+  const logoSrc = "/images/branding/techfusionlogolight.webp";
 
   const logoRef = useRef<HTMLDivElement>(null);
 
