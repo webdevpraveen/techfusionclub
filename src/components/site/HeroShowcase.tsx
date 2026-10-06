@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import { GlowCard } from "@/components/site/GlowCard";
 export function HeroShowcase() {
-  const logoSrc = "/images/branding/techfusionlogolight.png";
+  const logoSrc = "/images/branding/techfusionlogolight-sm.webp";
 
   return (
     <div className="relative w-full select-none">

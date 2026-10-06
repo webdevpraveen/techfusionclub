@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 export function RotatingFireLogo({ className }: { className?: string }) {
-  const logoSrc = "/images/branding/techfusionlogolight.png";
+  const logoSrc = "/images/branding/techfusionlogolight.webp";
 
   return (
     <div

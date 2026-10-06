@@ -117,6 +117,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "icon", href: "/images/branding/techfusionlogolight-sm.webp", type: "image/webp" },
+      { rel: "apple-touch-icon", href: "/images/branding/techfusionlogolight-sm.webp" },
       { rel: "canonical", href: "https://techfusionclub.vercel.app" },
     ],
     scripts: [
@@ -128,7 +130,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           name: "Tech Fusion Club",
           alternateName: ["TFC SRMU", "Tech Fusion Club SRMU"],
           url: "https://techfusionclub.vercel.app",
-          logo: "https://techfusionclub.vercel.app/images/branding/techfusionlogo.png",
+          logo: "https://techfusionclub.vercel.app/images/branding/techfusionlogo.webp",
           description:
             "Student-led technical club running workshops, hackathons and the Viveka annual fest at SRMU.",
           foundingDate: "2019",
