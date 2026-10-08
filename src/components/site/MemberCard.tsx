@@ -143,9 +143,11 @@ export function MemberCard({
                 </div>
               </dl>
 
-              <p className="mt-4 border-l-2 border-primary/40 pl-3 text-xs leading-relaxed text-muted-foreground">
-                {member.bio}
-              </p>
+              {member.bio && member.bio.trim() !== "" && (
+                <p className="mt-4 border-l-2 border-primary/40 pl-3 text-xs leading-relaxed text-muted-foreground line-clamp-3 break-words">
+                  {member.bio.trim().slice(0, 100)}
+                </p>
+              )}
 
               <div className="mt-auto pt-5">
                 <div className="flex flex-wrap items-center gap-2">

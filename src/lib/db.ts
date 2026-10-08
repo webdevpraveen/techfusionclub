@@ -152,7 +152,9 @@ export function normalizeMember(
     designation: String(raw.designation || "").trim() || "Core Member",
     tier,
     course: String(raw.course || "").trim() || "SRMU",
-    bio: String(raw.bio || "").trim() || "",
+    bio: String(raw.bio || "")
+      .trim()
+      .slice(0, 100),
     photo: String(raw.photo || "").trim(),
     club: raw.club === "Esports" ? "Esports" : "TFC",
     socials,
