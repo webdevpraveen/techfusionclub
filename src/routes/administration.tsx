@@ -820,7 +820,7 @@ function MembersAdmin() {
               <th className="px-6 py-4 font-semibold">Member</th>
               <th className="px-6 py-4 font-semibold">Tier</th>
               <th className="px-6 py-4 font-semibold">Designation</th>
-              <th className="px-6 py-4 font-semibold">Branch</th>
+              <th className="px-6 py-4 font-semibold">Course</th>
               <th className="px-6 py-4 font-semibold text-right">Actions</th>
             </tr>
           </thead>
@@ -847,9 +847,6 @@ function MembersAdmin() {
                       </div>
                       <div>
                         <span className="font-medium text-foreground">{m.name}</span>
-                        {m.domain && (
-                          <p className="text-xs text-muted-foreground mt-0.5">{m.domain}</p>
-                        )}
                       </div>
                     </div>
                   </td>
@@ -859,7 +856,7 @@ function MembersAdmin() {
                     </span>
                   </td>
                   <td className="px-6 py-4 text-muted-foreground">{m.designation}</td>
-                  <td className="px-6 py-4 text-muted-foreground">{m.branch}</td>
+                  <td className="px-6 py-4 text-muted-foreground">{m.course}</td>
                   <td className="px-6 py-4 text-right">
                     <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                       <button
@@ -910,8 +907,7 @@ function MemberForm({
     name: member?.name || "",
     designation: member?.designation || "",
     tier: member?.tier || "core",
-    domain: member?.domain || "",
-    branch: member?.branch || "",
+    course: member?.course || "",
     bio: member?.bio || "",
     photo: member?.photo || "",
     club: member?.club || "TFC",
@@ -936,13 +932,14 @@ function MemberForm({
       ...form,
       name: form.name.trim(),
       designation: form.designation.trim(),
-      domain: form.domain?.trim() || "General",
-      branch: form.branch?.trim() || "SRMU",
+      course: form.course?.trim() || "SRMU",
       bio: form.bio?.trim() || "",
       photo: form.photo?.trim() || "",
       club: form.club || "TFC",
       socials: cleanedSocials,
     };
+    delete (finalForm as Record<string, unknown>)["domain"];
+    delete (finalForm as Record<string, unknown>)["branch"];
     onSave(finalForm);
   };
 
@@ -989,14 +986,10 @@ function MemberForm({
             </select>
           </div>
           <InputField
-            label="Domain"
-            value={form.domain}
-            onChange={(v) => setForm({ ...form, domain: v })}
-          />
-          <InputField
-            label="Branch"
-            value={form.branch}
-            onChange={(v) => setForm({ ...form, branch: v })}
+            label="Course"
+            value={form.course}
+            onChange={(v) => setForm({ ...form, course: v })}
+            placeholder="e.g. B.Tech CSE, BCA, MCA"
           />
           <div className="space-y-2 md:col-span-2">
             <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">

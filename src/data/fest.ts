@@ -165,7 +165,7 @@ export const recruitmentSteps = [
   {
     step: "01",
     title: "Application",
-    body: "Fill the join form with your branch, year, and domain of interest. Open for four weeks each semester.",
+    body: "Fill the join form with your course, year, and area of interest. Open for four weeks each semester.",
   },
   {
     step: "02",
@@ -191,7 +191,7 @@ export const faqs = [
   },
   {
     q: "Is the club only for computer science students?",
-    a: "No. Current members come from mechanical, civil, electronics and design backgrounds. If you are willing to learn and show up consistently, your branch is irrelevant to us.",
+    a: "No. Current members come from mechanical, civil, electronics and design backgrounds. If you are willing to learn and show up consistently, your academic department or course is irrelevant to us.",
   },
   {
     q: "How much time does membership take?",
