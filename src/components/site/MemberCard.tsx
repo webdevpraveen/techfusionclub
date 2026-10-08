@@ -119,13 +119,12 @@ export function MemberCard({
                   <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-primary-glow">
                     {club.name}
                   </p>
-                  <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
-                    Member access badge
-                  </p>
                 </div>
-                <div className="grid size-10 shrink-0 place-items-center rounded-lg border border-primary/40 bg-primary/10 p-1.5 overflow-hidden">
-                  <img src={logoSrc} alt="TFC Logo" className="size-full object-contain" />
-                </div>
+                <img
+                  src={logoSrc}
+                  alt="TFC Logo"
+                  className="size-9 shrink-0 object-contain drop-shadow-sm"
+                />
               </div>
 
               <div className="divider-glow my-4" />
@@ -138,9 +137,9 @@ export function MemberCard({
               <dl className="mt-4 grid gap-3 text-xs">
                 <div>
                   <dt className="font-mono text-[9px] uppercase tracking-[0.16em] text-muted-foreground">
-                    Branch
+                    Course
                   </dt>
-                  <dd className="mt-1 font-medium">{member.branch}</dd>
+                  <dd className="mt-1 font-medium">{member.course}</dd>
                 </div>
               </dl>
 
@@ -150,33 +149,30 @@ export function MemberCard({
 
               <div className="mt-auto pt-5">
                 <div className="flex flex-wrap items-center gap-2">
-                  {Object.keys(socialIcons).map((key) => {
-                    const Icon = socialIcons[key as keyof typeof socialIcons];
-                    const href = member.socials?.[key as keyof typeof member.socials] || "#";
+                  {Object.keys(socialIcons)
+                    .filter((key) => {
+                      const href = member.socials?.[key as keyof typeof member.socials];
+                      return typeof href === "string" && href.trim() !== "" && href !== "#";
+                    })
+                    .map((key) => {
+                      const Icon = socialIcons[key as keyof typeof socialIcons];
+                      const href = member.socials![key as keyof typeof member.socials]!;
 
-                    return (
-                      <a
-                        key={key}
-                        href={href}
-                        target={href === "#" ? undefined : "_blank"}
-                        rel="noreferrer noopener"
-                        tabIndex={flipped ? 0 : -1}
-                        aria-label={`${member.name} on ${socialLabels[key as keyof typeof socialLabels]}`}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          if (href === "#") e.preventDefault();
-                        }}
-                        className={cn(
-                          "grid size-9 place-items-center rounded-full border transition-colors",
-                          href !== "#"
-                            ? "border-border bg-surface text-muted-foreground hover:border-primary/50 hover:text-primary-glow"
-                            : "border-transparent bg-surface/50 text-muted-foreground/30 cursor-not-allowed",
-                        )}
-                      >
-                        <Icon className="size-4" />
-                      </a>
-                    );
-                  })}
+                      return (
+                        <a
+                          key={key}
+                          href={href}
+                          target="_blank"
+                          rel="noreferrer noopener"
+                          tabIndex={flipped ? 0 : -1}
+                          aria-label={`${member.name} on ${socialLabels[key as keyof typeof socialLabels]}`}
+                          onClick={(e) => e.stopPropagation()}
+                          className="grid size-9 place-items-center rounded-full border border-border bg-surface text-muted-foreground transition-colors hover:border-primary/50 hover:text-primary-glow"
+                        >
+                          <Icon className="size-4" />
+                        </a>
+                      );
+                    })}
                   <span className="ml-auto inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
                     <RotateCcw className="size-3" /> Flip back
                   </span>

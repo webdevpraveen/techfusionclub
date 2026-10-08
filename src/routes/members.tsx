@@ -106,7 +106,7 @@ function Team() {
           </h1>
           <p className="mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-muted-foreground">
             Tap or click any card to flip it and reveal that member's official access badge —
-            domain, branch, year, and ID code.
+            course, role, bio, and social links.
           </p>
         </Reveal>
       </Section>
@@ -126,12 +126,7 @@ function Team() {
             </Reveal>
             {(() => {
               const isEsports = (m: (typeof people)[0]) => {
-                const domainStr = String(m?.domain || "").toLowerCase();
-                return (
-                  m?.club === "Esports" ||
-                  domainStr.includes("e-sports") ||
-                  domainStr.includes("esport")
-                );
+                return m?.club === "Esports";
               };
 
               const departmentOrder = [
