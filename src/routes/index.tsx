@@ -34,7 +34,9 @@ import { SEO_CONFIG, generateFaqSchema } from "@/data/seo";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Tech Fusion Club (TFC) SRMU | Premier Tech Club, Hackathons & Viveka Fest Lucknow" },
+      {
+        title: "Tech Fusion Club (TFC) SRMU | Premier Tech Club, Hackathons & Viveka Fest Lucknow",
+      },
       {
         name: "description",
         content:
@@ -44,7 +46,10 @@ export const Route = createFileRoute("/")({
         name: "keywords",
         content: SEO_CONFIG.masterKeywords.join(", "),
       },
-      { property: "og:title", content: "Tech Fusion Club (TFC) SRMU | Coding, Hackathons & Viveka Fest Lucknow" },
+      {
+        property: "og:title",
+        content: "Tech Fusion Club (TFC) SRMU | Coding, Hackathons & Viveka Fest Lucknow",
+      },
       {
         property: "og:description",
         content:
@@ -69,6 +74,118 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
+const ROTATING_WORDS = ["fuse", "innovate", "build", "fuse"] as const;
+const PREFIX = "Where ideas ";
+const SUFFIX = "into technology.";
+
+function HeroHeadline() {
+  const [phase, setPhase] = useState<"intro" | "pause" | "rotating" | "done">("intro");
+  const [introProgress, setIntroProgress] = useState(0);
+  const [wordIdx, setWordIdx] = useState(0);
+  const [word, setWord] = useState("fuse");
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  // Intro typewriter: streams full sentence immediately on load
+  useEffect(() => {
+    if (phase !== "intro") return undefined;
+
+    if (introProgress < 32) {
+      const delay = introProgress < 12 ? 38 : introProgress < 16 ? 55 : 38;
+      const t = setTimeout(() => {
+        setIntroProgress((p) => p + 1);
+      }, delay);
+      return () => clearTimeout(t);
+    }
+
+    setPhase("pause");
+    return undefined;
+  }, [phase, introProgress]);
+
+  // Pause after intro completes before starting word rotation
+  useEffect(() => {
+    if (phase !== "pause") return undefined;
+
+    const t = setTimeout(() => {
+      setPhase("rotating");
+      setIsDeleting(true);
+    }, 1200);
+
+    return () => clearTimeout(t);
+  }, [phase]);
+
+  // Word rotation: rotates fuse -> innovate -> build -> fuse, then stops
+  useEffect(() => {
+    if (phase !== "rotating") return undefined;
+
+    const target = ROTATING_WORDS[wordIdx] ?? "fuse";
+    const isLast = wordIdx === ROTATING_WORDS.length - 1;
+
+    if (isDeleting && word === "") {
+      const t = setTimeout(() => {
+        setIsDeleting(false);
+        setWordIdx((i) => i + 1);
+      }, 180);
+      return () => clearTimeout(t);
+    }
+
+    if (!isDeleting && word === target) {
+      if (isLast) {
+        setPhase("done");
+        return undefined;
+      }
+      const t = setTimeout(() => {
+        setIsDeleting(true);
+      }, 1200);
+      return () => clearTimeout(t);
+    }
+
+    const delay = isDeleting ? 45 : 85;
+    const t = setTimeout(() => {
+      setWord((current) => {
+        if (isDeleting) {
+          return current.slice(0, -1);
+        }
+        return target.slice(0, current.length + 1);
+      });
+    }, delay);
+
+    return () => clearTimeout(t);
+  }, [phase, wordIdx, word, isDeleting]);
+
+  const isIntro = phase === "intro";
+  const prefixText = isIntro ? PREFIX.slice(0, introProgress) : PREFIX;
+  const currentWordText = isIntro
+    ? introProgress > 12
+      ? "fuse".slice(0, introProgress - 12)
+      : ""
+    : word;
+  const suffixText = isIntro
+    ? introProgress > 16
+      ? SUFFIX.slice(0, introProgress - 16)
+      : ""
+    : SUFFIX;
+
+  const showSuffix = !isIntro || introProgress > 16;
+
+  return (
+    <h1 className="mt-6 font-display text-3xl font-bold leading-[1.12] tracking-tight animate-rise [animation-delay:100ms] sm:text-4xl md:text-5xl lg:text-[3.2rem] xl:text-[3.75rem]">
+      <span className="sr-only">Where ideas fuse into technology.</span>
+      <span aria-hidden="true">
+        <span className="inline-block whitespace-nowrap">
+          {prefixText}
+          <span className="text-gradient inline-block min-w-[0.5ch]">{currentWordText}</span>
+        </span>
+        {showSuffix && (
+          <>
+            <br className="hidden sm:block" />{" "}
+            <span className="inline-block whitespace-nowrap">{suffixText}</span>
+          </>
+        )}
+      </span>
+    </h1>
+  );
+}
+
 function Home() {
   const [previewPhotos, setPreviewPhotos] = useState<GalleryPhoto[]>([]);
   const [showHomepageEvents, setShowHomepageEvents] = useState(true);
@@ -82,7 +199,7 @@ function Home() {
     <>
       {/* ═══════════════════ 1. SRMU-STYLE VIDEO HERO ═══════════════════ */}
       <VideoHero>
-        <div className="py-8 lg:py-0">
+        <div className="w-full min-w-0 py-8 lg:py-0">
           {/* Eyebrow badge */}
           <div className="animate-rise [animation-delay:0ms]">
             <span className="glass inline-flex items-center gap-2 rounded-full px-4 py-2 font-mono text-xs uppercase tracking-widest text-primary-glow border border-primary/30">
@@ -92,15 +209,13 @@ function Home() {
           </div>
 
           {/* Giant Display Title */}
-          <h1 className="mt-6 text-balance font-display text-4xl font-bold leading-[1.08] tracking-tight animate-rise [animation-delay:100ms] sm:text-5xl lg:text-6xl xl:text-7xl">
-            Where ideas <span className="text-gradient">fuse</span>
-            <br className="hidden sm:block" /> into technology.
-          </h1>
+          <HeroHeadline />
 
           {/* Subtitle */}
           <p className="speakable-summary mt-6 max-w-xl text-pretty text-base leading-relaxed text-muted-foreground animate-rise [animation-delay:200ms] sm:text-lg">
-            {club.name} is the student-run technical club at SRMU. A community of builders passionate
-            about web development, software engineering, AI/ML, and cutting-edge technology.
+            {club.name} is the student-run technical club at SRMU. A community of builders
+            passionate about web development, software engineering, AI/ML, and cutting-edge
+            technology.
           </p>
 
           {/* CTAs */}
