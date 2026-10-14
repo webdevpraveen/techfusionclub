@@ -117,41 +117,48 @@ export function Nav() {
           </button>
         </div>
 
-        {/* Mobile Dropdown Menu Card with Full Glassmorphism */}
+        {/* Mobile Dropdown Menu Card with Solid Opaque Background */}
         {open && (
-          <div
-            id="mobile-nav"
-            className="absolute top-full mt-2 inset-x-0 rounded-3xl border border-white/50 dark:border-white/20 bg-white/75 dark:bg-black/75 p-4 shadow-[0_20px_50px_rgba(0,0,0,0.3),inset_0_1px_1px_0_rgba(255,255,255,0.6)] dark:shadow-[0_24px_60px_rgba(0,0,0,0.8),inset_0_1px_1px_0_rgba(255,255,255,0.2)] backdrop-blur-3xl backdrop-saturate-[180%] animate-in fade-in slide-in-from-top-2 lg:hidden"
-          >
-            <ul className="flex flex-col gap-1">
-              {links.map((link) => (
-                <li key={"to" in link ? link.to : link.href}>
-                  {"external" in link && link.external ? (
-                    <a
-                      href={link.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() => setOpen(false)}
-                      className="flex items-center justify-between rounded-xl px-4 py-2.5 font-display text-sm font-semibold text-primary transition-colors hover:bg-primary/10"
-                    >
-                      <span>{link.label}</span>
-                      <ExternalLink className="size-3.5" />
-                    </a>
-                  ) : (
-                    <Link
-                      to={"to" in link ? link.to : "/"}
-                      onClick={() => setOpen(false)}
-                      activeOptions={{ exact: ("to" in link ? link.to : "/") === "/" }}
-                      activeProps={{ className: "text-primary font-bold bg-primary/10" }}
-                      className="block rounded-xl px-4 py-2.5 font-display text-sm font-semibold text-muted-foreground transition-colors hover:text-foreground hover:bg-white/30 dark:hover:bg-white/10"
-                    >
-                      {link.label}
-                    </Link>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </div>
+          <>
+            <div
+              onClick={() => setOpen(false)}
+              aria-hidden="true"
+              className="fixed inset-0 z-40 bg-black/60 backdrop-blur-md animate-in fade-in duration-200 lg:hidden pointer-events-auto"
+            />
+            <div
+              id="mobile-nav"
+              className="absolute top-full mt-2 inset-x-0 rounded-3xl border border-border bg-white dark:bg-zinc-950 p-4 shadow-[0_24px_60px_rgba(0,0,0,0.35)] dark:shadow-[0_24px_60px_rgba(0,0,0,0.85)] animate-in fade-in slide-in-from-top-2 duration-200 lg:hidden pointer-events-auto"
+            >
+              <ul className="flex flex-col gap-1">
+                {links.map((link) => (
+                  <li key={"to" in link ? link.to : link.href}>
+                    {"external" in link && link.external ? (
+                      <a
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => setOpen(false)}
+                        className="flex items-center justify-between rounded-xl px-4 py-2.5 font-display text-sm font-semibold text-primary transition-colors hover:bg-primary/10"
+                      >
+                        <span>{link.label}</span>
+                        <ExternalLink className="size-3.5" />
+                      </a>
+                    ) : (
+                      <Link
+                        to={"to" in link ? link.to : "/"}
+                        onClick={() => setOpen(false)}
+                        activeOptions={{ exact: ("to" in link ? link.to : "/") === "/" }}
+                        activeProps={{ className: "text-primary font-bold bg-primary/10" }}
+                        className="block rounded-xl px-4 py-2.5 font-display text-sm font-semibold text-muted-foreground transition-colors hover:text-foreground hover:bg-surface-strong/70 dark:hover:bg-white/10"
+                      >
+                        {link.label}
+                      </Link>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </>
         )}
       </nav>
     </header>
