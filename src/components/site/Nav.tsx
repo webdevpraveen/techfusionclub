@@ -17,9 +17,9 @@ const links: NavLink[] = [
 ];
 
 /**
- * Modern Centered Floating Island Navbar.
- * Floats gracefully over the hero video at the top-center of the screen.
- * Converts to a sleek mobile pill with dropdown on smaller screens.
+ * Dynamic Morphing Navigation Bar:
+ * - At top of page (scrollY <= 20): Stretches full-width edge-to-edge flush with the top.
+ * - When scrolled (scrollY > 20): Smoothly lifts off and morphs into a centered, floating frosted-glass pill.
  */
 export function Nav() {
   const [open, setOpen] = useState(false);
@@ -28,7 +28,10 @@ export function Nav() {
   const currentPath = routerState.location.pathname;
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    const onScroll = () => {
+      const isScrolled = window.scrollY > 20;
+      setScrolled((prev) => (prev !== isScrolled ? isScrolled : prev));
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -47,15 +50,21 @@ export function Nav() {
   }, [currentPath]);
 
   return (
-    <header className="fixed inset-x-0 top-3 sm:top-5 z-50 flex justify-center px-4 sm:px-6 pointer-events-none">
+    <header
+      className={cn(
+        "fixed inset-x-0 z-50 flex justify-center transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
+        scrolled
+          ? "top-3 sm:top-5 px-3 sm:px-6 pointer-events-none"
+          : "top-0 px-0 pointer-events-auto",
+      )}
+    >
       <nav
         aria-label="Primary"
         className={cn(
-          "pointer-events-auto relative flex items-center justify-between gap-3 sm:gap-6 rounded-full transition-all duration-300",
-          "w-full max-w-5xl px-3.5 sm:px-5 py-2 sm:py-2.5",
+          "pointer-events-auto relative flex items-center justify-between gap-3 sm:gap-6 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
           scrolled
-            ? "bg-white/60 dark:bg-black/60 backdrop-blur-3xl backdrop-saturate-[200%] border border-white/50 dark:border-white/20 shadow-[0_14px_40px_0_rgba(0,0,0,0.22),inset_0_1px_1px_0_rgba(255,255,255,0.7)] dark:shadow-[0_16px_48px_0_rgba(0,0,0,0.8),inset_0_1px_1px_0_rgba(255,255,255,0.25)]"
-            : "bg-white/35 dark:bg-white/[0.07] backdrop-blur-2xl backdrop-saturate-[180%] border border-white/40 dark:border-white/15 shadow-[0_8px_32px_0_rgba(0,0,0,0.15),inset_0_1px_1px_0_rgba(255,255,255,0.5)] dark:shadow-[0_12px_40px_0_rgba(0,0,0,0.55),inset_0_1px_1px_0_rgba(255,255,255,0.18)]",
+            ? "w-full max-w-5xl rounded-full px-3.5 sm:px-5 py-2 sm:py-2.5 bg-white/60 dark:bg-black/60 backdrop-blur-3xl backdrop-saturate-[200%] border border-white/50 dark:border-white/20 shadow-[0_14px_40px_0_rgba(0,0,0,0.22),inset_0_1px_1px_0_rgba(255,255,255,0.7)] dark:shadow-[0_16px_48px_0_rgba(0,0,0,0.8),inset_0_1px_1px_0_rgba(255,255,255,0.25)]"
+            : "w-full max-w-full rounded-none px-4 sm:px-8 lg:px-12 py-3.5 sm:py-4 bg-white/70 dark:bg-zinc-950/70 backdrop-blur-2xl border-b border-black/5 dark:border-white/10 shadow-none",
         )}
       >
         {/* Brand Logo & Name */}
@@ -121,7 +130,12 @@ export function Nav() {
         {open && (
           <div
             id="mobile-nav"
-            className="absolute top-full mt-2 inset-x-0 rounded-3xl border border-white/50 dark:border-white/20 bg-white/75 dark:bg-black/75 p-4 shadow-[0_20px_50px_rgba(0,0,0,0.3),inset_0_1px_1px_0_rgba(255,255,255,0.6)] dark:shadow-[0_24px_60px_rgba(0,0,0,0.8),inset_0_1px_1px_0_rgba(255,255,255,0.2)] backdrop-blur-3xl backdrop-saturate-[180%] animate-in fade-in slide-in-from-top-2 lg:hidden"
+            className={cn(
+              "absolute top-full mt-2 inset-x-0 p-4 border shadow-[0_20px_50px_rgba(0,0,0,0.25)] backdrop-blur-3xl backdrop-saturate-[180%] animate-in fade-in slide-in-from-top-2 lg:hidden",
+              scrolled
+                ? "rounded-3xl border-white/50 dark:border-white/20 bg-white/80 dark:bg-black/80 text-foreground shadow-[0_20px_50px_rgba(0,0,0,0.3),inset_0_1px_1px_0_rgba(255,255,255,0.6)] dark:shadow-[0_24px_60px_rgba(0,0,0,0.8),inset_0_1px_1px_0_rgba(255,255,255,0.2)]"
+                : "rounded-2xl border-border/60 bg-white/95 dark:bg-zinc-950/95 text-foreground shadow-xl",
+            )}
           >
             <ul className="flex flex-col gap-1">
               {links.map((link) => (
